@@ -62,6 +62,7 @@ UpgradeLog*
  
 # To be ignore
 information
+*packages
 /WHTR.WaiMai.Contracts/bin
 /WHTR.WaiMai.DaoCfg/bin
 /WHTR.WaiMai.Services/bin
