@@ -42,12 +42,14 @@
       fm.FoodMenuCategoryId,
       fm.Price,
       fmc.CName,
-      r.RestaurantName
+      r.RestaurantName,
+      Sum(o.TotalCount) TotalCount
       FROM FoodMenu AS fm
       INNER JOIN FoodMenuCategory AS fmc ON fm.FoodMenuCategoryId=fmc.Id
       INNER JOIN Restaurant AS r ON r.Id = fmc.RestaurantId
-      WHERE fm.IsDel=0
-      AND r.Id=#value#
+      LEFT JOIN [Order] AS o ON fm.Id=o.FoodMenuId AND o.IsDel=0
+      WHERE fm.IsDel=0 AND r.Id=#value#
+      GROUP BY fm.Id,fm.MenuName,fm.FoodMenuCategoryId,fm.Price,fmc.CName,r.RestaurantName
     </select>
 
     <select id="qryFoodMenuById" resultMap="SelectAllResult" resultClass="FoodMenu" parameterclass="int">

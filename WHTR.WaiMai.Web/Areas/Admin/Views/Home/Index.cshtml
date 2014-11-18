@@ -52,13 +52,16 @@
         }
 
         /*积分*/
-        .jifen-info {
+        .jifen-info, .order-doing {
             padding: 15px;
         }
 
             .jifen-info h4 {
                 padding-top: 2px;
             }
+        .order-doing h4 {
+            padding-top: 5px;
+        }
     </style>
 }
 @section Scripts {
@@ -100,29 +103,21 @@
     </div>
 
     <div class="user-box">
-        <div class="jifen-info clearfix">
-            <h4 class="fl">
-                当前订餐状态：
-                @if (@ViewBag.IsDo == true)
-                {
-                    <span style="color: #e95c00">&nbsp;进行中&nbsp;</span>
-                }
-                else
-                {
-                    <span style="color: #6d6d6d">&nbsp;订餐结束&nbsp;</span>
-                }
-
-            </h4>
-            <span class="fr">
-                @if (@ViewBag.IsDo == true)
-                {
+        <div class="order-doing clearfix">
+            @if (@ViewBag.IsDo == true)
+            {
+                <h4 class="fl">当前订餐状态：<span style="color: #e95c00">&nbsp;进行中&nbsp;</span></h4>
+                <span class="fr">
                     <button class="btn btn-primary btn-sm" id="doStop">停止订餐</button>
-                }
-                else
-                {
+                </span>
+            }
+            else
+            {
+                <h4 class="fl">当前订餐状态：<span style="color: #6d6d6d">&nbsp;订餐结束&nbsp;</span></h4>
+                <span class="fr">
                     <button class="btn btn-default btn-sm" id="doStart">启用订餐</button>
-                }
-            </span>
+                </span>
+            }
         </div>
     </div>
 

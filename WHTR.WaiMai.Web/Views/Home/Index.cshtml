@@ -71,41 +71,48 @@
     <div class="basicinfo u-border clearfix">
         @{
             var restaurantModel = ViewBag.RestaurantModel as WHTR.WaiMai.Contracts.ViewModels.RestaurantViewModel;
-        <div class="b-img fl">
-            <img width="120" height="120" src="~/Content/images/nopic_waimai.png">
-        </div>
-        <div class="b-info fl">
-            <h3>@restaurantModel.RestaurantName</h3>
-            <dl>
-                <dt><i class="icon-time"></i>营业状态:&nbsp;</dt>
-                <dd>
-                    <strong class="doing">营业中</strong>
-                </dd>
-            </dl>
-            <dl>
-                <dt><i class="icon-time"></i>订餐电话:&nbsp;</dt>
-                <dd>
-                    @restaurantModel.TakeoutPhone
-                </dd>
-            </dl>
-        </div>
-        <div class="b-cost fr">
-            <div class="b-value">¥<strong class="b-num">0</strong></div>
-            <p class="b-label">配送费</p>
-        </div>
-        <div class="b-divider fr"></div>
-        <div class="b-price fr">
-            <div class="b-value"><strong class="b-num">@restaurantModel.SendOutCount</strong>份</div>
-            <p class="b-label">起送份数</p>
-        </div>
-        <div class="b-divider fr"></div>
-        <div class="b-totime fr">
-            <div class="b-value">
-                <strong class="b-num">40分钟</strong>
-                <span class="num-unit"></span>
+            <div class="b-img fl">
+                <img width="120" height="120" src="~/Content/images/nopic_waimai.png">
             </div>
-            <p class="b-label">平均送达时间</p>
-        </div>
+            <div class="b-info fl">
+                <h3>@restaurantModel.RestaurantName</h3>
+                <dl>
+                    <dt><i class="icon-time"></i>订餐状态:&nbsp;</dt>
+                    <dd>
+                        @if (ViewBag.IsDo == true)
+                        {
+                            <strong class="doing">进行中</strong>
+                        }
+                        else
+                        {
+                            <strong class="stop">订餐结束</strong>
+                        }
+                    </dd>
+                </dl>
+                <dl>
+                    <dt><i class="icon-time"></i>订餐电话:&nbsp;</dt>
+                    <dd>
+                        @restaurantModel.TakeoutPhone
+                    </dd>
+                </dl>
+            </div>
+            <div class="b-cost fr">
+                <div class="b-value">¥<strong class="b-num">0</strong></div>
+                <p class="b-label">配送费</p>
+            </div>
+            <div class="b-divider fr"></div>
+            <div class="b-price fr">
+                <div class="b-value"><strong class="b-num">@restaurantModel.SendOutCount</strong>份</div>
+                <p class="b-label">起送份数</p>
+            </div>
+            <div class="b-divider fr"></div>
+            <div class="b-totime fr">
+                <div class="b-value">
+                    <strong class="b-num">40分钟</strong>
+                    <span class="num-unit"></span>
+                </div>
+                <p class="b-label">平均送达时间</p>
+            </div>
         }
     </div>
 
@@ -151,14 +158,21 @@
                                             <div class="item-desc">
                                                 <span class="sale">0人推荐</span>
                                                 <span class="sale-divider"></span>
-                                                <span class="sale">已售0份</span>
+                                                <span class="sale">已售 @item.TotalCount 份</span>
                                             </div>
                                             <div class="item-add clearfix">
                                                 <div class="price fl">￥<i>@item.Price</i> / 份</div>
-                                                <div class="addbtn fr" data-id="@item.Id" data-price="@item.Price" data-menu="@item.MenuName">
-                                                    <span class="glyphicon glyphicon-plus-sign"></span>
-                                                </div>
-                                                <div class="clear"></div>
+                                                @if (ViewBag.IsDo == true)
+                                                {
+                                                    <div class="addbtn fr" data-id="@item.Id" data-price="@item.Price" data-menu="@item.MenuName">
+                                                        <span class="glyphicon glyphicon-plus-sign"></span>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="tips fr">已结束</div>
+                                                    <div class="clear"></div>
+                                                }
                                             </div>
                                         </div>
                                     </div>

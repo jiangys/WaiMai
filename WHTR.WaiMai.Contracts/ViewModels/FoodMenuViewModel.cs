@@ -30,5 +30,9 @@ namespace WHTR.WaiMai.Contracts.ViewModels
         public string MenuName { get; set; }
         //价格
         public decimal Price { get; set; }
+        /// <summary>
+        /// 已售多少份
+        /// </summary>
+        public int TotalCount { get; set; }
     }
 }

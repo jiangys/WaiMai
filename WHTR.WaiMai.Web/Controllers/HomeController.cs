@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WHTR.WaiMai.Contracts.Services;
+using WHTR.WaiMai.Contracts.ViewModels;
 using WHTR.WaiMai.WebHelper;
 
 namespace WHTR.WaiMai.Web.Controllers
@@ -12,12 +14,26 @@ namespace WHTR.WaiMai.Web.Controllers
     {
         public ActionResult Index()
         {
-            var A = GetInternalIP();
             var restaurantModel = OperateHelper.IRestaurantService.GetList().Where(m => m.IsEnable == true).FirstOrDefault();
             var foodMenuList = OperateHelper.IFoodMenuService.GetList(restaurantModel.Id);
 
             ViewBag.FoodMenuList = foodMenuList;
             ViewBag.RestaurantModel = restaurantModel;
+
+            #region --状态
+            var isDo = false;
+            var doOrderValue = OperateHelper.IConfigService.GetConfigValue("DoOrder");
+            if (doOrderValue != null)
+            {
+                var doOrderModel = JsonConvert.DeserializeObject<ConfigDoOrderViewModel>(doOrderValue);
+                if (doOrderModel.DoTime == DateTime.Now.ToShortDateString())
+                {
+                    isDo = doOrderModel.IsDo;
+                }
+            }
+            ViewBag.IsDo = isDo; 
+            #endregion
+
 
             return View();
         }
