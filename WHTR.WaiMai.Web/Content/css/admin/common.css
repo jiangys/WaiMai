@@ -1,0 +1,33 @@
+﻿.wrapper{padding:20px 0;} 
+ /*左边导航*/
+.user-content{background:none repeat scroll 0 0 #f4f4f4;border:1px solid #e5e5e5;margin:10px 0;}
+.user-content .user-menu{float:left;width:180px;}
+.user-menu .menu-wrap{padding:1px 0;}
+.user-title{border-bottom:1px solid #e5e5e5;height:60px;}
+.user-title H4{line-height:60px;font-weight:600;padding-left:30px;}
+.user-menu .menu-wrap .menu_sec{margin:10px 0 20px;}
+.user-menu .menu-wrap .menu_sec .menu_title{color:#323440;cursor:pointer;font-size:16px;font-weight:700;padding:8px 0 8px 30px;}
+.user-menu .menu-wrap .menu_sec li{color:#323440;cursor:pointer;font-size:14px;font-weight:400;padding:8px 0 8px 40px;text-decoration:none;}
+/*.user-menu .menu-wrap .menu_sec li.selected{background:none repeat scroll 0 0 #fff;border-bottom:1px solid #e5e5e5;border-left:3px solid #e95c00;border-top:1px solid #e5e5e5;padding:8px 0 8px 37px;}*/
+/*右边*/
+.user-detail{background:none repeat scroll 0 0 #fff;float:left;padding:0 30px 30px;width:798px;min-height:650px;}
+/*右边标题*/
+.user-title h5{padding-top:30px;font-size:16px;}
+.user-title .order-list-type{padding-top:32px;}
+/*内容*/
+.user-body {margin-top: 15px;}
+/*右边通用表格*/
+.page-title{display:block;font-family:"Open Sans",sans-serif;font-size:24px;font-weight:300;letter-spacing:-1px;margin:15px 0 15px;padding:0;}
+.portlet > .portlet-title > .caption{display:inline-block;float:left;font-size:18px;font-weight:400;line-height:18px;margin:0 0 8px;padding:0;}
+.portlet > .portlet-title{border-bottom:1px solid #eee;margin-bottom:15px;padding-bottom:10px;}
+.btn.blue{background-color:#4d90fe;color:white;text-shadow:none;}
+.btn.purple{background-color:#852b99;color:white;text-shadow:none;}
+.btn.default{background-color:#e5e5e5;color:#333333;text-shadow:none;}
+.table-advance thead tr th{background-color:#ddd;color:#666;font-size:14px;font-weight:400;}
+.table-advance thead tr td{color:#666666;}
+/*结束 右边通用表格*/
+/*弹出框样式*/
+.modal-dialog em{color:red;display:inline-block;text-align:center;vertical-align:middle;width:18px;}
+.fix-footer {z-index: 999;position: fixed;bottom: 0;left: 0;border: 0;padding: 15px 15px 0;width:100%;}
+
+

@@ -1,0 +1,91 @@
+﻿@model IEnumerable<OrderViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    .orderbox {
+        margin: 20px 0;
+    }
+
+        .orderbox span {
+            margin-left: 10px;
+        }
+</style>
+<section class="container">
+    <div class="orderbox">
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <strong>温馨提示：</strong> 若要取消订单，请到【管理中心】→【订单查看】里取消，谢谢。
+        </div>
+        <div class="alert alert-info" role="alert">
+            <span>今日订餐共：<strong>@Model.Count()</strong> 份</span>
+            <span>应付总金额：<strong>@Model.Sum(m => m.TotalPrice)</strong> 元</span>
+        </div>
+
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">今日订单列表明细</div>
+            <!-- Table -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>昵称</th>
+                        <th>菜单名称</th>
+                        <th>价格</th>
+                        <th>数量</th>
+                        <th>下单时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int i = 1;
+                        foreach (var item in Model)
+                        {
+                    <tr>
+                        <td>@(i++)</td>
+                        <td>@item.NickName</td>
+                        <td>@item.MenuName</td>
+                        <td>@item.TotalPrice 元</td>
+                        <td>@item.TotalCount</td>
+                        <td>@item.CreateDate</td>
+                    </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">今日订单汇总显示</div>
+            <!-- Table -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>菜单名称</th>
+                        <th>总价格</th>
+                        <th>总数量</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int j = 1;
+                        var MenuCategory = Model.Select(m => m.MenuName).Distinct();
+
+                        foreach (var MenuName in MenuCategory)
+                        {
+                            <tr>
+                                <td>@(j++)</td>
+                                <td>@MenuName</td>
+                                <td>@Model.Where(m => m.MenuName == MenuName).Sum(m => m.TotalPrice) 元</td>
+                                <td>@Model.Where(m => m.MenuName == MenuName).Sum(m => m.TotalCount)</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

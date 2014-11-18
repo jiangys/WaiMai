@@ -1,0 +1,154 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<FoodMenuViewModel>
+@{
+    ViewBag.Title = "菜单";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutUser.cshtml";
+}
+@section head{
+    <style type="text/css">
+        /*左边样式的变化*/
+        .user-menu .menu_sec li.foodmenu {
+            background: none repeat scroll 0 0 #fff;
+            border-bottom: 1px solid #e5e5e5;
+            border-left: 3px solid #e95c00;
+            border-top: 1px solid #e5e5e5;
+            padding: 8px 0 8px 37px;
+        }
+    </style>
+}
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            $("#addFoodMenu").click(function () {
+                wrapper.showModalDialog("/admin/FoodMenu/add", 350, 320);
+            });
+            $(".doEdit").click(function () {
+                var url = $(this).attr("data-href");
+                wrapper.showModalDialog(url, 350, 320);
+            });
+            $(".deDel").click(function () {
+                var url = $(this).attr("data-href");
+                var name = $(this).attr("data-name");
+                var d = dialog({
+                    title: '删除菜单',
+                    content: '是否要删除【' + name + '】菜单？',
+                    okValue: '确定',
+                    ok: function () {
+                        this.title('正在提交..');
+                        $.post(url, function (jsonData) {
+                            $.procAjaxData(jsonData, function () {
+                                window.location.reload();
+                            });
+                        });
+                        return false;
+                    },
+                    cancelValue: '取消',
+                    cancel: function () { }
+                });
+                d.show();
+            });
+        });
+    </script>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            菜单管理 <small>添加修改删除菜单</small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/">首页</a>
+            </li>
+            <li>
+                菜单管理
+            </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet">
+            <div class="portlet-title clearfix">
+                <div class="fl">
+                    <button class="btn blue thickbox" id="addFoodMenu">
+                        <i class="fa fa-plus"></i>&nbsp;菜单管理
+                    </button>
+                </div>
+                <div class="fr col-md-4">
+                    @using (Html.BeginForm("Index", "FoodMenu", FormMethod.Post, new { @class = "form-inline", role = "form", id = "frmSubmit" }))
+                    {
+                        <div class="input-group">
+                            <div class="input-cont">
+                                <input type="text" name="Keyword" class="form-control" placeholder="关键字...">
+                            </div>
+                            <span class="input-group-btn">
+                                <button class="btn btn-danger" type="submit">
+                                    查询 &nbsp;
+                                </button>
+                            </span>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="portlet-content">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-advance table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <i class="fa fa-align-justify"></i>&nbsp;菜单名称
+                                </th>
+                                <th>
+                                    <i class="fa fa-rmb"></i>&nbsp;价格
+                                </th>
+                                <th>
+                                    <span class="glyphicon glyphicon-th"></span>&nbsp;所属类别
+                                </th>
+                                <th>
+                                    <i class="fa fa-cutlery"></i>&nbsp;所属餐厅
+                                </th>
+
+                                <th width="20%">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.MenuName
+                                    </td>
+                                    <td>
+                                        @item.Price
+                                    </td>
+                                    <td>
+                                        @item.CName
+                                    </td>
+                                    <td>
+                                        @item.RestaurantName
+                                    </td>
+                                
+                                    <td>
+                                        <button class="btn btn-xs purple doEdit" data-href="/admin/FoodMenu/Edit/@item.Id">
+                                            <i class="fa fa-edit"></i>编辑
+                                        </button>
+                                        <button class="btn default btn-xs black btn-del deDel" data-name="@item.MenuName" data-href="/admin/FoodMenu/Del/@item.Id">
+                                            <i class="fa fa-trash-o"></i> 删除
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

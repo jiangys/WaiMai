@@ -1,0 +1,57 @@
+﻿/*餐厅信息*/
+.basicinfo{background:none repeat scroll 0 0 #ffffff;margin:20px 0 20px;width:980px;}
+.basicinfo .b-img{height:120px;overflow:hidden;position:relative;width:120px;}
+.basicinfo .b-info{border:1px solid #ffffff;height:120px;left:200px;width:350px;overflow:hidden;padding:12px 22px;}
+.basicinfo .b-info h3{color:#323440;margin:5px 0 5px -2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:300px;word-break:keep-all;}
+.basicinfo .b-info dl{line-height:24px;margin:10px 0 5px;font-size:14px;}
+.basicinfo .b-info dl dt{color:#999;float:left;font-size:1em;font-weight:400;margin-right:5px;overflow:hidden;text-decoration:none;}
+.basicinfo .icon.icon-time{background-position:-17px 0;background-image:url("/Content/images/waimai/menu.png");}
+.basicinfo .icon{display:inline-block;height:14px;line-height:14px;margin-right:8px;vertical-align:text-bottom;width:14px;}
+.basicinfo .b-info dl dd{color:#999;overflow:hidden;}
+.basicinfo .b-info dl .doing,.basicinfo .b-info dl .order{background-color:#64b93c;border:1px solid #64b93c;}
+.basicinfo .b-info dl .stop{background-color:#c4c4c4;border:1px solid #b4b4b4;}
+.basicinfo .b-info dl dd strong{border:0 none;color:#fff;display:inline-block;font-size:1em;font-weight:400;height:17px;line-height:17px;margin-left:5px;padding:0 7px;text-align:center;text-decoration:none;width:auto;}
+.basicinfo .b-cost{float:right;width:120px;}
+.basicinfo .b-totime,.basicinfo .b-price,.basicinfo .b-cost{overflow:hidden;padding-top:36px;text-align:center;}
+.basicinfo .b-totime .b-value,.basicinfo .b-price .b-value,.basicinfo .b-cost .b-value{color:#999;font-size:22px;font-weight:400;text-decoration:none;}
+.basicinfo .b-totime .b-value .b-num,.basicinfo .b-price .b-value .b-num,.basicinfo .b-cost .b-value .b-num{color:#999;font-size:25px;font-weight:400;text-decoration:none;}
+.basicinfo .b-price{margin-left:30px;}
+.basicinfo .b-divider{background:none repeat scroll 0 0 #e4e4e4;height:60px;margin:30px 0 0 30px;width:1px;}
+/*结束 餐厅信息*/
+
+/*列表图片显示*/
+#imgBoxList{padding-bottom:30px;width:1000px;}
+#imgBoxList .item{border:1px solid #e5e5e5;display:block;float:left;margin:10px 17px 0 0;padding:5px 5px 7px;position:relative;width:315px;height:120px;}
+#imgBoxList .item:hover{background-color:#FFFFFF;border:1px solid #e2e2e2;}
+#imgBoxList .item .pic img{height:109px;width:109px;}
+#imgBoxList .item-detail {margin-right:10px;width:170px;}
+#imgBoxList .item-detail .item-desc { font-size:12px;color:#999;}
+#imgBoxList .item-detail .item-desc .sale-divider{ width:1px;height:11px;margin:0 12px;background-color:#e4e4e4;display:inline-block;}
+#imgBoxList .item .name{padding:10px 0;width:150px;font-size:16px;}
+#imgBoxList .item .name a{color:#000000;}
+#imgBoxList .item .detail{clear:both;display:block;height:27px;line-height:27px;position:relative;}
+#imgBoxList .item .price{color:#9A9A9A;font-size:12px;padding:5px;}
+#imgBoxList .item .price i{color:#999999;font-family:'georgia' !important;font-size:16px;font-weight:700;}
+#imgBoxList .item-add { padding-top:7px;}
+#imgBoxList .item-add .addbtn{ font-size:26px; cursor: pointer;}
+
+
+#category-menu-container{background:none repeat scroll 0 0 #FFFFFF;border:1px solid #DCDCDC;float:left;margin-top:10px;width:718px;}
+.page-nav .tab{background:-moz-linear-gradient(center top,#FFFFFF 0%,#F5F5F5 100%) repeat scroll 0 0 #F5F5F5;border-bottom:1px solid #DCDCDC;height:46px;}
+.menu-categories{border:1px solid #e5e5e5;padding:15px 20px;background-color: #ffffff;margin-bottom: 20px;}
+.menu-categories-fixed{border-top: 2px solid #283147;background-color:#FFFFFF;border-left:1px solid #DCDCDC;border-right:1px solid #DCDCDC;box-shadow:0 1px 5px #CCCCCC;position:fixed;top:0;width:980px;z-index:2;}
+.menu-categories h3{float:left;font-size:18px;padding-top: 3px;}
+.menu-categories .list{line-height:27px;padding-left:78px;}
+.menu-categories li.active{background-color:#E0E0E1;}
+.menu-categories li{display:inline-block;margin-right:22px;padding:0 7px;}
+.menu-categories li a{color:#666666;outline:medium none;}
+.menu-categories li.active a,.menu-categories li.active span{text-decoration:none;}
+.menu-categories li span{color:#999999;margin-left:5px;}
+
+
+/*弹出确认订单信息并下单的框*/
+.confirm p{padding-left:15px;}
+.confirm blockquote{border-left:5px solid #3cc051;background-color:#ebfcee;height:80px;}
+.confirm .confirm-title{font-weight:600;margin-bottom:10px;padding-top:10px;}
+.confirm .form-group{margin-top:10px;}
+/*结束 弹出确认订单信息并下单的框*/

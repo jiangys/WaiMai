@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<sqlMap namespace="Restaurant" xmlns="http://ibatis.apache.org/mapping"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  
+  <!--类库引用-->
+  <alias>
+    <typeAlias alias="RestaurantViewModel" type="WHTR.WaiMai.Contracts.ViewModels.RestaurantViewModel, WHTR.WaiMai.Contracts" />
+    <typeAlias alias="Restaurant" type="WHTR.WaiMai.Contracts.Models.Restaurant,WHTR.WaiMai.Contracts" />
+  </alias>
+  
+  <resultMaps>
+    <resultMap id="SelectAllResult" class="Restaurant">
+      <result property="Id" column="Id" />
+      <result property="RestaurantName" column="RestaurantName" />
+      <result property="SendOutCount" column="SendOutCount" />
+      <result property="TakeoutPhone" column="TakeoutPhone" />
+      <result property="IsEnable" column="IsEnable" />
+      <result property="CreateDate" column="CreateDate" />
+      <result property="Creator" column="Creator" />
+      <result property="EditDate" column="EditDate" />
+      <result property="Editor" column="Editor" />
+      <result property="IsDel" column="IsDel" />
+      <result property="Version" column="Version" />
+    </resultMap>
+  </resultMaps>
+  
+  <statements>
+    
+    <!--查询餐厅列表-->
+    <select id="qryRestaurant" resultClass="RestaurantViewModel">
+      select Id,RestaurantName,TakeoutPhone,SendOutCount,IsEnable from Restaurant
+      where IsDel=0
+    </select>
+    
+   <select id="qryRestaurantById" resultMap="SelectAllResult" resultClass="Restaurant" parameterclass="int">
+      select * from Restaurant where ID = #value#
+    </select>
+
+    <insert id="insRestaurant" parameterClass="Restaurant">
+      insert into Restaurant(RestaurantName,SendOutCount,TakeoutPhone,IsEnable,CreateDate,Creator,EditDate,Editor,IsDel,Version)
+      values (#RestaurantName#,#SendOutCount#,#TakeoutPhone#,#IsEnable#,#CreateDate#,#Creator#,#EditDate#,#Editor#,#IsDel#,#Version#)
+      <selectKey  type="post" resultClass="int" property="Id">
+        SELECT CAST(@@IDENTITY as int) as Id
+      </selectKey>
+    </insert>
+
+    <update id ="updRestaurant" parameterClass="Restaurant">
+      UPDATE Restaurant
+      SET
+      RestaurantName=#RestaurantName#,
+      SendOutCount=#SendOutCount#,
+      TakeoutPhone=#TakeoutPhone#,
+      IsEnable=#IsEnable#,
+      EditDate = GETDATE(),
+      Editor = 'sys'
+      WHERE Id=#Id#
+    </update>
+
+
+    <delete id="delRestaurant" parameterclass="int">
+      UPDATE Restaurant
+      SET IsDel = 1
+      WHERE Id=#value#
+    </delete>
+    
+  </statements>
+</sqlMap>

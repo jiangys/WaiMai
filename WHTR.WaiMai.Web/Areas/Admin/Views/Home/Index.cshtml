@@ -1,0 +1,129 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutUser.cshtml";
+}
+
+@section head{
+    <style type="text/css">
+        /*左边样式的变化*/
+        .user-menu .menu_sec li.myinfo {
+            background: none repeat scroll 0 0 #fff;
+            border-bottom: 1px solid #e5e5e5;
+            border-left: 3px solid #e95c00;
+            border-top: 1px solid #e5e5e5;
+            padding: 8px 0 8px 37px;
+        }
+
+        .user-box {
+            background: none repeat scroll 0 0 #fff;
+            border: 1px solid #dfdfdf;
+            margin-bottom: 15px;
+        }
+
+            .user-box .box-bd {
+                border: 0 none;
+                height: 80px;
+                margin: 30px;
+            }
+
+            .user-box .uc-avatar {
+                border-radius: 40px;
+                float: left;
+                height: 80px;
+                margin-right: 30px;
+                width: 80px;
+            }
+
+            .user-box .uc-welcome {
+                color: #6d6d6d;
+                font-size: 24px;
+                font-weight: 400;
+                line-height: 1.25;
+                margin: 0;
+            }
+
+        .uuser-box .uc-welcome .user-name {
+            color: #000;
+            margin-right: 10px;
+        }
+
+        .user-box .uc-info {
+            margin-top: 20px;
+        }
+
+        /*积分*/
+        .jifen-info {
+            padding: 15px;
+        }
+
+            .jifen-info h4 {
+                padding-top: 2px;
+            }
+    </style>
+}
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            $("#doStart").click(function () {
+                $.post("/admin/Home/ChangeDoOrderState", { isDo: true }, function () {
+                    window.location.reload();
+                });
+            });
+            $("#doStop").click(function () {
+                $.post("/admin/Home/ChangeDoOrderState", { isDo: false }, function () {
+                    window.location.reload();
+                });
+            });
+        });
+
+    </script>
+}
+<div class="user-title">
+    <h5 class="fl">管理中心</h5>
+</div>
+<div class="user-body">
+    <div class="user-box clearfix">
+        <div class="box-bd clearfix">
+            <img src="~/Content/images/photo.jpg" class="uc-avatar" />
+            <div class="uc-info fl">
+                <h3 class="uc-welcome"><span class="user-name">亲爱的</span>,您好！</h3>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="user-box">
+        <div class="jifen-info clearfix">
+            <h4 class="fl">今日订餐：<span style="color: #e95c00">&nbsp;@ViewBag.OrderList.Count&nbsp;</span>份</h4>
+            <span class="fr"><a href="/order" class="btn btn-danger btn-xs">查看明细</a></span>
+        </div>
+    </div>
+
+    <div class="user-box">
+        <div class="jifen-info clearfix">
+            <h4 class="fl">
+                当前订餐状态：
+                @if (@ViewBag.IsDo == true)
+                {
+                    <span style="color: #e95c00">&nbsp;进行中&nbsp;</span>
+                }
+                else
+                {
+                    <span style="color: #6d6d6d">&nbsp;订餐结束&nbsp;</span>
+                }
+
+            </h4>
+            <span class="fr">
+                @if (@ViewBag.IsDo == true)
+                {
+                    <button class="btn btn-primary btn-sm" id="doStop">停止订餐</button>
+                }
+                else
+                {
+                    <button class="btn btn-default btn-sm" id="doStart">启用订餐</button>
+                }
+            </span>
+        </div>
+    </div>
+
+</div>

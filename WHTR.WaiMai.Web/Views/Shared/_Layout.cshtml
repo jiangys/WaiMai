@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>外卖订餐</title>
+    <link href="~/Content/bootstrap-3.3.0/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/css/templatemo_style.css" rel="stylesheet" />
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/css/base.css" rel="stylesheet" />
+    <link href="~/Content/aui-artDialog-6.0.4/css/ui-dialog.css" rel="stylesheet" />
+    @RenderSection("head", required: false)
+</head>
+<body>
+
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="row">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="col-md-2 col-sm-2 col-xs-12">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a href="#" class="navbar-brand">
+                            <img src="~/Content/images/logo.png" />
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-10 col-sm-10 col-xs-12">
+                    <div class="navbar-collapse collapse menu">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/home"><i class="fa fa-home"></i>首页</a></li>
+                            <li><a href="/order">@*<i class="fa fa-user"></i>*@ <i class="fa fa-list"></i>今日订单</a></li>
+                            <li><a href="/admin/home"><i class="fa fa-cogs"></i>管理中心</a></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div>
+            </div><!-- /.row -->
+        </div>
+    </nav>
+
+    @RenderBody()
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col col-md-6 col-sm-6 col-xs-6 col-xxs" style=" margin-top:30px;">
+                    <div class="" style="font-size:30px;">吃饭是一种态度</div>
+                    <div id="templatemo_copyright">
+                        Copyright &copy; 2014.Company name All rights reserved.
+                    </div>
+                </div>
+                <div class="col col-md-6 col-sm-6 col-xs-6 col-xxs">
+                    <div class="pull-right">
+                        @*<div class="social_buttons">
+                            <a href="#" rel="nofollow" class="icon-button facebook"><i class="fa fa-facebook"></i></a>
+                            <a href="#" rel="nofollow" class="icon-button twitter"><i class="fa fa-twitter"></i></a>
+                            <a href="#" rel="nofollow" class="icon-button youtube"><i class="fa fa-youtube"></i></a>
+                        </div>*@
+                        <a href="#" id="go-top"><div class="back_to_top" style="margin-top:50px;width:100px;">回到顶部</div></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Content/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.msgBox.js"></script>
+    <script src="~/Scripts/jquery.msgProcess.js"></script>
+    <!--弹出框引用-->
+    <script src="~/Content/aui-artDialog-6.0.4/dist/dialog-min.js"></script>
+    <script src="~/Content/aui-artDialog-6.0.4/dist/dialog-plus.js"></script>
+    <!--弹出框引用-->
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        $('#go-top').click(function (event) {
+            event.preventDefault();
+            jQuery('html, body').animate({ scrollTop: 0 }, 1000);
+            return false;
+        });
+        var wrapper = {};
+        //显示对话框
+        wrapper.showModalDialog = function (url, width, height) {
+            top.dialog({
+                width: width,
+                height: height,
+                title: '加载中...',
+                url: url,
+                onclose: function () {
+                    //接收对方返回的数据
+                    var resultUrl = this.returnValue;
+                    if (resultUrl && resultUrl != null) {
+                        window.location.href = resultUrl;;
+                    }
+                }
+            }).showModal();
+        }
+        //移除Iframe
+        //wrapper.iframeRemove = function () {
+        //    var frame = $(frames[0])[0];
+        //    if (frame.contentWindow) {
+        //        frame.contentWindow.document.write('');//清空iframe的内容
+        //        frame.contentWindow.close();//避免iframe内存泄漏
+        //        frame.remove();//删除iframe
+        //    }
+        //    else {//针对360浏览器作判断
+        //        frame.window.document.write('');//清空iframe的内容
+        //        frame.window.close();//避免iframe内存泄漏
+        //        frame.remove();//删除iframe
+        //    }
+        //}
+    </script>
+</body>
+</html>

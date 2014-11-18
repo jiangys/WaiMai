@@ -1,0 +1,33 @@
+﻿<?xml version="1.0"?>
+<sqlMap xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" namespace="Restaurant">
+  <alias>
+    <typeAlias alias="Restaurant" type="Maticsoft.Model.Restaurant,Maticsoft.Model" />
+  </alias>
+  <resultMaps>
+    <resultMap id="SelectAllResult" class="Restaurant">
+      <result property="Id" column="Id" />
+      <result property="RestaurantName" column="RestaurantName" />
+      <result property="SendOutCount" column="SendOutCount" />
+      <result property="TakeoutPhone" column="TakeoutPhone" />
+      <result property="IsEnable" column="IsEnable" />
+      <result property="CreateDate" column="CreateDate" />
+      <result property="Creator" column="Creator" />
+      <result property="EditorDate" column="EditorDate" />
+      <result property="Editor" column="Editor" />
+      <result property="IsDel" column="IsDel" />
+      <result property="Version" column="Version" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+    <select id="GetMaxID" resultClass="int">select max(ID) from Restaurant</select>
+    <select id="Exists" resultClass="int" parameterclass="int">select count(1) from  Restaurant where ID = #value#</select>
+    <insert id="InsertRestaurant" parameterclass="Restaurant">
+      <selectKey property="ID" type="post" resultClass="int">${selectKey}</selectKey>
+      insert into Restaurant(RestaurantName,SendOutCount,TakeoutPhone,IsEnable,CreateDate,Creator,EditorDate,Editor,IsDel,Version) 
+      values (#RestaurantName#,#SendOutCount#,#TakeoutPhone#,#IsEnable#,#CreateDate#,#Creator#,#EditorDate#,#Editor#,#IsDel#,#Version#)
+    </insert>
+    <delete id="DeleteRestaurant" parameterclass="int">delete from  Restaurant where ID = #value#</delete>
+    <select id="SelectAllRestaurant" resultMap="SelectAllResult">select * from  Restaurant</select>
+    <select id="SelectByID" resultMap="SelectAllResult" resultClass="Restaurant" parameterclass="int">select * from Restaurant where ID = #value#</select>
+  </statements>
+</sqlMap>

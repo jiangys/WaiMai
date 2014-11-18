@@ -1,0 +1,147 @@
+
+
+/*-----------------------------------------------------------------------------------*/
+/*	GENERAL
+/*-----------------------------------------------------------------------------------*/
+/*html { font-size: 1em; }
+
+body { font-family: 'Comfortaa', Arial, sans-serif; overflow-x: hidden; } /*carasmo's comment to hide horizontal scroll bar https://github.com/twbs/bootstrap/issues/10711*/
+
+/*h1, h2, p { font-family: 'Comfortaa', Arial, sans-serif; }
+
+h1 { font-weight: 700; }
+
+h2 { font-size: 1.5em; }
+
+ul { margin: 0; }*/
+body{font: 14px/1.5 arial,"Microsoft Yahei","Hiragino Sans GB",sans-serif;background-color: #eeeeee;  }
+
+section .outer_container { margin-bottom: 50px; }
+section .row { margin-left: 0; margin-right: 0; overflow: hidden; }
+section h1 { text-transform: uppercase; color: white; margin-top: 0px; margin-bottom: 0px; line-height: 280px; text-align: center; }
+
+.templatemo_ceo img { margin-bottom: 10px; }
+.templatemo_ceo p { text-align: center; }
+.container { margin: 0 auto;width: 980px; padding-left: 0;
+    padding-right: 0; }
+
+/*http://css-tricks.com/vertically-center-multi-lined-text/*/
+.center-row { display: table; }
+.center-row .center { display: table-cell; vertical-align: middle; }
+
+/*------------------------------------------------------
+	NAVIGATION 
+--------------------------------------------------------*/
+nav { font-size: 1.2em; font-weight: lighter; }
+nav .fa { display: block; text-align: center; margin-bottom: 13px; }
+
+.navbar {
+	background: #283147;
+	min-height: 85px;	
+	border-radius: 0px; 
+	border: none; 
+	margin-bottom: 0px; 
+	-webkit-box-shadow: 0 2px 4px rgba(1, 1, 1, 0.15);
+	-moz-box-shadow: 0 2px 4px rgba(1, 1, 1, 0.15);
+	box-shadow: 0 2px 4px rgba(1, 1, 1, 0.15);
+	-webkit-transition: all 0.4s ease-in-out;
+	-moz-transition: all 0.4s ease-in-out;
+	-ms-transition: all 0.4s ease-in-out;
+	-o-transition: all 0.4s ease-in-out;
+	transition: all 0.4s ease-in-out;
+}
+.navbar-brand {
+    padding: 22px 15px;
+}
+.navbar-default .navbar-nav>li>a {
+	padding-bottom: 20px;
+	color: white;
+    height:85px;
+	text-transform: uppercase;
+	-moz-transition: background-color .5s ease;
+	-o-transition: background-color .5s ease;
+	-webkit-transition: background-color .5s ease;
+	transition: background-color .5s ease;
+}
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus, .menu ul li a.current {
+	color: white;
+	background-color: #394665;
+}
+
+.navbar>.container .navbar-brand { margin-left: 0; }
+.navbar-collapse .navbar-nav.navbar-right:last-child { margin-right: 0; }
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus { background-color: #394665; }
+
+/*------------------------------------------------------
+	FLEXSLIDER OVERRIDING 
+--------------------------------------------------------*/
+.flexslider { padding-top: 85px; }
+.flexslider a:hover, .flexslider a:focus { text-decoration: none; }
+.flexslider { border: none;	-webkit-border-radius: 0; border-radius: 0; }
+.flexslider .slides li { position: relative; }
+.flex-caption {
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    color: white;
+    background:rgba(197,82,87,.8);   
+    z-index:1;
+    padding: 20px;
+    margin: 0;
+}
+
+/*------------------------------------------------------
+	FOOTER 
+--------------------------------------------------------*/
+footer { background: #283147; min-height: 141px; color: white; margin-top: 20px; }
+footer img { padding-top: 30px; }
+footer a { text-decoration: none; color: white; }
+footer a:hover { color: #cbcbcb; text-decoration: none; }
+footer .row { height: 100%; }
+
+.back_to_top { background-color: #c5454a; text-align: center; height: 41px; line-height: 41px; } /*http://stackoverflow.com/questions/2939914/vertically-align-text-in-a-div*/
+
+.social_buttons a {	text-decoration: none; }
+
+#templatemo_copyright { font-size: .9em; }
+
+/* Wrapper */
+.social_buttons .icon-button {
+	background-color: #20283e;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 3.0rem;
+	line-height: 100px;
+	margin: 0;
+	position: relative;
+	text-align: center;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+	        user-select: none;
+	width: 60px;
+	height: 100px;
+}
+
+/* Icons */
+.icon-button i {
+	background: none;
+	color: white;
+	line-height: 3.6rem;
+	-webkit-transition: all 0.3s;
+	   -moz-transition: all 0.3s;
+	     -o-transition: all 0.3s;
+	        transition: all 0.3s;
+	width: 3.6rem;
+	z-index: 10;
+}
+
+.icon-button:hover .fa-twitter,
+.icon-button:hover .fa-facebook,
+.icon-button:hover .fa-youtube {
+	color: #c5454a;
+}
+
+/* End minimalmonkey */

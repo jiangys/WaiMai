@@ -1,0 +1,22 @@
+﻿<?xml version="1.0"?>
+<sqlMap xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" namespace="Config">
+  <alias>
+    <typeAlias alias="Config" type="WHTR.WaiMai.Contracts.Models.Config, WHTR.WaiMai.Contracts" />
+  </alias>
+
+  <statements>
+    
+    <select id="qryConfigValue" parameterclass="string" resultClass="string">
+      SELECT c.ConfigValue
+      FROM [Config] c
+      WHERE c.ConfigName='DoOrder'
+    </select>
+
+    <update id ="updConfigValue" parameterClass="Config">
+      UPDATE [Config]
+      SET ConfigValue = #ConfigValue#
+      WHERE ConfigName=#ConfigName#
+    </update>
+
+  </statements>
+</sqlMap>
