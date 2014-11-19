@@ -34,5 +34,7 @@ namespace PP.WaiMai.Contracts.ViewModels
         /// 已售多少份
         /// </summary>
         public int TotalCount { get; set; }
+
+        public bool IsSale { get; set; }
     }
 }

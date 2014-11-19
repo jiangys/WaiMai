@@ -32,30 +32,7 @@
                         </a>
                     </div>
                 </div>
-            <style type="text/css">
-                .navbar-collapse .nav li.sep {
-                    border-left: 1px solid rgba(255, 255, 255, 0.15);
-                    height: 20px;
-                    margin: 32px 15px 15px;
-                    width: 1px;
-                }
-                .navbar-collapse .nav > li .highlight {
-                    background: none repeat scroll 0 0 #fff;
-                    border: 2px solid #fff;
-                    border-radius: 2px;
-                    color: #111;
-                    font-size: 16px;
-                    height: 36px;
-                    margin-top: 23px;
-                    padding: 6px 12px;
-                    text-transform: uppercase;
-                    transition: all 0.15s ease 0s;
-                }
-                .navbar-collapse .nav > li .signin {
-                    margin-top: 16px;
-                    height: 36px;
-                }
-            </style>
+
                 <div class="col-md-10 col-sm-10 col-xs-12">
                     <div class="navbar-collapse collapse menu">
                         <ul class="nav navbar-nav navbar-right">
@@ -64,11 +41,11 @@
                             <li><a href="/admin/home"><i class="fa fa-cogs"></i>管理中心</a></li>
                             <li class="sep"></li>
                             <li>
-                                <a class="highlight" data-toggle="modal" href="#signup-modal" id="headerSignUpBtn">登&nbsp;录</a>
+                                <a class="highlight" data-toggle="modal" id="signUpBtn">登&nbsp;录</a>
                             </li>
                             @*<li>
-                                <a class="signin" href="/users/sign_in">注&nbsp;册</a>
-                            </li>*@
+                                    <a class="signin" href="/users/sign_in">注&nbsp;册</a>
+                                </li>*@
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div>
@@ -91,10 +68,10 @@
                 <div class="col col-md-6 col-sm-6 col-xs-6 col-xxs">
                     <div class="pull-right">
                         @*<div class="social_buttons">
-                            <a href="#" rel="nofollow" class="icon-button facebook"><i class="fa fa-facebook"></i></a>
-                            <a href="#" rel="nofollow" class="icon-button twitter"><i class="fa fa-twitter"></i></a>
-                            <a href="#" rel="nofollow" class="icon-button youtube"><i class="fa fa-youtube"></i></a>
-                        </div>*@
+                                <a href="#" rel="nofollow" class="icon-button facebook"><i class="fa fa-facebook"></i></a>
+                                <a href="#" rel="nofollow" class="icon-button twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="#" rel="nofollow" class="icon-button youtube"><i class="fa fa-youtube"></i></a>
+                            </div>*@
                         <a href="#" id="go-top"><div class="back_to_top" style="margin-top:50px;width:100px;">回到顶部</div></a>
                     </div>
                 </div>
@@ -137,6 +114,9 @@
                 }
             }).showModal();
         }
+        $("#signUpBtn").click(function () {
+            wrapper.showModalDialog("/account/login", 350, 280);
+        });
         //移除Iframe
         //wrapper.iframeRemove = function () {
         //    var frame = $(frames[0])[0];

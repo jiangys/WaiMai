@@ -1,0 +1,32 @@
+﻿<?xml version="1.0"?>
+<sqlMap xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" namespace="Recharge">
+  <alias>
+    <typeAlias alias="Recharge" type="Maticsoft.Model.Recharge,Maticsoft.Model" />
+  </alias>
+  <resultMaps>
+    <resultMap id="RechargeResult" class="Recharge">
+      <result property="Id" column="Id" />
+      <result property="AccountId" column="AccountId" />
+      <result property="Amount" column="Amount" />
+      <result property="Status" column="Status" />
+      <result property="IsDel" column="IsDel" />
+    </resultMap>
+  </resultMaps>
+  <statements>
+
+    <insert id="insRecharge" parameterclass="Recharge">
+      insert into Recharge(AccountId,Amount,Status)
+      values (#AccountId#,#Amount#,#Status#)
+      <selectKey resultClass="int" type="post" property="Id">
+        SELECT @@IDENTITY as value
+      </selectKey>
+    </insert>
+
+    <select id="qryRecharge" resultMap="RechargeResult" resultClass="Recharge">
+      select * from Recharge
+      WHERE IsDel=0
+    </select>
+
+
+  </statements>
+</sqlMap>

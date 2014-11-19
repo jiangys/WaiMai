@@ -309,12 +309,12 @@
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Restaurant\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutDialog.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -327,6 +327,10 @@
     <ProjectReference Include="..\PP.WaiMai.Contracts\PP.WaiMai.Contracts.csproj">
       <Project>{05cf8a0f-5593-4d46-bd78-23e98923428d}</Project>
       <Name>PP.WaiMai.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PP.WaiMai.Util\PP.WaiMai.Util.csproj">
+      <Project>{9bf92c9d-129d-49b5-a8a2-516e32c012b0}</Project>
+      <Name>PP.WaiMai.Util</Name>
     </ProjectReference>
     <ProjectReference Include="..\PP.WaiMai.WebHelper\PP.WaiMai.WebHelper.csproj">
       <Project>{bc3dd8fc-b365-465f-ba87-18be759dea57}</Project>

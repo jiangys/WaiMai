@@ -63,17 +63,18 @@ UpgradeLog*
 # To be ignore
 information
 *packages
-/WHTR.WaiMai.Contracts/bin
-/WHTR.WaiMai.DaoCfg/bin
-/WHTR.WaiMai.Services/bin
-/WHTR.WaiMai.Util/bin
-/WHTR.WaiMai.Web/bin
-/WHTR.WaiMai.WebHelper/bin
+*PP.WaiMai.WebTest
+/PP.WaiMai.Contracts/bin
+/PP.WaiMai.DaoCfg/bin
+/PP.WaiMai.Services/bin
+/PP.WaiMai.Util/bin
+/PP.WaiMai.Web/bin
+/PP.WaiMai.WebHelper/bin
 
-/WHTR.WaiMai.Contracts/obj
-/WHTR.WaiMai.DaoCfg/obj
-/WHTR.WaiMai.Services/obj
-/WHTR.WaiMai.Util/obj
-/WHTR.WaiMai.Web/obj
-/WHTR.WaiMai.WebHelper/obj
+/PP.WaiMai.Contracts/obj
+/PP.WaiMai.DaoCfg/obj
+/PP.WaiMai.Services/obj
+/PP.WaiMai.Util/obj
+/PP.WaiMai.Web/obj
+/PP.WaiMai.WebHelper/obj
 /*.suo

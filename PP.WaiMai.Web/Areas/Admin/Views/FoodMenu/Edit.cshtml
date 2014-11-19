@@ -52,6 +52,10 @@
                 @Html.ValidationMessageFor(m => m.Price)
             </div>
         </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsSale, new { @class = "col-sm-3 control-label" })
+            @Html.CheckBoxFor(model => model.IsSale)
+        </div>
     </div>
     <div class="modal-footer fix-footer">
         <button type="button" class="btn btn-default" id="btn-close">取消</button>

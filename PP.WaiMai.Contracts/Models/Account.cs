@@ -1,12 +1,12 @@
 ﻿/**  版本信息模板在安装目录下，可自行修改。
-* FoodMenu.cs
+* Account.cs
 *
 * 功 能： N/A
-* 类 名： FoodMenu
+* 类 名： Account
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2014/11/15 1:21:45   N/A    初版
+* V0.01  2014/11/19 16:24:16   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -18,25 +18,20 @@ using System;
 namespace PP.WaiMai.Contracts.Models
 {
 	/// <summary>
-	/// FoodMenu:实体类(属性说明自动提取数据库字段的描述信息)
+	/// Account:实体类(属性说明自动提取数据库字段的描述信息)
 	/// </summary>
 	[Serializable]
-	public partial class FoodMenu
+	public partial class Account
 	{
-		public FoodMenu()
+		public Account()
 		{}
 		#region Model
 		private int _id;
-		private int _foodmenucategoryid;
-		private string _menuname;
-		private decimal _price;
+		private string _accountname;
+		private string _ipaddress;
+		private decimal _amount;
 		private DateTime _createdate;
-		private string _creator;
-		private DateTime? _editdate;
-		private string _editor;
-        private bool _issale;
 		private bool _isdel;
-		private int _version;
 		/// <summary>
 		/// 
 		/// </summary>
@@ -48,26 +43,26 @@ namespace PP.WaiMai.Contracts.Models
 		/// <summary>
 		/// 
 		/// </summary>
-		public int FoodMenuCategoryId
+		public string AccountName
 		{
-			set{ _foodmenucategoryid=value;}
-			get{return _foodmenucategoryid;}
+			set{ _accountname=value;}
+			get{return _accountname;}
 		}
 		/// <summary>
 		/// 
 		/// </summary>
-		public string MenuName
+		public string IPAddress
 		{
-			set{ _menuname=value;}
-			get{return _menuname;}
+			set{ _ipaddress=value;}
+			get{return _ipaddress;}
 		}
 		/// <summary>
 		/// 
 		/// </summary>
-		public decimal Price
+		public decimal Amount
 		{
-			set{ _price=value;}
-			get{return _price;}
+			set{ _amount=value;}
+			get{return _amount;}
 		}
 		/// <summary>
 		/// 
@@ -80,47 +75,10 @@ namespace PP.WaiMai.Contracts.Models
 		/// <summary>
 		/// 
 		/// </summary>
-		public string Creator
-		{
-			set{ _creator=value;}
-			get{return _creator;}
-		}
-		/// <summary>
-		/// 
-		/// </summary>
-		public DateTime? EditDate
-		{
-			set{ _editdate=value;}
-			get{return _editdate;}
-		}
-		/// <summary>
-		/// 
-		/// </summary>
-		public string Editor
-		{
-			set{ _editor=value;}
-			get{return _editor;}
-		}
-		/// <summary>
-		/// 
-		/// </summary>
 		public bool IsDel
 		{
 			set{ _isdel=value;}
 			get{return _isdel;}
-		}
-        public bool IsSale
-        {
-            set { _issale = value; }
-            get { return _issale; }
-        }
-		/// <summary>
-		/// 
-		/// </summary>
-		public int Version
-		{
-			set{ _version=value;}
-			get{return _version;}
 		}
 		#endregion Model
 

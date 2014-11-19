@@ -15,6 +15,7 @@
       <result property="EditDate" column="EditDate" />
       <result property="Editor" column="Editor" />
       <result property="IsDel" column="IsDel" />
+      <result property="IsSale" column="IsSale" />
       <result property="Version" column="Version" />
     </resultMap>
   </resultMaps>
@@ -28,6 +29,7 @@
       fm.FoodMenuCategoryId,
       fm.Price,
       fmc.CName,
+      fm.IsSale,
       r.RestaurantName
       FROM FoodMenu AS fm
       INNER JOIN FoodMenuCategory AS fmc ON fm.FoodMenuCategoryId=fmc.Id
@@ -42,6 +44,7 @@
       fm.FoodMenuCategoryId,
       fm.Price,
       fmc.CName,
+      fm.IsSale,
       r.RestaurantName,
       Sum(o.TotalCount) TotalCount
       FROM FoodMenu AS fm
@@ -57,8 +60,8 @@
     </select>
 
     <insert id="insFoodMenu" parameterClass="FoodMenu">
-      insert into FoodMenu(FoodMenuCategoryId,MenuName,Price,CreateDate,Creator,EditDate,Editor,IsDel,Version)
-      values (#FoodMenuCategoryId#,#MenuName#,#Price#,#CreateDate#,#Creator#,#EditDate#,#Editor#,#IsDel#,#Version#)
+      insert into FoodMenu(FoodMenuCategoryId,MenuName,Price,CreateDate,Creator,EditDate,Editor,IsDel,IsSale,Version)
+      values (#FoodMenuCategoryId#,#MenuName#,#Price#,#CreateDate#,#Creator#,#EditDate#,#Editor#,#IsDel#,#IsSale#,#Version#)
       <selectKey  type="post" resultClass="int" property="Id">
         SELECT CAST(@@IDENTITY as int) as Id
       </selectKey>
@@ -70,6 +73,7 @@
       FoodMenuCategoryId = #FoodMenuCategoryId#,
       MenuName = #MenuName#,
       Price = #Price#,
+      IsSale=#IsSale#,
       EditDate = GETDATE(),
       Editor = 'sys'
       WHERE Id=#Id#
