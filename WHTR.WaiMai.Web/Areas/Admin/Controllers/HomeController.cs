@@ -19,7 +19,7 @@ namespace WHTR.WaiMai.Web.Areas.Admin.Controllers
             var modelList = OperateHelper.IOrderService.GetTodayList();
             ViewBag.OrderList = modelList;
 
-            var isDo = false;
+            var isDo = true;
             var doOrderValue = OperateHelper.IConfigService.GetConfigValue("DoOrder");
             if (doOrderValue != null)
             {

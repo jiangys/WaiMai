@@ -21,7 +21,7 @@ namespace WHTR.WaiMai.Web.Controllers
             ViewBag.RestaurantModel = restaurantModel;
 
             #region --状态
-            var isDo = false;
+            var isDo = true;
             var doOrderValue = OperateHelper.IConfigService.GetConfigValue("DoOrder");
             if (doOrderValue != null)
             {

@@ -68,6 +68,10 @@
     </script>
 }
 <section class="container">
+    <div class="alert alert-danger alert-dismissible" role="alert" style="margin-top:20px;">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <strong>温馨提示：</strong> 1.每天10点30分截止订餐，感谢配合；2.订餐费用，请统一交给余伟鹏，可以充值；3.订餐时，请看好菜单的供应时段。
+    </div>
     <div class="basicinfo u-border clearfix">
         @{
             var restaurantModel = ViewBag.RestaurantModel as WHTR.WaiMai.Contracts.ViewModels.RestaurantViewModel;
