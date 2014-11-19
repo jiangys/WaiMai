@@ -1,0 +1,54 @@
+﻿@model PP.WaiMai.Contracts.Models.FoodMenuCategory
+@{
+    Layout = "~/Views/Shared/_LayoutDialog.cshtml";
+}
+@section Scripts{
+    <script type="text/javascript">
+        //获取响应报文成功后调用的方法
+        function onSuccessed(jsonData) {
+            //alert("不错");
+            $.procAjaxData(jsonData, function () {
+                if (jsonData.BackUrl != null) {
+                    var dialog = top.dialog.get(window);
+                    dialog.close(jsonData.BackUrl);
+                    dialog.remove();
+                }
+            });
+        }
+        $(function () {
+            var dialog = top.dialog.get(window);
+            dialog.title('增加菜单类别');
+            $("#btn-close").click(function () {
+                dialog.remove();
+            });
+        });
+    </script>
+}
+@using (Ajax.BeginForm("add", "FoodMenuCategory", new AjaxOptions() { HttpMethod = "Post", OnSuccess = "onSuccessed" }, new { @class = "form-horizontal", role = "form", id = "SubmitForm" }))
+{
+    <div class="modal-body">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            @Html.LabelFor(model => model.CName, new { @class = "col-sm-3 control-label" })
+            <div class="col-sm-5">
+                @Html.DropDownListFor(model => model.RestaurantId, ViewBag.RestaurantList as IEnumerable<SelectListItem>, "＝请选择＝", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.RestaurantId)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CName, new { @class = "col-sm-3 control-label" })
+            <div class="col-sm-5">
+                @Html.TextBoxFor(model => model.CName, new { @class = "form-control", placeholder = "类别名称" })
+                @Html.ValidationMessageFor(m => m.CName)
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer fix-footer">
+        <button type="button" class="btn btn-default" id="btn-close">取消</button>
+        <button type="submit" class="btn btn-primary">保存</button>
+    </div>
+}
+
+
+

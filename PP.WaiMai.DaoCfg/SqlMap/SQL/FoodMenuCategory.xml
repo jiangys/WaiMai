@@ -1,0 +1,60 @@
+﻿<?xml version="1.0"?>
+<sqlMap xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" namespace="FoodMenuCategory">
+  <alias>
+    <typeAlias alias="FoodMenuCategory" type="PP.WaiMai.Contracts.Models.FoodMenuCategory, PP.WaiMai.Contracts" />
+    <typeAlias alias="FoodMenuCategoryViewModel" type="PP.WaiMai.Contracts.ViewModels.FoodMenuCategoryViewModel, PP.WaiMai.Contracts" />
+
+  </alias>
+  <resultMaps>
+    <resultMap id="SelectAllResult" class="FoodMenuCategory">
+      <result property="Id" column="Id" />
+      <result property="RestaurantId" column="RestaurantId" />
+      <result property="CName" column="CName" />
+      <result property="CreateDate" column="CreateDate" />
+      <result property="Creator" column="Creator" />
+      <result property="EditDate" column="EditDate" />
+      <result property="Editor" column="Editor" />
+      <result property="IsDel" column="IsDel" />
+      <result property="Version" column="Version" />
+    </resultMap>
+  </resultMaps>
+  
+  <statements>
+    <select id="GetMaxID" resultClass="int">select max(ID) from FoodMenuCategory</select>
+    <select id="Exists" resultClass="int" parameterclass="int">select count(1) from  FoodMenuCategory where ID = #value#</select>
+    <select id="qryFoodMenuCategory" resultClass="FoodMenuCategoryViewModel">
+      SELECT fmc.Id,fmc.CName,r.RestaurantName
+      FROM FoodMenuCategory AS fmc
+      INNER JOIN Restaurant AS r ON r.Id = fmc.RestaurantId
+      WHERE fmc.IsDel=0
+    </select>
+
+    <select id="SelectByID" resultMap="SelectAllResult" resultClass="FoodMenuCategory" parameterclass="int">select * from FoodMenuCategory where ID = #value#</select>
+    
+    <insert id="insFoodMenuCategory" parameterClass="FoodMenuCategory">
+      insert into FoodMenuCategory(RestaurantId,CName,CreateDate,Creator,EditDate,Editor,IsDel,Version)
+      values (#RestaurantId#,#CName#,#CreateDate#,#Creator#,#EditDate#,#Editor#,#IsDel#,#Version#)
+      <selectKey  type="post" resultClass="int" property="Id">
+        SELECT CAST(@@IDENTITY as int) as Id
+      </selectKey>
+    </insert>
+
+    <update id ="updFoodMenuCategory" parameterClass="FoodMenuCategory">
+      UPDATE FoodMenuCategory
+      SET
+      RestaurantId = #RestaurantId#,
+      CName = #CName#,
+      EditDate = GETDATE(),
+      Editor = 'sys'
+      WHERE Id=#Id#
+    </update>
+
+
+    <delete id="delFoodMenuCategory" parameterclass="int">
+      UPDATE FoodMenuCategory
+      SET IsDel = 1
+      WHERE Id=#value#
+    </delete>
+
+  </statements>
+</sqlMap>
