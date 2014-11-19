@@ -26,5 +26,8 @@ namespace PP.WaiMai.Contracts.Models
         [DisplayName("菜单价格：")]
         [Required(ErrorMessage = "请填写菜单价格")]
         public decimal Price { get; set; }
+
+        [DisplayName("是否销售：")]
+        public bool IsSale { get; set; }
     }
 }

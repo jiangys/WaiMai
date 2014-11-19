@@ -19,9 +19,9 @@
 @section Scripts {
     <script type="text/javascript">
         $(function () {
-            $("#addRestaurant").click(function () {
-                wrapper.showModalDialog("/admin/restaurant/add", 350, 380);
-            });
+            //$("#addRestaurant").click(function () {
+            //    wrapper.showModalDialog("/admin/restaurant/add", 350, 380);
+            //});
             $(".doEdit").click(function () {
                 var url = $(this).attr("data-href");
                 wrapper.showModalDialog(url, 350, 380);
@@ -31,7 +31,7 @@
                 var name = $(this).attr("data-name");
                 var d = dialog({
                     title: '取消订单',
-                    content: '是否要取消菜单名为【' + name + '】的订单？',
+                    content: '是否要取消【' + name + '】的订单？',
                     okValue: '确定',
                     ok: function () {
                         this.title('正在提交..');
@@ -76,11 +76,11 @@
     <div class="col-md-12">
         <div class="portlet">
             <div class="portlet-title clearfix">
-                <div class="fl">
+                @*<div class="fl">
                     <button class="btn blue thickbox" id="addRestaurant">
                         <i class="fa fa-plus"></i>&nbsp;订单管理
                     </button>
-                </div>
+                </div>*@
                 <div class="fr col-md-4">
                     @using (Html.BeginForm("Index", "Order", FormMethod.Post, new { @class = "form-inline", role = "form", id = "frmSubmit" }))
                     {
@@ -146,9 +146,18 @@
                                         @item.CreateDate
                                     </td>
                                     <td>
-                                        <button class="btn default btn-xs black btn-del deDel" data-name="@item.MenuName" data-href="/admin/order/del/@item.Id">
-                                            <i class="fa fa-trash-o"></i> 取消订单
-                                        </button>
+                                        @if (@item.CreateDate.ToShortDateString() == DateTime.Now.ToShortDateString())
+                                        {
+                                            <button class="btn default btn-xs black btn-del deDel" data-name="@item.Id / @item.NickName.Trim() / @item.MenuName" data-href="/admin/order/del/@item.Id">
+                                                <i class="fa fa-trash-o"></i> 取消订单
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <span class="btn default btn-xs black btn-del" disabled="disabled">
+                                                已关闭
+                                            </span>
+                                        }
                                     </td>
                                 </tr>
                             }

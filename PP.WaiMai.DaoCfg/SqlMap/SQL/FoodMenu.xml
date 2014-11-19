@@ -52,7 +52,7 @@
       INNER JOIN Restaurant AS r ON r.Id = fmc.RestaurantId
       LEFT JOIN [Order] AS o ON fm.Id=o.FoodMenuId AND o.IsDel=0
       WHERE fm.IsDel=0 AND r.Id=#value#
-      GROUP BY fm.Id,fm.MenuName,fm.FoodMenuCategoryId,fm.Price,fmc.CName,r.RestaurantName
+      GROUP BY fm.Id,fm.MenuName,fm.FoodMenuCategoryId,fm.Price,fmc.CName,fm.IsSale,r.RestaurantName
     </select>
 
     <select id="qryFoodMenuById" resultMap="SelectAllResult" resultClass="FoodMenu" parameterclass="int">
