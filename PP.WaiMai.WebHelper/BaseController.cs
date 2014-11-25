@@ -1,10 +1,10 @@
-﻿using System;
+﻿using PP.WaiMai.Model.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using PP.WaiMai.Contracts.Enums;
 
 namespace PP.WaiMai.WebHelper
 {
@@ -15,7 +15,14 @@ namespace PP.WaiMai.WebHelper
         /// </summary>
         public OperateContext OperateHelper
         {
-            get { return OperateContext.Instance(); }
+            get { return OperateContext.Current; }
+        }
+        /// <summary>
+        /// 业务仓储
+        /// </summary>
+        public IService.IServiceSession BLLSession
+        {
+            get { return OperateHelper.ServiceSession; }
         }
 
         #region 生成Json格式的返回值 +ActionResult RedirectAjax(string statu, string msg, object data, string backurl)
@@ -29,7 +36,7 @@ namespace PP.WaiMai.WebHelper
         /// <returns></returns>
         public ActionResult RedirectAjax(AjaxMsgStateEnum state = AjaxMsgStateEnum.OK, string msg = "", string backurl = "", object data = null)
         {
-            PP.WaiMai.Contracts.FormatModels.AjaxMsgModel ajax = new PP.WaiMai.Contracts.FormatModels.AjaxMsgModel()
+            PP.WaiMai.Model.FormatModels.AjaxMsgModel ajax = new PP.WaiMai.Model.FormatModels.AjaxMsgModel()
             {
                 State = state,
                 Msg = msg,

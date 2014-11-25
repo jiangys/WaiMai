@@ -1,4 +1,4 @@
-﻿using PP.WaiMai.Contracts.ViewModels;
+﻿using PP.WaiMai.Model.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

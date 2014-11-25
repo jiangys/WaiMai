@@ -1,0 +1,508 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WaiMaiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="int" Nullable="false" />
+          <Property Name="AccountName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IPAddress" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="IsDel" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Config">
+          <Key>
+            <PropertyRef Name="ConfigName" />
+          </Key>
+          <Property Name="ConfigName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ConfigValue" Type="nvarchar" MaxLength="2000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FoodMenu">
+          <Key>
+            <PropertyRef Name="FoodMenuID" />
+          </Key>
+          <Property Name="FoodMenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FoodMenuCategoryID" Type="int" Nullable="false" />
+          <Property Name="MenuName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="1" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="Creator" Type="nvarchar" MaxLength="50" />
+          <Property Name="EditDate" Type="datetime" />
+          <Property Name="Editor" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsSale" Type="bit" Nullable="false" />
+          <Property Name="IsDel" Type="bit" Nullable="false" />
+          <Property Name="Version" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FoodMenuCategory">
+          <Key>
+            <PropertyRef Name="FoodMenuCategoryID" />
+          </Key>
+          <Property Name="FoodMenuCategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RestaurantID" Type="int" Nullable="false" />
+          <Property Name="CName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="Creator" Type="nvarchar" MaxLength="50" />
+          <Property Name="EditDate" Type="datetime" />
+          <Property Name="Editor" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsSale" Type="bit" Nullable="false" />
+          <Property Name="IsDel" Type="bit" Nullable="false" />
+          <Property Name="Version" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FoodMenuID" Type="int" Nullable="false" />
+          <Property Name="TotalCount" Type="int" Nullable="false" />
+          <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="1" Nullable="false" />
+          <Property Name="NickName" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="Creator" Type="nvarchar" MaxLength="50" />
+          <Property Name="EditDate" Type="datetime" />
+          <Property Name="Editor" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDel" Type="bit" Nullable="false" />
+          <Property Name="Version" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Recharge">
+          <Key>
+            <PropertyRef Name="RechargeID" />
+          </Key>
+          <Property Name="RechargeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="IsDel" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Restaurant">
+          <Key>
+            <PropertyRef Name="RestaurantID" />
+          </Key>
+          <Property Name="RestaurantID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RestaurantName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SendOutCount" Type="int" Nullable="false" />
+          <Property Name="TakeoutPhone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsEnable" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="Creator" Type="nvarchar" MaxLength="50" />
+          <Property Name="EditDate" Type="datetime" />
+          <Property Name="Editor" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDel" Type="bit" Nullable="false" />
+          <Property Name="Version" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_FoodMenu_FoodMenuCategory">
+          <End Role="FoodMenuCategory" Type="Self.FoodMenuCategory" Multiplicity="1" />
+          <End Role="FoodMenu" Type="Self.FoodMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FoodMenuCategory">
+              <PropertyRef Name="FoodMenuCategoryID" />
+            </Principal>
+            <Dependent Role="FoodMenu">
+              <PropertyRef Name="FoodMenuCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FoodMenuCategory_Restaurant">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1" />
+          <End Role="FoodMenuCategory" Type="Self.FoodMenuCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="RestaurantID" />
+            </Principal>
+            <Dependent Role="FoodMenuCategory">
+              <PropertyRef Name="RestaurantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_FoodMenu">
+          <End Role="FoodMenu" Type="Self.FoodMenu" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FoodMenu">
+              <PropertyRef Name="FoodMenuID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="FoodMenuID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recharge_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Recharge" Type="Self.Recharge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="Recharge">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WaiMaiModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FoodMenu" EntityType="Self.FoodMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FoodMenuCategory" EntityType="Self.FoodMenuCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recharge" EntityType="Self.Recharge" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurant" EntityType="Self.Restaurant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_FoodMenu_FoodMenuCategory" Association="Self.FK_FoodMenu_FoodMenuCategory">
+            <End Role="FoodMenuCategory" EntitySet="FoodMenuCategory" />
+            <End Role="FoodMenu" EntitySet="FoodMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FoodMenuCategory_Restaurant" Association="Self.FK_FoodMenuCategory_Restaurant">
+            <End Role="Restaurant" EntitySet="Restaurant" />
+            <End Role="FoodMenuCategory" EntitySet="FoodMenuCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_FoodMenu" Association="Self.FK_Order_FoodMenu">
+            <End Role="FoodMenu" EntitySet="FoodMenu" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recharge_Account" Association="Self.FK_Recharge_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Recharge" EntitySet="Recharge" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WaiMaiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="WaiMaiEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Account" EntityType="WaiMaiModel.Account" />
+          <EntitySet Name="Config" EntityType="WaiMaiModel.Config" />
+          <EntitySet Name="FoodMenu" EntityType="WaiMaiModel.FoodMenu" />
+          <EntitySet Name="FoodMenuCategory" EntityType="WaiMaiModel.FoodMenuCategory" />
+          <EntitySet Name="Order" EntityType="WaiMaiModel.Order" />
+          <EntitySet Name="Recharge" EntityType="WaiMaiModel.Recharge" />
+          <EntitySet Name="Restaurant" EntityType="WaiMaiModel.Restaurant" />
+          <EntitySet Name="sysdiagrams" EntityType="WaiMaiModel.sysdiagrams" />
+          <AssociationSet Name="FK_Recharge_Account" Association="WaiMaiModel.FK_Recharge_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Recharge" EntitySet="Recharge" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FoodMenu_FoodMenuCategory" Association="WaiMaiModel.FK_FoodMenu_FoodMenuCategory">
+            <End Role="FoodMenuCategory" EntitySet="FoodMenuCategory" />
+            <End Role="FoodMenu" EntitySet="FoodMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_FoodMenu" Association="WaiMaiModel.FK_Order_FoodMenu">
+            <End Role="FoodMenu" EntitySet="FoodMenu" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FoodMenuCategory_Restaurant" Association="WaiMaiModel.FK_FoodMenuCategory_Restaurant">
+            <End Role="Restaurant" EntitySet="Restaurant" />
+            <End Role="FoodMenuCategory" EntitySet="FoodMenuCategory" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <Property Name="AccountName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IPAddress" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDel" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Recharge" Relationship="WaiMaiModel.FK_Recharge_Account" FromRole="Account" ToRole="Recharge" />
+        </EntityType>
+        <EntityType Name="Config">
+          <Key>
+            <PropertyRef Name="ConfigName" />
+          </Key>
+          <Property Name="ConfigName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ConfigValue" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="FoodMenu">
+          <Key>
+            <PropertyRef Name="FoodMenuID" />
+          </Key>
+          <Property Name="FoodMenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FoodMenuCategoryID" Type="Int32" Nullable="false" />
+          <Property Name="MenuName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="1" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Creator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EditDate" Type="DateTime" Precision="3" />
+          <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsSale" Type="Boolean" Nullable="false" />
+          <Property Name="IsDel" Type="Boolean" Nullable="false" />
+          <Property Name="Version" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FoodMenuCategory" Relationship="WaiMaiModel.FK_FoodMenu_FoodMenuCategory" FromRole="FoodMenu" ToRole="FoodMenuCategory" />
+          <NavigationProperty Name="Order" Relationship="WaiMaiModel.FK_Order_FoodMenu" FromRole="FoodMenu" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="FoodMenuCategory">
+          <Key>
+            <PropertyRef Name="FoodMenuCategoryID" />
+          </Key>
+          <Property Name="FoodMenuCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RestaurantID" Type="Int32" Nullable="false" />
+          <Property Name="CName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Creator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EditDate" Type="DateTime" Precision="3" />
+          <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsSale" Type="Boolean" Nullable="false" />
+          <Property Name="IsDel" Type="Boolean" Nullable="false" />
+          <Property Name="Version" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FoodMenu" Relationship="WaiMaiModel.FK_FoodMenu_FoodMenuCategory" FromRole="FoodMenuCategory" ToRole="FoodMenu" />
+          <NavigationProperty Name="Restaurant" Relationship="WaiMaiModel.FK_FoodMenuCategory_Restaurant" FromRole="FoodMenuCategory" ToRole="Restaurant" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FoodMenuID" Type="Int32" Nullable="false" />
+          <Property Name="TotalCount" Type="Int32" Nullable="false" />
+          <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="18" Scale="1" />
+          <Property Name="NickName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Creator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EditDate" Type="DateTime" Precision="3" />
+          <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDel" Type="Boolean" Nullable="false" />
+          <Property Name="Version" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FoodMenu" Relationship="WaiMaiModel.FK_Order_FoodMenu" FromRole="Order" ToRole="FoodMenu" />
+        </EntityType>
+        <EntityType Name="Recharge">
+          <Key>
+            <PropertyRef Name="RechargeID" />
+          </Key>
+          <Property Name="RechargeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="IsDel" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="WaiMaiModel.FK_Recharge_Account" FromRole="Recharge" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="Restaurant">
+          <Key>
+            <PropertyRef Name="RestaurantID" />
+          </Key>
+          <Property Name="RestaurantID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RestaurantName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SendOutCount" Type="Int32" Nullable="false" />
+          <Property Name="TakeoutPhone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsEnable" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Creator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EditDate" Type="DateTime" Precision="3" />
+          <Property Name="Editor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDel" Type="Boolean" Nullable="false" />
+          <Property Name="Version" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FoodMenuCategory" Relationship="WaiMaiModel.FK_FoodMenuCategory_Restaurant" FromRole="Restaurant" ToRole="FoodMenuCategory" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Recharge_Account">
+          <End Type="WaiMaiModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="WaiMaiModel.Recharge" Role="Recharge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="Recharge">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FoodMenu_FoodMenuCategory">
+          <End Type="WaiMaiModel.FoodMenuCategory" Role="FoodMenuCategory" Multiplicity="1" />
+          <End Type="WaiMaiModel.FoodMenu" Role="FoodMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FoodMenuCategory">
+              <PropertyRef Name="FoodMenuCategoryID" />
+            </Principal>
+            <Dependent Role="FoodMenu">
+              <PropertyRef Name="FoodMenuCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_FoodMenu">
+          <End Type="WaiMaiModel.FoodMenu" Role="FoodMenu" Multiplicity="1" />
+          <End Type="WaiMaiModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FoodMenu">
+              <PropertyRef Name="FoodMenuID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="FoodMenuID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FoodMenuCategory_Restaurant">
+          <End Type="WaiMaiModel.Restaurant" Role="Restaurant" Multiplicity="1" />
+          <End Type="WaiMaiModel.FoodMenuCategory" Role="FoodMenuCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="RestaurantID" />
+            </Principal>
+            <Dependent Role="FoodMenuCategory">
+              <PropertyRef Name="RestaurantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WaiMaiModelStoreContainer" CdmEntityContainer="WaiMaiEntities">
+          <EntitySetMapping Name="Account">
+            <EntityTypeMapping TypeName="WaiMaiModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Config">
+            <EntityTypeMapping TypeName="WaiMaiModel.Config">
+              <MappingFragment StoreEntitySet="Config">
+                <ScalarProperty Name="ConfigValue" ColumnName="ConfigValue" />
+                <ScalarProperty Name="ConfigName" ColumnName="ConfigName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FoodMenu">
+            <EntityTypeMapping TypeName="WaiMaiModel.FoodMenu">
+              <MappingFragment StoreEntitySet="FoodMenu">
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+                <ScalarProperty Name="IsSale" ColumnName="IsSale" />
+                <ScalarProperty Name="Editor" ColumnName="Editor" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="FoodMenuCategoryID" ColumnName="FoodMenuCategoryID" />
+                <ScalarProperty Name="FoodMenuID" ColumnName="FoodMenuID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FoodMenuCategory">
+            <EntityTypeMapping TypeName="WaiMaiModel.FoodMenuCategory">
+              <MappingFragment StoreEntitySet="FoodMenuCategory">
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+                <ScalarProperty Name="IsSale" ColumnName="IsSale" />
+                <ScalarProperty Name="Editor" ColumnName="Editor" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CName" ColumnName="CName" />
+                <ScalarProperty Name="RestaurantID" ColumnName="RestaurantID" />
+                <ScalarProperty Name="FoodMenuCategoryID" ColumnName="FoodMenuCategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="WaiMaiModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+                <ScalarProperty Name="Editor" ColumnName="Editor" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="TotalCount" ColumnName="TotalCount" />
+                <ScalarProperty Name="FoodMenuID" ColumnName="FoodMenuID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recharge">
+            <EntityTypeMapping TypeName="WaiMaiModel.Recharge">
+              <MappingFragment StoreEntitySet="Recharge">
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="RechargeID" ColumnName="RechargeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Restaurant">
+            <EntityTypeMapping TypeName="WaiMaiModel.Restaurant">
+              <MappingFragment StoreEntitySet="Restaurant">
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+                <ScalarProperty Name="Editor" ColumnName="Editor" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsEnable" ColumnName="IsEnable" />
+                <ScalarProperty Name="TakeoutPhone" ColumnName="TakeoutPhone" />
+                <ScalarProperty Name="SendOutCount" ColumnName="SendOutCount" />
+                <ScalarProperty Name="RestaurantName" ColumnName="RestaurantName" />
+                <ScalarProperty Name="RestaurantID" ColumnName="RestaurantID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="WaiMaiModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OrderViewModel>
+﻿@model IEnumerable<Order>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -46,7 +46,7 @@
                     <tr>
                         <td>@(i++)</td>
                         <td>@item.NickName</td>
-                        <td>@item.MenuName</td>
+                        <td>@item.FoodMenu.MenuName</td>
                         <td>@item.TotalPrice 元</td>
                         <td>@item.TotalCount</td>
                         <td>@item.CreateDate</td>
@@ -72,15 +72,15 @@
                 <tbody>
                     @{
                         int j = 1;
-                        var MenuCategory = Model.Select(m => m.MenuName).Distinct();
+                        var MenuCategory = Model.Select(m => m.FoodMenu.MenuName).Distinct();
 
                         foreach (var MenuName in MenuCategory)
                         {
                             <tr>
                                 <td>@(j++)</td>
                                 <td>@MenuName</td>
-                                <td>@Model.Where(m => m.MenuName == MenuName).Sum(m => m.TotalPrice) 元</td>
-                                <td>@Model.Where(m => m.MenuName == MenuName).Sum(m => m.TotalCount)</td>
+                                <td>@Model.Where(m => m.FoodMenu.MenuName == MenuName).Sum(m => m.TotalPrice) 元</td>
+                                <td>@Model.Where(m => m.FoodMenu.MenuName == MenuName).Sum(m => m.TotalCount)</td>
                             </tr>
                         }
                     }

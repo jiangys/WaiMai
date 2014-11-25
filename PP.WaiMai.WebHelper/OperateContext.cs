@@ -1,102 +1,77 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
-using PP.WaiMai.Contracts.Services;
-using PP.WaiMai.Services;
+using System.Web;
 
 namespace PP.WaiMai.WebHelper
 {
     public class OperateContext
     {
+        #region --上下文及业务仓储
         /// <summary>
-        /// 单例模式
+        /// 业务仓储
         /// </summary>
-        private static OperateContext _instance = null;
-        public static OperateContext Instance()
+        public IService.IServiceSession ServiceSession;
+        public OperateContext()
         {
-            if (_instance == null)
-            {
-                _instance = new OperateContext();
-            }
-            return _instance;
+            ServiceSession = new PP.WaiMai.Service.ServiceSession();//DI.SpringHelper.GetObject<IService.IServiceSession>("ServiceSession");
         }
-
-        IFoodMenuCategoryService _IFoodMenuCategoryService;
-        public IFoodMenuCategoryService IFoodMenuCategoryService
+        /// <summary>
+        /// 获取当前操作上下文 (为每个处理浏览器请求的服务器线程单独创建操作上下文)
+        /// </summary>
+        public static OperateContext Current
         {
             get
             {
-                if (_IFoodMenuCategoryService == null)
-                    _IFoodMenuCategoryService = new FoodMenuCategoryService();
-                return _IFoodMenuCategoryService;
-            }
-            set
-            {
-                _IFoodMenuCategoryService = value;
+                OperateContext oContext = CallContext.GetData(typeof(OperateContext).Name) as OperateContext;
+                if (oContext == null)
+                {
+                    oContext = new OperateContext();
+                    CallContext.SetData(typeof(OperateContext).Name, oContext);
+                }
+                return oContext;
             }
         }
+        #endregion
 
-
-        IRestaurantService _IRestaurantService;
-        public IRestaurantService IRestaurantService
+        #region Http上下文及相关属性
+        /// <summary>
+        /// Http上下文
+        /// </summary>
+        HttpContext ContextHttp
         {
             get
             {
-                if (_IRestaurantService == null)
-                    _IRestaurantService = new RestaurantService();
-                return _IRestaurantService;
-            }
-            set
-            {
-                _IRestaurantService = value;
+                return HttpContext.Current;
             }
         }
 
-
-        IFoodMenuService _IFoodMenuService;
-        public IFoodMenuService IFoodMenuService
+        HttpResponse Response
         {
             get
             {
-                if (_IFoodMenuService == null)
-                    _IFoodMenuService = new FoodMenuService();
-                return _IFoodMenuService;
-            }
-            set
-            {
-                _IFoodMenuService = value;
-            }
-        }
-        IOrderService _IOrderService;
-        public IOrderService IOrderService
-        {
-            get
-            {
-                if (_IOrderService == null)
-                    _IOrderService = new OrderService();
-                return _IOrderService;
-            }
-            set
-            {
-                _IOrderService = value;
+                return ContextHttp.Response;
             }
         }
 
-        IConfigService _IConfigService;
-        public IConfigService IConfigService
+        HttpRequest Request
         {
             get
             {
-                if (_IConfigService == null)
-                    _IConfigService = new ConfigService();
-                return _IConfigService;
-            }
-            set
-            {
-                _IConfigService = value;
+                return ContextHttp.Request;
             }
         }
+
+        System.Web.SessionState.HttpSessionState Session
+        {
+            get
+            {
+                return ContextHttp.Session;
+            }
+        }
+        #endregion
     }
 }

@@ -314,7 +314,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -324,9 +323,17 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PP.WaiMai.Contracts\PP.WaiMai.Contracts.csproj">
-      <Project>{05cf8a0f-5593-4d46-bd78-23e98923428d}</Project>
-      <Name>PP.WaiMai.Contracts</Name>
+    <ProjectReference Include="..\PP.WaiMai.IService\PP.WaiMai.IService.csproj">
+      <Project>{2b1bd78d-21c1-4652-9af5-2d73b2306271}</Project>
+      <Name>PP.WaiMai.IService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PP.WaiMai.Model\PP.WaiMai.Model.csproj">
+      <Project>{e3ac77c1-cf2e-4af8-aacd-0e624513ab20}</Project>
+      <Name>PP.WaiMai.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PP.WaiMai.Service\PP.WaiMai.Service.csproj">
+      <Project>{b5dca081-d09b-4454-983a-1838dbec00fe}</Project>
+      <Name>PP.WaiMai.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\PP.WaiMai.Util\PP.WaiMai.Util.csproj">
       <Project>{9bf92c9d-129d-49b5-a8a2-516e32c012b0}</Project>

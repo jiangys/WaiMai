@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
@@ -48,14 +49,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PP.WaiMai.Contracts\PP.WaiMai.Contracts.csproj">
-      <Project>{05cf8a0f-5593-4d46-bd78-23e98923428d}</Project>
-      <Name>PP.WaiMai.Contracts</Name>
+    <ProjectReference Include="..\PP.WaiMai.IService\PP.WaiMai.IService.csproj">
+      <Project>{2b1bd78d-21c1-4652-9af5-2d73b2306271}</Project>
+      <Name>PP.WaiMai.IService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PP.WaiMai.Services\PP.WaiMai.Services.csproj">
-      <Project>{aec33ef6-5c66-4957-9cbd-22d6956e4c68}</Project>
-      <Name>PP.WaiMai.Services</Name>
+    <ProjectReference Include="..\PP.WaiMai.Model\PP.WaiMai.Model.csproj">
+      <Project>{e3ac77c1-cf2e-4af8-aacd-0e624513ab20}</Project>
+      <Name>PP.WaiMai.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PP.WaiMai.Service\PP.WaiMai.Service.csproj">
+      <Project>{b5dca081-d09b-4454-983a-1838dbec00fe}</Project>
+      <Name>PP.WaiMai.Service</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Attributes\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

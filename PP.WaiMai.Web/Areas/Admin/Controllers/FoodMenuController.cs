@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using PP.WaiMai.WebHelper;
 using PagedList;
-using PP.WaiMai.Contracts.Models;
+using PP.WaiMai.Model;
 
 namespace PP.WaiMai.Web.Areas.Admin.Controllers
 {
@@ -15,8 +15,8 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
         // GET: /Admin/FoodMenu/
         public ActionResult Index(int? page, string Keyword)
         {
-            var model = OperateHelper.IFoodMenuService.GetList()
-                .OrderByDescending(m => m.Id).ToList();
+            var model = BLLSession.IFoodMenuService.GetListBy(m => m.IsDel == false)
+                .OrderByDescending(m => m.FoodMenuID).ToList();
             if (!string.IsNullOrEmpty(Keyword))
             {
                 model = model.Where(m => m.MenuName.Contains(Keyword)).ToList();
@@ -26,11 +26,11 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
 
         public ActionResult Add()
         {
-            var modelList = OperateHelper.IFoodMenuCategoryService.GetList();
+            var modelList = BLLSession.IFoodMenuCategoryService.GetListBy(m => m.IsDel == false).OrderByDescending(m => m.FoodMenuCategoryID);
             ViewBag.FoodMenuCategoryList = modelList.Select(m => new SelectListItem()
             {
-                Text = m.RestaurantName + "→" + m.CName,
-                Value = m.Id.ToString()
+                Text = m.Restaurant.RestaurantName + "→" + m.CName,
+                Value = m.FoodMenuCategoryID.ToString()
             }).ToList();
             return View();
         }
@@ -43,7 +43,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
                 model.CreateDate = DateTime.Now;
                 model.IsDel = false;
                 model.Version = 1;
-                var modelList = OperateHelper.IFoodMenuService.Add(model);
+                var modelList = BLLSession.IFoodMenuService.Add(model);
                 return JsonMsgOk("增加菜单成功", "/Admin/FoodMenu");
             }
             // 如果我们进行到这一步时某个地方出错，则重新显示表单
@@ -53,13 +53,15 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
 
         public ActionResult Edit(int id)
         {
-            var modelList = OperateHelper.IFoodMenuCategoryService.GetList();
-            ViewBag.FoodMenuCategoryList = modelList.Select(m => new SelectListItem()
+            var model = BLLSession.IFoodMenuService.GetModel(m => m.FoodMenuID == id);
+            var modelList = BLLSession.IFoodMenuCategoryService.GetListBy(m => m.IsDel == false).OrderByDescending(m => m.FoodMenuCategoryID);
+            ViewBag.FoodMenuCategoryDDList = modelList.Select(m => new SelectListItem()
             {
-                Text = m.RestaurantName + "→" + m.CName,
-                Value = m.Id.ToString()
+                Text = m.Restaurant.RestaurantName + "→" + m.CName,
+                Value = m.FoodMenuCategoryID.ToString(),
+                Selected = (model.FoodMenuCategoryID == m.FoodMenuCategoryID)
             }).ToList();
-            var model = OperateHelper.IFoodMenuService.GetModel(id);
+            
             return View(model);
         }
         [HttpPost]
@@ -68,7 +70,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var modelList = OperateHelper.IFoodMenuService.Update(model);
+                var modelList = BLLSession.IFoodMenuService.Modify(model, "FoodMenuCategoryID", "MenuName", "IsSale","Price");
                 return JsonMsgOk("编辑成功", "/Admin/FoodMenu");
             }
             // 如果我们进行到这一步时某个地方出错，则重新显示表单
@@ -77,7 +79,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Del(int id)
         {
-            OperateHelper.IFoodMenuService.Delete(id);
+            BLLSession.IFoodMenuService.DeleteBy(m => m.FoodMenuID == id);
             return JsonMsgOk("删除成功", "/Admin/FoodMenu");
         }
 

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using PP.WaiMai.Contracts.Models;
-using PP.WaiMai.Contracts.ViewModels;
 using PP.WaiMai.WebHelper;
+using PP.WaiMai.Model.ViewModels;
+using PP.WaiMai.Model;
 
 namespace PP.WaiMai.Web.Areas.Admin.Controllers
 {
@@ -16,11 +16,12 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
         // GET: /Admin/Home/
         public ActionResult Index()
         {
-            var modelList = OperateHelper.IOrderService.GetTodayList();
+            var startDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+            var modelList = BLLSession.IOrderService.GetListBy(m => m.CreateDate > startDate && m.CreateDate < DateTime.Now);
             ViewBag.OrderList = modelList;
 
             var isDo = true;
-            var doOrderValue = OperateHelper.IConfigService.GetConfigValue("DoOrder");
+            var doOrderValue = BLLSession.IConfigService.GetModel(m => m.ConfigName == "DoOrder").ConfigValue;
             if (doOrderValue != null)
             {
                 var doOrderModel = JsonConvert.DeserializeObject<ConfigDoOrderViewModel>(doOrderValue);
@@ -45,7 +46,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
                 ConfigName = "DoOrder",
                 ConfigValue = modelJson
             };
-            OperateHelper.IConfigService.Update(configModel);
+            BLLSession.IConfigService.ModifyModel(configModel);
             return JsonMsgOk();
         }
     }

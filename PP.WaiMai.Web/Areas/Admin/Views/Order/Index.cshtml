@@ -1,5 +1,5 @@
 ﻿@using PagedList.Mvc;
-@model PagedList.IPagedList<OrderViewModel>
+@model PagedList.IPagedList<Order>
 @{
     ViewBag.Title = "订单管理";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutUser.cshtml";
@@ -128,13 +128,13 @@
                             {
                                 <tr>
                                     <td>
-                                        @item.Id
+                                        @item.OrderID
                                     </td>
                                     <td>
                                         @item.NickName
                                     </td>
                                     <td>
-                                        @item.MenuName
+                                        @item.FoodMenu.MenuName
                                     </td>
                                     <td>
                                         @item.TotalPrice
@@ -148,7 +148,7 @@
                                     <td>
                                         @if (@item.CreateDate.ToShortDateString() == DateTime.Now.ToShortDateString())
                                         {
-                                            <button class="btn default btn-xs black btn-del deDel" data-name="@item.Id / @item.NickName.Trim() / @item.MenuName" data-href="/admin/order/del/@item.Id">
+                                            <button class="btn default btn-xs black btn-del deDel" data-name="@item.OrderID / @item.NickName.Trim() / @item.FoodMenu.MenuName" data-href="/admin/order/del/@item.OrderID">
                                                 <i class="fa fa-trash-o"></i> 取消订单
                                             </button>
                                         }

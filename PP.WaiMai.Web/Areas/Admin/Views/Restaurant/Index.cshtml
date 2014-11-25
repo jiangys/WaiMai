@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RestaurantViewModel>
+﻿@model IEnumerable<Restaurant>
 @{
     ViewBag.Title = "餐厅管理";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutUser.cshtml";
@@ -144,10 +144,10 @@
                                         }
                                     </td>
                                     <td>
-                                        <button class="btn btn-xs purple doEdit" data-href="/admin/restaurant/Edit/@item.Id">
+                                        <button class="btn btn-xs purple doEdit" data-href="/admin/restaurant/Edit/@item.RestaurantID">
                                             <i class="fa fa-edit"></i>编辑
                                         </button>
-                                        <button class="btn default btn-xs black btn-del deDel" data-name="@item.RestaurantName" data-href="/admin/restaurant/Del/@item.Id">
+                                        <button class="btn default btn-xs black btn-del deDel" data-name="@item.RestaurantName" data-href="/admin/restaurant/Del/@item.RestaurantID">
                                             <i class="fa fa-trash-o"></i> 删除
                                         </button>
                                     </td>

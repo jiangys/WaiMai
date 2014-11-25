@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using PP.WaiMai.Contracts.Models;
 using PP.WaiMai.WebHelper;
+using PP.WaiMai.Model;
 
 namespace PP.WaiMai.Web.Areas.Admin.Controllers
 {
@@ -14,7 +14,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
         // GET: /Admin/Restaurant/
         public ActionResult Index()
         {
-            var modelList = OperateHelper.IRestaurantService.GetList();
+            var modelList = BLLSession.IRestaurantService.GetListBy(m => true);
             return View(modelList);
         }
         public ActionResult Add()
@@ -30,7 +30,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
                 model.CreateDate = DateTime.Now;
                 model.IsDel = false;
                 model.Version = 1;
-                var modelList = OperateHelper.IRestaurantService.Add(model);
+                var modelList = BLLSession.IRestaurantService.Add(model);
                 return JsonMsgOk("增加成功", "/Admin/Restaurant");
             }
             // 如果我们进行到这一步时某个地方出错，则重新显示表单
@@ -38,7 +38,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
         }
         public ActionResult Edit(int id)
         {
-            var model = OperateHelper.IRestaurantService.GetModel(id);
+            var model = BLLSession.IRestaurantService.GetModel(m => m.RestaurantID == id);
             return View(model);
         }
         [HttpPost]
@@ -47,7 +47,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var modelList = OperateHelper.IRestaurantService.Update(model);
+                var modelList = BLLSession.IRestaurantService.Modify(model, "RestaurantName", "SendOutCount", "TakeoutPhone", "IsEnable");
                 return JsonMsgOk("编辑成功", "/Admin/Restaurant");
             }
             // 如果我们进行到这一步时某个地方出错，则重新显示表单
@@ -56,7 +56,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Del(int id)
         {
-            OperateHelper.IRestaurantService.Delete(id);
+            BLLSession.IRestaurantService.DeleteBy(m => m.RestaurantID == id);
             return JsonMsgOk("删除成功", "/Admin/Restaurant");
         }
     }

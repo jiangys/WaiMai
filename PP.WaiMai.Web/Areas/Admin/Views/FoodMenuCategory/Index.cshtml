@@ -1,5 +1,5 @@
 ﻿@using PagedList.Mvc;
-@model PagedList.IPagedList<FoodMenuCategoryViewModel>
+@model PagedList.IPagedList<FoodMenuCategory>
 @{
     ViewBag.Title = "菜单类别";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutUser.cshtml";
@@ -24,7 +24,7 @@
             });
             $(".doEdit").click(function () {
                 var url = $(this).attr("data-href");
-                wrapper.showModalDialog(url, 350, 280);
+                wrapper.showModalDialog(url, 350, 330);
             });
             $(".deDel").click(function () {
                 var url = $(this).attr("data-href");
@@ -106,6 +106,9 @@
                                 <th>
                                     <i class="fa fa-cutlery"></i>&nbsp;所属餐厅
                                 </th>
+                                <th>
+                                    <i class="fa fa-thumb-tack"></i>&nbsp;是否销售
+                                </th>
                                 <th width="20%">
                                 </th>
                             </tr>
@@ -118,13 +121,23 @@
                                         @item.CName
                                     </td>
                                     <td>
-                                        @item.RestaurantName
+                                        @item.Restaurant.RestaurantName
                                     </td>
                                     <td>
-                                        <button class="btn btn-xs purple doEdit" data-href="/admin/foodmenucategory/Edit/@item.Id">
+                                        @if (item.IsSale)
+                                        {
+                                            <span class="label label-sm label-success">销售中</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="label label-sm label-default">已售完</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-xs purple doEdit" data-href="/admin/foodmenucategory/Edit/@item.FoodMenuCategoryID">
                                             <i class="fa fa-edit"></i>编辑
                                         </button>
-                                        <button class="btn default btn-xs black btn-del deDel" data-name="@item.CName" data-href="/admin/foodmenucategory/Del/@item.Id">
+                                        <button class="btn default btn-xs black btn-del deDel" data-name="@item.CName" data-href="/admin/foodmenucategory/Del/@item.FoodMenuCategoryID">
                                             <i class="fa fa-trash-o"></i> 删除
                                         </button>
                                     </td>

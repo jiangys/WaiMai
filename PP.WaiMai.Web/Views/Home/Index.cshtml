@@ -74,7 +74,7 @@
     </div>
     <div class="basicinfo u-border clearfix">
         @{
-            var restaurantModel = ViewBag.RestaurantModel as PP.WaiMai.Contracts.ViewModels.RestaurantViewModel;
+            var restaurantModel = ViewBag.RestaurantModel as PP.WaiMai.Model.Restaurant;
             <div class="b-img fl">
                 <img width="120" height="120" src="~/Content/images/nopic_waimai.png">
             </div>
@@ -126,12 +126,12 @@
             <h3>菜品分类：</h3>
             <ul class="list clearfix">
                 @{
-                    var foodMenuList = ViewBag.FoodMenuList as List<PP.WaiMai.Contracts.ViewModels.FoodMenuViewModel>;
-                    var categoryList = foodMenuList.Select(m => new { m.FoodMenuCategoryId, m.CName }).Distinct().ToList();
+                    var foodMenuList = ViewBag.FoodMenuList as List<FoodMenu>;
+                    var categoryList = foodMenuList.Select(m => new { m.FoodMenuCategoryID, m.FoodMenuCategory.CName, m.IsSale }).Distinct().ToList();
                     foreach (var itemCategory in categoryList)
                     {
                         <li>
-                            <a data-href="#category-anchor-@itemCategory.FoodMenuCategoryId" href="javascript:;">@itemCategory.CName</a>
+                            <a data-href="#category-anchor-@itemCategory.FoodMenuCategoryID" href="javascript:;">@itemCategory.CName</a>
                         </li>
                     }
                 }
@@ -145,11 +145,11 @@
                 foreach (var itemCategory in categoryList)
                 {
                     <div class="one-category-menus-container">
-                        <a name="category-anchor-@itemCategory.FoodMenuCategoryId" id="category-anchor-@itemCategory.FoodMenuCategoryId"></a>
+                        <a name="category-anchor-@itemCategory.FoodMenuCategoryID" id="category-anchor-@itemCategory.FoodMenuCategoryID"></a>
                         <h4 class="one-category-menu-title">@itemCategory.CName</h4>
                         <div class="one-category-menus ">
                             <div class="clearfix" id="imgBoxList">
-                                @foreach (var item in foodMenuList.Where(m => m.FoodMenuCategoryId == itemCategory.FoodMenuCategoryId))
+                                @foreach (var item in foodMenuList.Where(m => m.FoodMenuCategoryID == itemCategory.FoodMenuCategoryID))
                                 {
                                     <div class="item u-bgbox">
                                         <div class="pic fl">
@@ -162,15 +162,23 @@
                                             <div class="item-desc">
                                                 <span class="sale">0人推荐</span>
                                                 <span class="sale-divider"></span>
-                                                <span class="sale">已售 @item.TotalCount 份</span>
+                                                @*<span class="sale">已售 @item.TotalCount 份</span>*@
                                             </div>
                                             <div class="item-add clearfix">
                                                 <div class="price fl">￥<i>@item.Price</i> / 份</div>
                                                 @if (ViewBag.IsDo == true)
                                                 {
-                                                    <div class="addbtn fr" data-id="@item.Id" data-price="@item.Price" data-menu="@item.MenuName">
-                                                        <span class="glyphicon glyphicon-plus-sign"></span>
-                                                    </div>
+                                                    if (!itemCategory.IsSale||!item.IsSale)
+                                                    {
+                                                        <div class="tips fr">已售完</div>
+                                                        <div class="clear"></div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="addbtn fr" data-id="@item.FoodMenuID" data-price="@item.Price" data-menu="@item.MenuName">
+                                                            <span class="glyphicon glyphicon-plus-sign"></span>
+                                                        </div>
+                                                    }
                                                 }
                                                 else
                                                 {

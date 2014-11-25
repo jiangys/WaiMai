@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using PP.WaiMai.Contracts.Services;
-using PP.WaiMai.Contracts.ViewModels;
 using PP.WaiMai.WebHelper;
+using PP.WaiMai.Model.ViewModels;
 
 namespace PP.WaiMai.Web.Controllers
 {
@@ -14,15 +13,15 @@ namespace PP.WaiMai.Web.Controllers
     {
         public ActionResult Index()
         {
-            var restaurantModel = OperateHelper.IRestaurantService.GetList().Where(m => m.IsEnable == true).FirstOrDefault();
-            var foodMenuList = OperateHelper.IFoodMenuService.GetList(restaurantModel.Id);
+            var restaurantModel = BLLSession.IRestaurantService.GetListBy(m => m.IsEnable == true).FirstOrDefault();
+            var foodMenuList = BLLSession.IFoodMenuService.GetListBy(m => m.FoodMenuCategory.RestaurantID == restaurantModel.RestaurantID);
 
             ViewBag.FoodMenuList = foodMenuList;
             ViewBag.RestaurantModel = restaurantModel;
 
             #region --状态
             var isDo = true;
-            var doOrderValue = OperateHelper.IConfigService.GetConfigValue("DoOrder");
+            var doOrderValue = BLLSession.IConfigService.GetModel(m => m.ConfigName == "DoOrder").ConfigValue;
             if (doOrderValue != null)
             {
                 var doOrderModel = JsonConvert.DeserializeObject<ConfigDoOrderViewModel>(doOrderValue);
@@ -31,7 +30,7 @@ namespace PP.WaiMai.Web.Controllers
                     isDo = doOrderModel.IsDo;
                 }
             }
-            ViewBag.IsDo = isDo; 
+            ViewBag.IsDo = isDo;
             #endregion
 
 
