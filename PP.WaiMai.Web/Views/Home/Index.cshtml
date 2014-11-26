@@ -127,7 +127,7 @@
             <ul class="list clearfix">
                 @{
                     var foodMenuList = ViewBag.FoodMenuList as List<FoodMenu>;
-                    var categoryList = foodMenuList.Select(m => new { m.FoodMenuCategoryID, m.FoodMenuCategory.CName, m.IsSale }).Distinct().ToList();
+                    var categoryList = foodMenuList.Select(m => new { m.FoodMenuCategoryID, m.FoodMenuCategory.CName, m.FoodMenuCategory.IsSale }).Distinct().ToList();
                     foreach (var itemCategory in categoryList)
                     {
                         <li>
