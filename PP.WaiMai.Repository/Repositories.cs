@@ -10,10 +10,6 @@ using PP.WaiMai.IRepository;
 
 namespace PP.WaiMai.Repository
 {
-	public class AccountRepository : BaseRepository<Account>,IAccountRepository
-    {
-
-    }
 	public class ConfigRepository : BaseRepository<Config>,IConfigRepository
     {
 
@@ -35,6 +31,10 @@ namespace PP.WaiMai.Repository
 
     }
 	public class RestaurantRepository : BaseRepository<Restaurant>,IRestaurantRepository
+    {
+
+    }
+	public class UserRepository : BaseRepository<User>,IUserRepository
     {
 
     }

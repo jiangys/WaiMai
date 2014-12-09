@@ -168,6 +168,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Filters\RequiredAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -228,10 +229,12 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\base.css" />
     <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\loginpage.css" />
     <Content Include="Content\css\restaurant.css" />
     <Content Include="Content\css\templatemo_style.css" />
     <Content Include="Content\css\admin\common.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\images\advertiseOne.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\msgBox\loader.gif" />
     <Content Include="Content\images\msgBox\qzonebg.gif" />
@@ -309,11 +312,13 @@
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Restaurant\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutDialog.cshtml" />
+    <Content Include="Views\Account\LoginDialog.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Content\images\admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

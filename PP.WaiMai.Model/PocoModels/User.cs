@@ -12,16 +12,17 @@ using System.Collections.Generic;
 
 namespace PP.WaiMai.Model
 {
-	public partial class Account
+	public partial class User
 	{
-		public Account ToPOCO(bool isPOCO = true){
-			return new Account(){
-				AccountID = this.AccountID,
-				AccountName = this.AccountName,
+		public User ToPOCO(bool isPOCO = true){
+			return new User(){
+				UserID = this.UserID,
+				UserName = this.UserName,
 				IPAddress = this.IPAddress,
 				Amount = this.Amount,
 				CreateDate = this.CreateDate,
 				IsDel = this.IsDel,
+				Password = this.Password,
 			};
 		}
 	}

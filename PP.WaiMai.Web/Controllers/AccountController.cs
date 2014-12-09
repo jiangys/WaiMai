@@ -1,4 +1,5 @@
 ﻿using PP.WaiMai.Model.ViewModels;
+using PP.WaiMai.WebHelper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,27 +25,26 @@ namespace PP.WaiMai.Web.Controllers
 
             return View();
         }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                //var user = await UserManager.FindAsync(model.UserName, model.Password);
-                //if (user != null)
-                //{
-                //    await SignInAsync(user, model.RememberMe);
-                //    return RedirectToLocal(returnUrl);
-                //}
-                //else
-                //{
-                //    ModelState.AddModelError("", "Invalid username or password.");
-                //}
+                var user = OperateContext.Current.Login(model);
+                if (user != null)
+                {
+                    return Redirect("/home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid username or password.");
+                }
             }
-
             // 如果我们进行到这一步时某个地方出错，则重新显示表单
             return View(model);
         }
-	}
+    }
 }

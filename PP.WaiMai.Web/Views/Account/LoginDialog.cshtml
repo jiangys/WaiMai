@@ -1,0 +1,66 @@
+﻿@model LoginViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutDialog.cshtml";
+}
+
+@section Scripts{
+    <script type="text/javascript">
+        //获取响应报文成功后调用的方法
+        function onSuccessed(jsonData) {
+            //alert("不错");
+            $.procAjaxData(jsonData, function () {
+                if (jsonData.BackUrl != null) {
+                    var dialog = top.dialog.get(window);
+                    dialog.close(jsonData.BackUrl);
+                    dialog.remove();
+                }
+            });
+        }
+        $(function () {
+            var dialog = top.dialog.get(window);
+            dialog.title('请登陆');
+            $("#btn-close").click(function () {
+                dialog.remove();
+            });
+        });
+    </script>
+
+}
+<style type="text/css">
+    .login-box {
+        width: 330px;
+        margin: 15px 10px;
+    }
+
+        .login-box .form-horizontal .form-group {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .login-box .pass-reglink {
+            cursor: pointer;
+            margin-top: 10px;
+        }
+</style>
+<div class="login-box">
+    @using (Ajax.BeginForm("Login", "Account", new AjaxOptions() { HttpMethod = "Post", OnSuccess = "onSuccessed" }, new { @class = "form-horizontal", role = "form", id = "SubmitForm" }))
+    {
+        @*<div class="alert alert-info">如果显示用户名，则账号已存在，默认密码ppmoney</div>*@
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">登陆名</div>
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control input-lg", placeholder = "用户名" })
+            </div>
+            @Html.ValidationMessageFor(m => m.UserName)
+        </div>
+        <div class="form-group">
+            <div class="input-group col-sm-5">
+                <div class="input-group-addon">密&emsp;码</div>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg", placeholder = "密码" })
+            </div>
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">登陆</button>
+        @Html.ActionLink("立即注册", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "pass-reglink fr" })
+    }
+</div>

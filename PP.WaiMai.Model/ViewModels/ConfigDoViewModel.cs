@@ -14,4 +14,9 @@ namespace PP.WaiMai.Model.ViewModels
         public string DoTime { get; set; }
         public bool IsDo { get; set; }
     }
+    public class ConfigDoModeTypeViewModel
+    {
+        public DateTime DoTime { get; set; }
+        public bool IsDayMode { get; set; }
+    }
 }

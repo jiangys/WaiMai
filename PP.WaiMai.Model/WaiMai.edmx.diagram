@@ -5,18 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b4eb1648747d4cba9d2712d4e1972b55" Name="Diagram1">
-        <EntityTypeShape EntityType="WaiMaiModel.Account" Width="1.5" PointX="0.75" PointY="6" />
         <EntityTypeShape EntityType="WaiMaiModel.Config" Width="1.5" PointX="5.75" PointY="5.75" />
         <EntityTypeShape EntityType="WaiMaiModel.FoodMenu" Width="1.5" PointX="5.25" PointY="1" />
         <EntityTypeShape EntityType="WaiMaiModel.FoodMenuCategory" Width="1.5" PointX="3" PointY="1.125" />
         <EntityTypeShape EntityType="WaiMaiModel.Order" Width="1.5" PointX="7.5" PointY="1.125" />
         <EntityTypeShape EntityType="WaiMaiModel.Recharge" Width="1.5" PointX="3" PointY="6" />
         <EntityTypeShape EntityType="WaiMaiModel.Restaurant" Width="1.5" PointX="0.75" PointY="1.125" />
-        <EntityTypeShape EntityType="WaiMaiModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="5.75" />
-        <AssociationConnector Association="WaiMaiModel.FK_Recharge_Account" />
+        <EntityTypeShape EntityType="WaiMaiModel.User" Width="1.5" PointX="0.75" PointY="6" />
         <AssociationConnector Association="WaiMaiModel.FK_FoodMenu_FoodMenuCategory" />
         <AssociationConnector Association="WaiMaiModel.FK_Order_FoodMenu" />
         <AssociationConnector Association="WaiMaiModel.FK_FoodMenuCategory_Restaurant" />
+        <AssociationConnector Association="WaiMaiModel.FK_Recharge_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

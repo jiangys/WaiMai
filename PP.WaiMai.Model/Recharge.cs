@@ -15,11 +15,11 @@ namespace PP.WaiMai.Model
     public partial class Recharge
     {
         public int RechargeID { get; set; }
-        public int AccountID { get; set; }
+        public int UserID { get; set; }
         public decimal Amount { get; set; }
         public int Status { get; set; }
         public bool IsDel { get; set; }
     
-        public virtual Account Account { get; set; }
+        public virtual User User { get; set; }
     }
 }

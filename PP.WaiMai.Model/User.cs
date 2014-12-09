@@ -12,19 +12,20 @@ namespace PP.WaiMai.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Account
+    public partial class User
     {
-        public Account()
+        public User()
         {
             this.Recharge = new HashSet<Recharge>();
         }
     
-        public int AccountID { get; set; }
-        public string AccountName { get; set; }
+        public int UserID { get; set; }
+        public string UserName { get; set; }
         public string IPAddress { get; set; }
         public decimal Amount { get; set; }
         public System.DateTime CreateDate { get; set; }
         public bool IsDel { get; set; }
+        public string Password { get; set; }
     
         public virtual ICollection<Recharge> Recharge { get; set; }
     }

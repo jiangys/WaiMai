@@ -61,7 +61,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
                 Value = m.FoodMenuCategoryID.ToString(),
                 Selected = (model.FoodMenuCategoryID == m.FoodMenuCategoryID)
             }).ToList();
-            
+
             return View(model);
         }
         [HttpPost]
@@ -70,7 +70,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var modelList = BLLSession.IFoodMenuService.Modify(model, "FoodMenuCategoryID", "MenuName", "IsSale","Price");
+                var modelList = BLLSession.IFoodMenuService.Modify(model, "FoodMenuCategoryID", "MenuName", "IsSale", "Price");
                 return JsonMsgOk("编辑成功", "/Admin/FoodMenu");
             }
             // 如果我们进行到这一步时某个地方出错，则重新显示表单
@@ -79,7 +79,18 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Del(int id)
         {
-            BLLSession.IFoodMenuService.DeleteBy(m => m.FoodMenuID == id);
+            //如果该菜单还没有订单过，则删除
+            bool isExistOrder = BLLSession.IOrderService.GetListBy(m => m.FoodMenuID == id).Count() > 0;
+            if (!isExistOrder)
+            {
+                BLLSession.IFoodMenuService.DeleteBy(m => m.FoodMenuID == id);
+            }
+            else
+            {
+                //更新为物理删除状态
+                BLLSession.IFoodMenuService.Modify(new FoodMenu() { FoodMenuID = id, IsDel = true }, "IsDel");
+            }
+
             return JsonMsgOk("删除成功", "/Admin/FoodMenu");
         }
 

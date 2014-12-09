@@ -9,11 +9,6 @@ using PP.WaiMai.IRepository;
 namespace PP.WaiMai.IService
 { 
 	
-	public partial interface IAccountService : IBaseService<Account>
-    {
-      
-    }   
-	
 	public partial interface IConfigService : IBaseService<Config>
     {
       
@@ -40,6 +35,11 @@ namespace PP.WaiMai.IService
     }   
 	
 	public partial interface IRestaurantService : IBaseService<Restaurant>
+    {
+      
+    }   
+	
+	public partial interface IUserService : IBaseService<User>
     {
       
     }   

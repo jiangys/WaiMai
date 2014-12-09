@@ -17,7 +17,7 @@ namespace PP.WaiMai.Model
 		public Recharge ToPOCO(bool isPOCO = true){
 			return new Recharge(){
 				RechargeID = this.RechargeID,
-				AccountID = this.AccountID,
+				UserID = this.UserID,
 				Amount = this.Amount,
 				Status = this.Status,
 				IsDel = this.IsDel,

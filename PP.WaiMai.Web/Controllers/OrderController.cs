@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using PP.WaiMai.WebHelper;
 using PP.WaiMai.Model;
+using Newtonsoft.Json;
+using PP.WaiMai.Model.ViewModels;
 
 namespace PP.WaiMai.Web.Controllers
 {
@@ -14,8 +16,20 @@ namespace PP.WaiMai.Web.Controllers
         // GET: /Order/
         public ActionResult Index()
         {
+            var doModeType = BLLSession.IConfigService.GetModel(m => m.ConfigName == "DoModeType");
+            if (doModeType != null && !string.IsNullOrEmpty(doModeType.ConfigValue))
+            {
+                var doModeTypeValue = JsonConvert.DeserializeObject<ConfigDoModeTypeViewModel>(doModeType.ConfigValue);
+                if (doModeTypeValue.DoTime.ToShortDateString() == DateTime.Now.ToShortDateString() && !doModeTypeValue.IsDayMode)
+                {
+                    var list = BLLSession.IOrderService.GetListBy(m => m.CreateDate > doModeTypeValue.DoTime && m.CreateDate < DateTime.Now);
+                    ViewBag.IsDayMode = false;
+                    return View(list);
+                }
+            }
             var startDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
             var modelList = BLLSession.IOrderService.GetListBy(m => m.CreateDate > startDate && m.CreateDate < DateTime.Now);
+            ViewBag.IsDayMode = true;
             return View(modelList);
         }
         [HttpPost]

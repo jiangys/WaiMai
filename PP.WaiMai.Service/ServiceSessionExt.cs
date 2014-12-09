@@ -10,23 +10,6 @@ namespace PP.WaiMai.Service
 {
 	public partial class ServiceSession:IService.IServiceSession
     {
-		#region 业务接口 IAccountService
-		IAccountService iAccountService;
-		public IAccountService IAccountService
-		{
-			get
-			{
-				if(iAccountService==null)
-					iAccountService= new AccountService();
-				return iAccountService;
-			}
-			set
-			{
-				iAccountService= value;
-			}
-		}
-		#endregion
-
 		#region 业务接口 IConfigService
 		IConfigService iConfigService;
 		public IConfigService IConfigService
@@ -125,6 +108,23 @@ namespace PP.WaiMai.Service
 			set
 			{
 				iRestaurantService= value;
+			}
+		}
+		#endregion
+
+		#region 业务接口 IUserService
+		IUserService iUserService;
+		public IUserService IUserService
+		{
+			get
+			{
+				if(iUserService==null)
+					iUserService= new UserService();
+				return iUserService;
+			}
+			set
+			{
+				iUserService= value;
 			}
 		}
 		#endregion

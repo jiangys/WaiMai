@@ -25,13 +25,12 @@ namespace PP.WaiMai.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Account> Account { get; set; }
         public virtual DbSet<Config> Config { get; set; }
         public virtual DbSet<FoodMenu> FoodMenu { get; set; }
         public virtual DbSet<FoodMenuCategory> FoodMenuCategory { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Recharge> Recharge { get; set; }
         public virtual DbSet<Restaurant> Restaurant { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<User> User { get; set; }
     }
 }

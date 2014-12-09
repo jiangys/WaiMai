@@ -9,13 +9,13 @@ namespace PP.WaiMai.IService
 {
 	public partial interface IServiceSession
     { 
-		IAccountService IAccountService{get;set;}
 		IConfigService IConfigService{get;set;}
 		IFoodMenuService IFoodMenuService{get;set;}
 		IFoodMenuCategoryService IFoodMenuCategoryService{get;set;}
 		IOrderService IOrderService{get;set;}
 		IRechargeService IRechargeService{get;set;}
 		IRestaurantService IRestaurantService{get;set;}
+		IUserService IUserService{get;set;}
     }
 
 }

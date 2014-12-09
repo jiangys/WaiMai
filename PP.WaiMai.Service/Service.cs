@@ -12,15 +12,6 @@ namespace PP.WaiMai.Service
 {
     
 	
-	public partial class AccountService : BaseService<Account>,IAccountService
-    {
-        public override void SetCurrentRepository()
-        {
-            //设置处理当前请求的仓储
-            this.CurrentRepository = DbSessionContext.AccountRepository;
-        }
-    }   
-	
 	public partial class ConfigService : BaseService<Config>,IConfigService
     {
         public override void SetCurrentRepository()
@@ -72,6 +63,15 @@ namespace PP.WaiMai.Service
         {
             //设置处理当前请求的仓储
             this.CurrentRepository = DbSessionContext.RestaurantRepository;
+        }
+    }   
+	
+	public partial class UserService : BaseService<User>,IUserService
+    {
+        public override void SetCurrentRepository()
+        {
+            //设置处理当前请求的仓储
+            this.CurrentRepository = DbSessionContext.UserRepository;
         }
     }   
 }

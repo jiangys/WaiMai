@@ -9,25 +9,6 @@ namespace PP.WaiMai.Repository
 {
 	public partial class DbSession : IDbSession 
     { 
-		#region 数据接口 IAccountRepository
-		private IAccountRepository _AccountRepository;
-        public IAccountRepository AccountRepository 
-        {
-            get
-            {
-                if (_AccountRepository == null)
-                {
-                    _AccountRepository = new AccountRepository();
-                }
-                return _AccountRepository; 
-            }
-            set
-            {
-                _AccountRepository = value;
-            }
-        }
-		#endregion
-
 		#region 数据接口 IConfigRepository
 		private IConfigRepository _ConfigRepository;
         public IConfigRepository ConfigRepository 
@@ -138,6 +119,25 @@ namespace PP.WaiMai.Repository
             set
             {
                 _RestaurantRepository = value;
+            }
+        }
+		#endregion
+
+		#region 数据接口 IUserRepository
+		private IUserRepository _UserRepository;
+        public IUserRepository UserRepository 
+        {
+            get
+            {
+                if (_UserRepository == null)
+                {
+                    _UserRepository = new UserRepository();
+                }
+                return _UserRepository; 
+            }
+            set
+            {
+                _UserRepository = value;
             }
         }
 		#endregion
