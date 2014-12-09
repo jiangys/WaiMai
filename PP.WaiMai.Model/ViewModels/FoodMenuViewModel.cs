@@ -11,11 +11,11 @@ namespace PP.WaiMai.Model.ViewModels
         /// <summary>
         /// 菜单Id
         /// </summary>
-        public int Id { get; set; }
+        public int FoodMenuID { get; set; }
         /// <summary>
         ///  菜单类别Id
         /// </summary>
-        public int FoodMenuCategoryId { get; set; }
+        public int FoodMenuCategoryID { get; set; }
         /// <summary>
         /// 餐厅名称
         /// </summary>

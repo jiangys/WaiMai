@@ -56,16 +56,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PP.WaiMai.IRepository\PP.WaiMai.IRepository.csproj">
-      <Project>{4d48cf71-3052-43b0-8f17-2112a16c5bfe}</Project>
-      <Name>PP.WaiMai.IRepository</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PP.WaiMai.Model\PP.WaiMai.Model.csproj">
-      <Project>{e3ac77c1-cf2e-4af8-aacd-0e624513ab20}</Project>
-      <Name>PP.WaiMai.Model</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="IService.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IService.cs</LastGenOutput>
@@ -74,6 +64,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ISessionExt.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PP.WaiMai.IRepository\PP.WaiMai.IRepository.csproj">
+      <Project>{4d48cf71-3052-43b0-8f17-2112a16c5bfe}</Project>
+      <Name>PP.WaiMai.IRepository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PP.WaiMai.Model\PP.WaiMai.Model.csproj">
+      <Project>{e3ac77c1-cf2e-4af8-aacd-0e624513ab20}</Project>
+      <Name>PP.WaiMai.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -70,76 +70,86 @@
 <section class="container">
     <div class="alert alert-danger alert-dismissible" role="alert" style="margin-top:20px;">
         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <strong>温馨提示：</strong> 1.每天10点30分截止订餐，感谢配合；2.订餐费用，请统一交给余伟鹏，可以充值；3.订餐时，请看好菜单的供应时段。
+        <strong>温馨提示：</strong> 1.每天10点30分截止订餐，感谢配合；2.订餐费用，请统一交给周巧云，可以充值；3.订餐时，请看好菜单的供应时段。
     </div>
+
+
     <div class="basicinfo u-border clearfix">
         @{
-            var restaurantModel = ViewBag.RestaurantModel as PP.WaiMai.Model.Restaurant;
-            <div class="b-img fl">
-                <img width="120" height="120" src="~/Content/images/nopic_waimai.png">
-            </div>
-            <div class="b-info fl">
-                <h3>@restaurantModel.RestaurantName</h3>
-                <dl>
-                    <dt><i class="icon-time"></i>订餐状态:&nbsp;</dt>
-                    <dd>
-                        @if (ViewBag.IsDo == true)
-                        {
-                            <strong class="doing">进行中</strong>
-                        }
-                        else
-                        {
-                            <strong class="stop">订餐结束</strong>
-                        }
-                    </dd>
-                </dl>
-                <dl>
-                    <dt><i class="icon-time"></i>订餐电话:&nbsp;</dt>
-                    <dd>
-                        @restaurantModel.TakeoutPhone
-                    </dd>
-                </dl>
-            </div>
-            <div class="b-cost fr">
-                <div class="b-value">¥<strong class="b-num">0</strong></div>
-                <p class="b-label">配送费</p>
-            </div>
-            <div class="b-divider fr"></div>
-            <div class="b-price fr">
-                <div class="b-value"><strong class="b-num">@restaurantModel.SendOutCount</strong>份</div>
-                <p class="b-label">起送份数</p>
-            </div>
-            <div class="b-divider fr"></div>
-            <div class="b-totime fr">
-                <div class="b-value">
-                    <strong class="b-num">40分钟</strong>
-                    <span class="num-unit"></span>
+            if (ViewBag.RestaurantModel == null)
+            {
+                <div style="margin:20px; font-size:22px;">请先到【管理中心】→【餐厅管理】启用一个餐厅进行订餐</div>
+            }
+            else
+            {
+                var restaurantModel = ViewBag.RestaurantModel as PP.WaiMai.Model.Restaurant;
+                <div class="b-img fl">
+                    <img width="120" height="120" src="~/Content/images/nopic_waimai.png">
                 </div>
-                <p class="b-label">平均送达时间</p>
-            </div>
+                <div class="b-info fl">
+                    <h3>@restaurantModel.RestaurantName</h3>
+                    <dl>
+                        <dt><i class="icon-time"></i>订餐状态:&nbsp;</dt>
+                        <dd>
+                            @if (ViewBag.IsDo == true)
+                            {
+                                <strong class="doing">进行中</strong>
+                            }
+                            else
+                            {
+                                <strong class="stop">订餐结束</strong>
+                            }
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i class="icon-time"></i>订餐电话:&nbsp;</dt>
+                        <dd>
+                            @restaurantModel.TakeoutPhone
+                        </dd>
+                    </dl>
+                </div>
+                <div class="b-cost fr">
+                    <div class="b-value">¥<strong class="b-num">0</strong></div>
+                    <p class="b-label">配送费</p>
+                </div>
+                <div class="b-divider fr"></div>
+                <div class="b-price fr">
+                    <div class="b-value"><strong class="b-num">@restaurantModel.SendOutCount</strong>份</div>
+                    <p class="b-label">起送份数</p>
+                </div>
+                <div class="b-divider fr"></div>
+                <div class="b-totime fr">
+                    <div class="b-value">
+                        <strong class="b-num">40分钟</strong>
+                        <span class="num-unit"></span>
+                    </div>
+                    <p class="b-label">平均送达时间</p>
+                </div>
+            }
+
         }
     </div>
 
     <div data-spy="scroll" data-target=".navbar-example">
-
-        <div class="menu-categories clearfix">
-            <h3>菜品分类：</h3>
-            <ul class="list clearfix">
-                @{
-                    var foodMenuList = ViewBag.FoodMenuList as List<FoodMenu>;
-                    var categoryList = foodMenuList.Select(m => new { m.FoodMenuCategoryID, m.FoodMenuCategory.CName, m.FoodMenuCategory.IsSale }).Distinct().ToList();
-                    foreach (var itemCategory in categoryList)
-                    {
-                        <li>
-                            <a data-href="#category-anchor-@itemCategory.FoodMenuCategoryID" href="javascript:;">@itemCategory.CName</a>
-                        </li>
-                    }
-                }
-            </ul>
-        </div>
-
-
-
+        @{
+            var foodMenuList = ViewBag.FoodMenuList == null ? new List<FoodMenu>() : ViewBag.FoodMenuList as List<FoodMenu>;
+            var foodMenuViewList = ViewBag.FoodMenuViewList == null ? new List<FoodMenuViewModel>() : ViewBag.FoodMenuViewList as List<FoodMenuViewModel>;
+            var categoryList = foodMenuList.Select(m => new { m.FoodMenuCategoryID, m.FoodMenuCategory.CName, m.FoodMenuCategory.IsSale }).Distinct().ToList();
+            if (categoryList.Count() != 0)
+            {
+                <div class="menu-categories clearfix">
+                    <h3>菜品分类：</h3>
+                    <ul class="list clearfix">
+                        @foreach (var itemCategory in categoryList)
+                        {
+                            <li>
+                                <a data-href="#category-anchor-@itemCategory.FoodMenuCategoryID" href="javascript:;">@itemCategory.CName</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        }
         <div id="content-list" class="content-list">
             @{
                 foreach (var itemCategory in categoryList)
@@ -149,7 +159,7 @@
                         <h4 class="one-category-menu-title">@itemCategory.CName</h4>
                         <div class="one-category-menus ">
                             <div class="clearfix" id="imgBoxList">
-                                @foreach (var item in foodMenuList.Where(m => m.FoodMenuCategoryID == itemCategory.FoodMenuCategoryID))
+                                @foreach (var item in foodMenuViewList.Where(m => m.FoodMenuCategoryID == itemCategory.FoodMenuCategoryID))
                                 {
                                     <div class="item u-bgbox">
                                         <div class="pic fl">
@@ -162,13 +172,13 @@
                                             <div class="item-desc">
                                                 <span class="sale">0人推荐</span>
                                                 <span class="sale-divider"></span>
-                                                @*<span class="sale">已售 @item.TotalCount 份</span>*@
+                                                <span class="sale">已售 @item.TotalCount 份</span>
                                             </div>
                                             <div class="item-add clearfix">
                                                 <div class="price fl">￥<i>@item.Price</i> / 份</div>
                                                 @if (ViewBag.IsDo == true)
                                                 {
-                                                    if (!itemCategory.IsSale||!item.IsSale)
+                                                    if (!itemCategory.IsSale || !item.IsSale)
                                                     {
                                                         <div class="tips fr">已售完</div>
                                                         <div class="clear"></div>

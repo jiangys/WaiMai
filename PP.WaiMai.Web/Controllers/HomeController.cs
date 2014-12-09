@@ -13,9 +13,28 @@ namespace PP.WaiMai.Web.Controllers
     {
         public ActionResult Index()
         {
-            var restaurantModel = BLLSession.IRestaurantService.GetListBy(m => m.IsEnable == true).FirstOrDefault();
-            var foodMenuList = BLLSession.IFoodMenuService.GetListBy(m => m.FoodMenuCategory.RestaurantID == restaurantModel.RestaurantID);
+            var restaurantModel = BLLSession.IRestaurantService.GetListBy(m => m.IsEnable == true && !m.IsDel).FirstOrDefault();
+            if (restaurantModel==null)
+            {
+                return View();
+            }
+            var foodMenuList = BLLSession.IFoodMenuService.GetListBy(m => m.FoodMenuCategory.RestaurantID == restaurantModel.RestaurantID && !m.IsDel);
+            var foodMenuIdList = foodMenuList.Select(m => m.FoodMenuID);
+            var orderList = BLLSession.IOrderService.GetListBy(m => foodMenuIdList.Contains(m.FoodMenuID)&&!m.IsDel);
 
+            var foodMenuViewList = foodMenuList.Select(m => new FoodMenuViewModel()
+            {
+                FoodMenuID = m.FoodMenuID,
+                FoodMenuCategoryID = m.FoodMenuCategoryID,
+                CName = m.FoodMenuCategory.CName,
+                IsSale = m.IsSale,
+                MenuName = m.MenuName,
+                Price = m.Price,
+                RestaurantName = restaurantModel.RestaurantName,
+                TotalCount = orderList.Where(u => u.FoodMenuID == m.FoodMenuID).Sum(u => u.TotalCount)
+            }).ToList();
+
+            ViewBag.FoodMenuViewList = foodMenuViewList;
             ViewBag.FoodMenuList = foodMenuList;
             ViewBag.RestaurantModel = restaurantModel;
 
