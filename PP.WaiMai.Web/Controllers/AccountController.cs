@@ -25,7 +25,14 @@ namespace PP.WaiMai.Web.Controllers
 
             return View();
         }
+        public ActionResult LoginDialog()
+        {
+            //获取本地的IP地址
+            var ip = WaiMai.Util.IPAddress.GetInternalIP();
+            //从数据库里查找，看有没有相关的。如果存在，则显示出用户名
 
+            return View();
+        }
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

@@ -93,7 +93,7 @@ namespace PP.WaiMai.WebHelper
                 User = user;//保存信息到Session
                 if (IsCookie)//存入Cookie
                 {
-                    Uxiaoyuan.Common.UCookies.WriteCookies(User_InfoKey, 1, JsonConvert.SerializeObject(User));
+                    //Uxiaoyuan.Common.UCookies.WriteCookies(User_InfoKey, 1, JsonConvert.SerializeObject(User));
                 }
             }
         }
@@ -145,13 +145,13 @@ namespace PP.WaiMai.WebHelper
                 }
                 else//如果有cookie则从cookie中获取用户查询相关数据存入 Session
                 {
-                    string strUserInfo = Uxiaoyuan.Common.UCookies.GetCookies(User_InfoKey);
-                    if (string.IsNullOrEmpty(strUserInfo))
-                    {
-                        return false;
-                    }
-                    //序列化返回信息
-                    User = JsonConvert.DeserializeObject<User>(strUserInfo);
+                    //string strUserInfo = Uxiaoyuan.Common.UCookies.GetCookies(User_InfoKey);
+                    //if (string.IsNullOrEmpty(strUserInfo))
+                    //{
+                    //    return false;
+                    //}
+                    ////序列化返回信息
+                    //User = JsonConvert.DeserializeObject<User>(strUserInfo);
                 }
             }
             return true;
@@ -162,7 +162,7 @@ namespace PP.WaiMai.WebHelper
         public bool LogOff()
         {
             Session[User_InfoKey] = null;
-            Uxiaoyuan.Common.UCookies.DelCookie(User_InfoKey);
+            //Uxiaoyuan.Common.UCookies.DelCookie(User_InfoKey);
             return true;
         }
         #endregion

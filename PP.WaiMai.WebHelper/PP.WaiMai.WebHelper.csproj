@@ -46,9 +46,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Uxiaoyuan.Common">
-      <HintPath>..\..\Uxiaoyuan.WeiXin\lib\Uxiaoyuan.Common.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\NeedAuthorizeAttribute.cs" />
