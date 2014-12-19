@@ -21,93 +21,144 @@
         <div class="alert alert-info" role="alert">
             @if (@ViewBag.IsDayMode)
             {
-                <span>今日订餐共：<strong>@Model.Count()</strong> 份</span>
+            <span>今日订餐共：<strong>@Model.Count()</strong> 份</span>
             }
             else
             {
-                <span>加班订餐共：<strong>@Model.Count()</strong> 份</span>
+            <span>加班订餐共：<strong>@Model.Count()</strong> 份</span>
             }
             <span>应付总金额：<strong>@Model.Sum(m => m.TotalPrice)</strong> 元</span>
         </div>
 
-        <div class="panel panel-default">
-            <!-- Default panel contents -->
-            @if (@ViewBag.IsDayMode)
-            {
-                <div class="panel-heading">今日订单列表明细</div>
+        <style type="text/css">
+            .bs-tabs:after {
+                color: #959595;
+                /*content: "根据餐厅汇总";
+                font-size: 12px;*/
+                font-weight: 700;
+                left: 15px;
+                letter-spacing: 1px;
+                position: absolute;
+                text-transform: uppercase;
+                top: 15px;
             }
-            else
-            {
-                <div class="panel-heading">加班订单列表明细</div>
+            .bs-tabs {
+                background-color: #fff;
+                border-color: #ddd;
+                border-radius: 4px 4px 0 0;
+                border-width: 1px;
+                box-shadow: none;
+                margin-left: 0;
+                margin-right: 0;
+                border-color: #e5e5e5 #eee #eee;
+                border-style: solid;
+                border-width: 1px 0;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05) inset;
+                padding: 30px 15px;
+                position: relative;
             }
+            .tab-content{margin-top:20px;}
+        </style>
 
-            <!-- Table -->
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>昵称</th>
-                        <th>菜单名称</th>
-                        <th>价格</th>
-                        <th>数量</th>
-                        <th>下单时间</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @{
-                        int i = 1;
-                        foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@(i++)</td>
-                                <td>@item.NickName</td>
-                                <td>@item.FoodMenu.MenuName</td>
-                                <td>@item.TotalPrice 元</td>
-                                <td>@item.TotalCount</td>
-                                <td>@item.CreateDate</td>
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
-        </div>
-        <div class="panel panel-default">
-            <!-- Default panel contents -->
-            @if (@ViewBag.IsDayMode)
-            {
-                <div class="panel-heading">今日订单汇总显示</div>
-            }
-            else
-            {
-                <div class="panel-heading">加班订单汇总显示</div>
-            }
-            <!-- Table -->
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>菜单名称</th>
-                        <th>总价格</th>
-                        <th>总数量</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @{
-                        int j = 1;
-                        var MenuCategory = Model.Select(m => m.FoodMenu.MenuName).Distinct();
+        <div class="bs-example bs-tabs" style="background-color:#ffffff;">
+            <ul class="nav nav-tabs" role="tablist" id="myTab">
+                <li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab">汇味美食</a></li>
+                <li role="presentation"><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
+                <li role="presentation"><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
+                <li role="presentation"><a href="#settings" role="tab" data-toggle="tab">Settings</a></li>
+            </ul>
 
-                        foreach (var MenuName in MenuCategory)
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="home">
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        @if (@ViewBag.IsDayMode)
                         {
-                            <tr>
-                                <td>@(j++)</td>
-                                <td>@MenuName</td>
-                                <td>@Model.Where(m => m.FoodMenu.MenuName == MenuName).Sum(m => m.TotalPrice) 元</td>
-                                <td>@Model.Where(m => m.FoodMenu.MenuName == MenuName).Sum(m => m.TotalCount)</td>
-                            </tr>
+                            <div class="panel-heading">今日订单列表明细</div>
                         }
-                    }
-                </tbody>
-            </table>
+                        else
+                        {
+                            <div class="panel-heading">加班订单列表明细</div>
+                        }
+
+                        <!-- Table -->
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>昵称</th>
+                                    <th>菜单名称</th>
+                                    <th>价格</th>
+                                    <th>数量</th>
+                                    <th>下单时间</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int i = 1;
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@(i++)</td>
+                                            <td>@item.NickName</td>
+                                            <td>@item.FoodMenu.MenuName</td>
+                                            <td>@item.TotalPrice 元</td>
+                                            <td>@item.TotalCount</td>
+                                            <td>@item.CreateDate</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        @if (@ViewBag.IsDayMode)
+                        {
+                            <div class="panel-heading">今日订单汇总显示</div>
+                        }
+                        else
+                        {
+                            <div class="panel-heading">加班订单汇总显示</div>
+                        }
+                        <!-- Table -->
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>菜单名称</th>
+                                    <th>总价格</th>
+                                    <th>总数量</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int j = 1;
+                                    var MenuCategory = Model.Select(m => m.FoodMenu.MenuName).Distinct();
+
+                                    foreach (var MenuName in MenuCategory)
+                                    {
+                                        <tr>
+                                            <td>@(j++)</td>
+                                            <td>@MenuName</td>
+                                            <td>@Model.Where(m => m.FoodMenu.MenuName == MenuName).Sum(m => m.TotalPrice) 元</td>
+                                            <td>@Model.Where(m => m.FoodMenu.MenuName == MenuName).Sum(m => m.TotalCount)</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="profile">.22222..</div>
+                <div role="tabpanel" class="tab-pane" id="messages">.23333..</div>
+                <div role="tabpanel" class="tab-pane" id="settings">.444..</div>
+            </div>
         </div>
+        @*<script>
+                $(function () {
+                    $('#myTab a:last').tab('show')
+                })
+            </script>*@
     </div>
 </section>
