@@ -16,8 +16,13 @@ namespace PP.WaiMai.Model
     {
         public int RechargeID { get; set; }
         public int UserID { get; set; }
-        public decimal Amount { get; set; }
+        public decimal RechargeAmount { get; set; }
+        public decimal OpeningBalance { get; set; }
+        public decimal CurrentBalance { get; set; }
         public int Status { get; set; }
+        public string Remark { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public string RechargeUserName { get; set; }
         public bool IsDel { get; set; }
     
         public virtual User User { get; set; }

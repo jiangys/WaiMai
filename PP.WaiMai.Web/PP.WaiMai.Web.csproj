@@ -39,6 +39,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PagedList">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
@@ -49,6 +56,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -163,10 +171,14 @@
     <Compile Include="Areas\Admin\Controllers\FoodMenuController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RechargeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportController.cs" />
     <Compile Include="Areas\Admin\Controllers\RestaurantController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\RestaurantController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filters\RequiredAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -230,16 +242,39 @@
     <Content Include="Content\css\base.css" />
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\css\loginpage.css" />
+    <Content Include="Content\css\animate\animate.css" />
+    <Content Include="Content\css\order.css" />
+    <Content Include="Content\css\register.css" />
     <Content Include="Content\css\restaurant.css" />
     <Content Include="Content\css\templatemo_style.css" />
     <Content Include="Content\css\admin\common.css" />
+    <Content Include="Content\css\home.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\images\advertiseOne.png" />
+    <Content Include="Content\images\home\arrow_left.png" />
+    <Content Include="Content\images\home\arrow_right.png" />
+    <Content Include="Content\images\home\banner_bg.jpg" />
+    <Content Include="Content\images\home\bg.jpg" />
+    <Content Include="Content\images\home\bg2.jpg" />
+    <Content Include="Content\images\home\lovetogether.png" />
+    <Content Include="Content\images\home\portfolio-01.jpg" />
+    <Content Include="Content\images\home\templatemo_banner_slide_01.jpg" />
+    <Content Include="Content\images\home\templatemo_banner_slide_02.jpg" />
+    <Content Include="Content\images\home\templatemo_banner_slide_03.jpg" />
+    <Content Include="Content\images\home\templatemo_event_01.jpg" />
+    <Content Include="Content\images\home\templatemo_event_02.jpg" />
+    <Content Include="Content\images\home\templatemo_event_03.jpg" />
+    <Content Include="Content\images\home\templatemo_event_04.jpg" />
+    <Content Include="Content\images\home\time_line_bg.jpg" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\msgBox\loader.gif" />
     <Content Include="Content\images\msgBox\qzonebg.gif" />
     <Content Include="Content\images\nopic_waimai.png" />
     <Content Include="Content\images\photo.jpg" />
+    <Content Include="Content\js\artDialogGlobal.js" />
+    <Content Include="Content\js\jquery.singlePageNav.min.js" />
+    <Content Include="Content\js\templatemo_script.js" />
+    <Content Include="Content\js\unslider.min.js" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -274,6 +309,10 @@
     <Content Include="Areas\Admin\Views\FoodMenu\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\FoodMenu\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Recharge\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Recharge\SelectUser.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\RepUser.cshtml" />
+    <Content Include="Areas\Admin\Views\User\Expend.cshtml" />
     <None Include="Properties\PublishProfiles\WaiMai.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -291,7 +330,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -302,7 +343,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Restaurant\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="SqlMapper.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -314,6 +355,10 @@
     <Content Include="Views\Shared\_LayoutDialog.cshtml" />
     <Content Include="Views\Account\LoginDialog.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Order\_OrderListPartial.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

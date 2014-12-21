@@ -49,9 +49,11 @@
           </Key>
           <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FoodMenuID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="TotalCount" Type="int" Nullable="false" />
           <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="1" Nullable="false" />
-          <Property Name="NickName" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="NickName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="100" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="Creator" Type="nvarchar" MaxLength="50" />
           <Property Name="EditDate" Type="datetime" />
@@ -65,8 +67,13 @@
           </Key>
           <Property Name="RechargeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
-          <Property Name="Amount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="RechargeAmount" Type="decimal" Precision="18" Scale="1" Nullable="false" />
+          <Property Name="OpeningBalance" Type="decimal" Precision="18" Scale="1" Nullable="false" />
+          <Property Name="CurrentBalance" Type="decimal" Precision="18" Scale="1" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="RechargeUserName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IsDel" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Restaurant">
@@ -77,6 +84,7 @@
           <Property Name="RestaurantName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SendOutCount" Type="int" Nullable="false" />
           <Property Name="TakeoutPhone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
           <Property Name="IsEnable" Type="bit" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="Creator" Type="nvarchar" MaxLength="50" />
@@ -89,11 +97,12 @@
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IPAddress" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Amount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="1" Nullable="false" />
+          <Property Name="IsAdmin" Type="bit" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="IsDel" Type="bit" Nullable="false" />
         </EntityType>
@@ -133,6 +142,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Order_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Recharge_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Recharge" Type="Self.Recharge" Multiplicity="*" />
@@ -165,6 +186,10 @@
             <End Role="FoodMenu" EntitySet="FoodMenu" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
+          <AssociationSet Name="FK_Order_User" Association="Self.FK_Order_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
           <AssociationSet Name="FK_Recharge_User" Association="Self.FK_Recharge_User">
             <End Role="User" EntitySet="User" />
             <End Role="Recharge" EntitySet="Recharge" />
@@ -193,6 +218,10 @@
           <AssociationSet Name="FK_FoodMenuCategory_Restaurant" Association="WaiMaiModel.FK_FoodMenuCategory_Restaurant">
             <End Role="Restaurant" EntitySet="Restaurant" />
             <End Role="FoodMenuCategory" EntitySet="FoodMenuCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User" Association="WaiMaiModel.FK_Order_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Order" EntitySet="Order" />
           </AssociationSet>
           <AssociationSet Name="FK_Recharge_User" Association="WaiMaiModel.FK_Recharge_User">
             <End Role="User" EntitySet="User" />
@@ -247,9 +276,11 @@
           </Key>
           <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FoodMenuID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="TotalCount" Type="Int32" Nullable="false" />
           <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="18" Scale="1" />
-          <Property Name="NickName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="NickName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Creator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EditDate" Type="DateTime" Precision="3" />
@@ -257,6 +288,7 @@
           <Property Name="IsDel" Type="Boolean" Nullable="false" />
           <Property Name="Version" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FoodMenu" Relationship="WaiMaiModel.FK_Order_FoodMenu" FromRole="Order" ToRole="FoodMenu" />
+          <NavigationProperty Name="User" Relationship="WaiMaiModel.FK_Order_User" FromRole="Order" ToRole="User" />
         </EntityType>
         <EntityType Name="Recharge">
           <Key>
@@ -264,8 +296,13 @@
           </Key>
           <Property Name="RechargeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="RechargeAmount" Type="Decimal" Nullable="false" Precision="18" Scale="1" />
+          <Property Name="OpeningBalance" Type="Decimal" Nullable="false" Precision="18" Scale="1" />
+          <Property Name="CurrentBalance" Type="Decimal" Nullable="false" Precision="18" Scale="1" />
           <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RechargeUserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsDel" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="User" Relationship="WaiMaiModel.FK_Recharge_User" FromRole="Recharge" ToRole="User" />
         </EntityType>
@@ -277,6 +314,7 @@
           <Property Name="RestaurantName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SendOutCount" Type="Int32" Nullable="false" />
           <Property Name="TakeoutPhone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="IsEnable" Type="Boolean" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Creator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -290,14 +328,16 @@
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IPAddress" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="1" />
+          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsDel" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="WaiMaiModel.FK_Order_User" FromRole="User" ToRole="Order" />
           <NavigationProperty Name="Recharge" Relationship="WaiMaiModel.FK_Recharge_User" FromRole="User" ToRole="Recharge" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_FoodMenu_FoodMenuCategory">
           <End Type="WaiMaiModel.FoodMenuCategory" Role="FoodMenuCategory" Multiplicity="1" />
@@ -335,6 +375,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Order_User">
+          <End Type="WaiMaiModel.User" Role="User" Multiplicity="1" />
+          <End Type="WaiMaiModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Recharge_User">
           <End Type="WaiMaiModel.User" Role="User" Multiplicity="1" />
           <End Type="WaiMaiModel.Recharge" Role="Recharge" Multiplicity="*" />
@@ -351,8 +403,8 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="WaiMaiModelStoreContainer" CdmEntityContainer="WaiMaiEntities">
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WaiMaiModelStoreContainer" CdmEntityContainer="WaiMaiEntities">
           <EntitySetMapping Name="Config">
             <EntityTypeMapping TypeName="WaiMaiModel.Config">
               <MappingFragment StoreEntitySet="Config">
@@ -403,9 +455,11 @@
                 <ScalarProperty Name="EditDate" ColumnName="EditDate" />
                 <ScalarProperty Name="Creator" ColumnName="Creator" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="NickName" ColumnName="NickName" />
                 <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
                 <ScalarProperty Name="TotalCount" ColumnName="TotalCount" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="FoodMenuID" ColumnName="FoodMenuID" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
               </MappingFragment>
@@ -415,8 +469,13 @@
             <EntityTypeMapping TypeName="WaiMaiModel.Recharge">
               <MappingFragment StoreEntitySet="Recharge">
                 <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+                <ScalarProperty Name="RechargeUserName" ColumnName="RechargeUserName" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="CurrentBalance" ColumnName="CurrentBalance" />
+                <ScalarProperty Name="OpeningBalance" ColumnName="OpeningBalance" />
+                <ScalarProperty Name="RechargeAmount" ColumnName="RechargeAmount" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="RechargeID" ColumnName="RechargeID" />
               </MappingFragment>
@@ -432,6 +491,7 @@
                 <ScalarProperty Name="Creator" ColumnName="Creator" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="IsEnable" ColumnName="IsEnable" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="TakeoutPhone" ColumnName="TakeoutPhone" />
                 <ScalarProperty Name="SendOutCount" ColumnName="SendOutCount" />
                 <ScalarProperty Name="RestaurantName" ColumnName="RestaurantName" />
@@ -442,19 +502,19 @@
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="WaiMaiModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="IsDel" ColumnName="IsDel" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
         </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -468,7 +528,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
       </DesignerInfoPropertySet>
     </Options>

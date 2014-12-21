@@ -1,222 +1,99 @@
 ﻿@{
-    ViewBag.Title = "菜单列表";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@section head{
-    <link href="~/Content/css/restaurant.css" rel="stylesheet" />
+<link href="~/Content/css/animate/animate.css" rel="stylesheet" />
+<link href="~/Content/css/home.css" rel="stylesheet" />
+<div class="banner" id="templatemo_banner_slide">
+    <ul>
+        <li class="templatemo_banner_slide_01">
+            <div class="slide_caption">
+                <h1 class="animated zoomIn">
+                    <img src="~/Content/images/home/lovetogether.png" />
+                </h1>
+                <p class="animated fadeInDown">生命的轨迹中总会有孤独，有想念，还有离别，</p>
+                <p class="animated fadeInDown">但是，请不要忘记，我们会一直和你在一起。</p>
+                <p class="animated fadeInDown">生活再艰辛，也要记得</p>
+                <p class="animated fadeInDown">按时吃饭！</p>
+            </div>
+        </li>
+        @*<li class="templatemo_banner_slide_02">
+                <div class="slide_caption">
+                    <h1>Free HTML5 Template</h1>
+                    <p>Nulla in nibh arcu. Donec quam neque, porta at pellentesque at, imperdiet ut velit. Pellentesque luctus ac nunc et hendrerit. Aliquam eu scelerisque eros. Vestibulum scelerisque mi nec augue condimentum rhoncus.</p>
+                </div>
+            </li>
+                    <li class="templatemo_banner_slide_03">
+                <div class="slide_caption">
+                    <h1>Mobile Ready</h1>
+                    <p>Cras fermentum convallis elementum. Praesent sit amet auctor erat, vitae auctor dolor. Sed viverra nunc magna, quis placerat augue pellentesque quis. Sed nec pellentesque dolor. Aenean in lectus enim. Phasellus eu egestas libero. Vivamus ultrices ligula a dapibus lobortis.</p>
+                </div>
+            </li>*@
+    </ul>
+</div>
 
-}
-@section Scripts {
-    <script>
-        $(function () {
-            $(".addbtn").click(function () {
-                var id = $(this).attr("data-id");
-                var menu = $(this).attr("data-menu");
-                var price = $(this).attr("data-price");
-                $(".confirm-info").text(menu + "/" + price);
-                var elem = document.getElementById('confirm');
-                var d = dialog({
-                    title: '确定下单',
-                    content: elem,
-                    okValue: '提交订单',
-                    ok: function () {
-                        var nickName = $('#nickname').val();
-                        if (!nickName || nickname == "") {
-                            alert("请填写昵称");
-                            return false;
-                        }
-                        $.post("/Order/add", { FoodMenuId: id, TotalPrice: price, NickName: nickName }, function (jsonData) {
-                            $.procAjaxData(jsonData, function () {
-                                window.location.href = jsonData.BackUrl;
-                            });
-                        });
-                        this.close(value);
-                        this.remove();
-                    },
-                    cancelValue: '取消',
-                    cancel: function () { }
-                });
-                d.showModal();
-
-            });
-
-
-            // 窗口滚动的时候控制悬浮效果。
-            var $category = $('.menu-categories');
-            var categoryHook = $category.offset().top;
-            $(window).scroll(function () {
-                var scrollTop = $(window).scrollTop();
-                if (scrollTop < categoryHook) {
-                    $category.removeClass('menu-categories-fixed');
-                    $('#category-menu-container .content-list').removeAttr('style');
-                } else {
-                    $category.addClass('menu-categories-fixed');
-                    $('#category-menu-container .content-list').css('margin-top', $category.height() + 30 + 'px');
-                }
-            });
-            //点击菜单类别
-            $('.menu-categories li').click(function (e) {
-                e.preventDefault();
-                $('.menu-categories li').removeClass('active');
-                $(this).addClass('active');
-                var hashValue = $(this).find('a').data('href');
-                var $hash = $(hashValue);
-                var scrollTop = $hash.offset().top;
-                $(window).scrollTop(scrollTop - $('.menu-categories').height() - 25);
-            });
-        });
-    </script>
-}
-<section class="container">
-    <div class="alert alert-danger alert-dismissible" role="alert" style="margin-top:20px;">
-        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <strong>温馨提示：</strong> 1.每天10点30分截止订餐，感谢配合；2.订餐费用，请统一交给周巧云，可以充值；3.订餐时，请看好菜单的供应时段。
-    </div>
-
-
-    <div class="basicinfo u-border clearfix">
+<section class="single-page" id="templatemo_events">
+    <div class="container">
+        <div class="align">
+            <i class="fa fa-desktop"></i>
+        </div>
+        <h1 id="folio-headline">请选择您喜欢的餐厅</h1>
         @{
-            if (ViewBag.RestaurantModel == null)
-            {
-                <div style="margin:20px; font-size:22px;">请先到【管理中心】→【餐厅管理】启用一个餐厅进行订餐</div>
-            }
-            else
-            {
-                var restaurantModel = ViewBag.RestaurantModel as PP.WaiMai.Model.Restaurant;
-                <div class="b-img fl">
-                    <img width="120" height="120" src="~/Content/images/nopic_waimai.png">
-                </div>
-                <div class="b-info fl">
-                    <h3>@restaurantModel.RestaurantName</h3>
-                    <dl>
-                        <dt><i class="icon-time"></i>订餐状态:&nbsp;</dt>
-                        <dd>
-                            @if (ViewBag.IsDo == true)
-                            {
-                                <strong class="doing">进行中</strong>
-                            }
-                            else
-                            {
-                                <strong class="stop">订餐结束</strong>
-                            }
-                        </dd>
-                    </dl>
-                    <dl>
-                        <dt><i class="icon-time"></i>订餐电话:&nbsp;</dt>
-                        <dd>
-                            @restaurantModel.TakeoutPhone
-                        </dd>
-                    </dl>
-                </div>
-                <div class="b-cost fr">
-                    <div class="b-value">¥<strong class="b-num">0</strong></div>
-                    <p class="b-label">配送费</p>
-                </div>
-                <div class="b-divider fr"></div>
-                <div class="b-price fr">
-                    <div class="b-value"><strong class="b-num">@restaurantModel.SendOutCount</strong>份</div>
-                    <p class="b-label">起送份数</p>
-                </div>
-                <div class="b-divider fr"></div>
-                <div class="b-totime fr">
-                    <div class="b-value">
-                        <strong class="b-num">40分钟</strong>
-                        <span class="num-unit"></span>
-                    </div>
-                    <p class="b-label">平均送达时间</p>
-                </div>
-            }
+            //由于当前只显示两个餐厅，因而，可以假设定两张图片
+            int j = 0;
+            List<string> imgList = new List<string>();
+            imgList.Add("templatemo_event_01.jpg");
+            imgList.Add("templatemo_event_02.jpg");
 
-        }
-    </div>
-
-    <div data-spy="scroll" data-target=".navbar-example">
-        @{
-            var foodMenuList = ViewBag.FoodMenuList == null ? new List<FoodMenu>() : ViewBag.FoodMenuList as List<FoodMenu>;
-            var foodMenuViewList = ViewBag.FoodMenuViewList == null ? new List<FoodMenuViewModel>() : ViewBag.FoodMenuViewList as List<FoodMenuViewModel>;
-            var categoryList = foodMenuList.Select(m => new { m.FoodMenuCategoryID, m.FoodMenuCategory.CName, m.FoodMenuCategory.IsSale }).Distinct().ToList();
-            if (categoryList.Count() != 0)
+            foreach (var item in ViewBag.RestaurantList as List<Restaurant>)
             {
-                <div class="menu-categories clearfix">
-                    <h3>菜品分类：</h3>
-                    <ul class="list clearfix">
-                        @foreach (var itemCategory in categoryList)
-                        {
-                            <li>
-                                <a data-href="#category-anchor-@itemCategory.FoodMenuCategoryID" href="javascript:;">@itemCategory.CName</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            }
-        }
-        <div id="content-list" class="content-list">
-            @{
-                foreach (var itemCategory in categoryList)
-                {
-                    <div class="one-category-menus-container">
-                        <a name="category-anchor-@itemCategory.FoodMenuCategoryID" id="category-anchor-@itemCategory.FoodMenuCategoryID"></a>
-                        <h4 class="one-category-menu-title">@itemCategory.CName</h4>
-                        <div class="one-category-menus ">
-                            <div class="clearfix" id="imgBoxList">
-                                @foreach (var item in foodMenuViewList.Where(m => m.FoodMenuCategoryID == itemCategory.FoodMenuCategoryID))
-                                {
-                                    <div class="item u-bgbox">
-                                        <div class="pic fl">
-                                            <img src="/Content/images/nopic_waimai.png">
-                                        </div>
-                                        <div class="item-detail fr">
-                                            <div class="name">
-                                                <span class="text-overflow-ellipsis " title="@item.MenuName">@item.MenuName</span>
-                                            </div>
-                                            <div class="item-desc">
-                                                <span class="sale">0人推荐</span>
-                                                <span class="sale-divider"></span>
-                                                <span class="sale">已售 @item.TotalCount 份</span>
-                                            </div>
-                                            <div class="item-add clearfix">
-                                                <div class="price fl">￥<i>@item.Price</i> / 份</div>
-                                                @if (ViewBag.IsDo == true)
-                                                {
-                                                    if (!itemCategory.IsSale || !item.IsSale)
-                                                    {
-                                                        <div class="tips fr">已售完</div>
-                                                        <div class="clear"></div>
-                                                    }
-                                                    else
-                                                    {
-                                                        <div class="addbtn fr" data-id="@item.FoodMenuID" data-price="@item.Price" data-menu="@item.MenuName">
-                                                            <span class="glyphicon glyphicon-plus-sign"></span>
-                                                        </div>
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    <div class="tips fr">已结束</div>
-                                                    <div class="clear"></div>
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
+                <div class="col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-0">
+
+                    <a href="/restaurant/Index/@item.RestaurantID">
+                        <div class="event_box_wap event_animate_left">
+                            <div class="event_box_img">
+                                <img src="~/Content/images/home/@imgList[j]" class="img-responsive" alt="Web Design Trends" />
+                            </div>
+                            <div class="event_box_caption">
+                                <h1>@item.RestaurantName</h1>
+                                <p>
+                                    <span class="glyphicon glyphicon-earphone">
+                                    </span>&nbsp;外卖电话：@item.TakeoutPhone &nbsp;<span class="glyphicon glyphicon-saved">
+                                    </span>&nbsp;起送份数：@item.SendOutCount
+                                </p>
+                                <p>
+                                    @item.Description
+                                </p>
                             </div>
                         </div>
-                    </div>
-                }
+                    </a>
+                </div>
+                j++;
             }
-        </div>
-
+        }
+        <div class="clear"></div>
     </div>
-    <!--弹出确认信息框-->
-    <div class="confirm" id="confirm" style="width:400px; display:none;">
-        <blockquote>
-            <p class="confirm-title">请确定您选择的订餐信息：</p>
-            <p class="confirm-info"></p>
-        </blockquote>
-        <div class="form-group">
-            <label>您的昵称：</label>
-            <input class="form-control" id="nickname" placeholder="您的昵称">
-        </div>
-    </div>
-    <!--结束 弹出确认信息框-->
 </section>
+
+@*<div id="templatemo_timeline" class="container_wapper">
+    <h1>吐槽轴</h1>
+    <div class="container-fluid">
+        @for (int i = 0; i < 8; i++)
+        {
+            <div class="time_line_wap">
+                <div class="time_line_caption">10 days ago</div>
+                <div class="time_line_paragraph">
+                    <p>
+                        <span class="glyphicon glyphicon-user"></span>&nbsp;小江 &nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-edit"></span> <a href="#">3 comments</a>
+                    </p>
+                    <p>不要在同一个元素上同时使用多个插件的 data 属性。例如，button 组件不能同时支持工具提示和控制模态框。如果需要的话，可以在其外面包裹一个额外的元素。</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>*@
+<div class="clear"></div>
+<script src="~/Content/js/jquery.singlePageNav.min.js"></script>
+<script src="~/Content/js/templatemo_script.js"></script>
+<script src="~/Content/js/unslider.min.js"></script>

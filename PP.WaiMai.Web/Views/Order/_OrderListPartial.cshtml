@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Order>
+
+<div class="alert alert-info alert-info-item" role="alert">
+    @if (@ViewBag.IsDayMode)
+    {
+        <span>今日订餐共：<strong>@Model.Count()</strong> 份</span>
+    }
+    else
+    {
+        <span>加班订餐共：<strong>@Model.Count()</strong> 份</span>
+    }
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;应付总金额：<strong>@Model.Sum(m => m.TotalPrice)</strong> 元</span>
+</div>
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    @if (@ViewBag.IsDayMode)
+    {
+        <div class="panel-heading">今日订单列表明细</div>
+    }
+    else
+    {
+        <div class="panel-heading">加班订单列表明细</div>
+    }
+
+    <!-- Table -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>昵称</th>
+                <th>菜单名称</th>
+                <th>价格</th>
+                <th>数量</th>
+                <th>下单时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 1;
+                foreach (var item in Model)
+                {
+            <tr>
+                <td>@(i++)</td>
+                <td>@item.User.UserName</td>
+                <td>@item.FoodMenu.MenuName</td>
+                <td>@item.TotalPrice 元</td>
+                <td>@item.TotalCount</td>
+                <td>@item.CreateDate</td>
+            </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    @if (@ViewBag.IsDayMode)
+    {
+        <div class="panel-heading">今日订单汇总显示</div>
+    }
+    else
+    {
+        <div class="panel-heading">加班订单汇总显示</div>
+    }
+    <!-- Table -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>菜单名称</th>
+                <th>总价格</th>
+                <th>总数量</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int j = 1;
+                var MenuCategory = Model.Select(m => m.FoodMenu.MenuName).Distinct();
+
+                foreach (var MenuName in MenuCategory)
+                {
+                    <tr>
+                        <td>@(j++)</td>
+                        <td>@MenuName</td>
+                        <td>@Model.Where(m => m.FoodMenu.MenuName == MenuName).Sum(m => m.TotalPrice) 元</td>
+                        <td>@Model.Where(m => m.FoodMenu.MenuName == MenuName).Sum(m => m.TotalCount)</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

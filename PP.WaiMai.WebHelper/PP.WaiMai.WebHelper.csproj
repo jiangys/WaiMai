@@ -66,6 +66,10 @@
       <Project>{b5dca081-d09b-4454-983a-1838dbec00fe}</Project>
       <Name>PP.WaiMai.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PP.WaiMai.Util\PP.WaiMai.Util.csproj">
+      <Project>{9bf92c9d-129d-49b5-a8a2-516e32c012b0}</Project>
+      <Name>PP.WaiMai.Util</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

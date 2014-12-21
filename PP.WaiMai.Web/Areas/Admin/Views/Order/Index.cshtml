@@ -77,10 +77,10 @@
         <div class="portlet">
             <div class="portlet-title clearfix">
                 @*<div class="fl">
-                    <button class="btn blue thickbox" id="addRestaurant">
-                        <i class="fa fa-plus"></i>&nbsp;订单管理
-                    </button>
-                </div>*@
+                        <button class="btn blue thickbox" id="addRestaurant">
+                            <i class="fa fa-plus"></i>&nbsp;订单管理
+                        </button>
+                    </div>*@
                 <div class="fr col-md-4">
                     @using (Html.BeginForm("Index", "Order", FormMethod.Post, new { @class = "form-inline", role = "form", id = "frmSubmit" }))
                     {
@@ -131,7 +131,7 @@
                                         @item.OrderID
                                     </td>
                                     <td>
-                                        @item.NickName
+                                        @item.User.UserName
                                     </td>
                                     <td>
                                         @item.FoodMenu.MenuName
@@ -146,18 +146,28 @@
                                         @item.CreateDate
                                     </td>
                                     <td>
-                                        @if (@item.CreateDate.ToShortDateString() == DateTime.Now.ToShortDateString())
+                                        @if (item.IsDel)
                                         {
-                                            <button class="btn default btn-xs black btn-del deDel" data-name="@item.OrderID / @item.NickName.Trim() / @item.FoodMenu.MenuName" data-href="/admin/order/del/@item.OrderID">
-                                                <i class="fa fa-trash-o"></i> 取消订单
-                                            </button>
+                                            <span class="btn default btn-xs black btn-del" disabled="disabled">
+                                                已取消
+                                            </span>
                                         }
                                         else
                                         {
-                                            <span class="btn default btn-xs black btn-del" disabled="disabled">
-                                                已关闭
-                                            </span>
+                                            if (@item.CreateDate.ToShortDateString() == DateTime.Now.ToShortDateString())
+                                            {
+                                                <button class="btn default btn-xs black btn-del deDel" data-name="@item.OrderID / @item.User.UserName / @item.FoodMenu.MenuName" data-href="/admin/order/del/@item.OrderID">
+                                                    <i class="fa fa-trash-o"></i> 取消订单
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <span class="btn default btn-xs black btn-del" disabled="disabled">
+                                                    交易成功
+                                                </span>
+                                            }
                                         }
+
                                     </td>
                                 </tr>
                             }

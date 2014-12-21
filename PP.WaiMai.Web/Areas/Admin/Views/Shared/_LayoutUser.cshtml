@@ -7,7 +7,7 @@
 }
 @section scripts {
     @*<script src="~/Scripts/jquery.msgBox.js"></script>
-    <script src="~/Scripts/jquery.msgProcess.js"></script>*@
+        <script src="~/Scripts/jquery.msgProcess.js"></script>*@
     @RenderSection("scripts", required: false)
 }
 <div class="wrapper">
@@ -24,9 +24,12 @@
                             <li class="myinfo">
                                 <a href="/admin">我的首页</a>
                             </li>
-                            @*<li class="shopfav">
-                                <a href="/user/shopfav">我的订餐</a>
-                            </li>*@
+                            <li class="recharge">
+                                <a href="/admin/recharge">用户充值</a>
+                            </li>
+                            <li class="expend">
+                                <a href="/admin/user/expend">我的消费</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="menu_sec">
@@ -46,17 +49,22 @@
                             </li>
                         </ul>
                     </div>
-                    @*<div class="menu_sec">
-                        <div class="menu_title">账户管理</div>
+                    <div class="menu_sec">
+                        <div class="menu_title">报表中心</div>
                         <ul>
-                            <li class="address">
-                                <a href="/user/address">收货地址管理</a>
-                            </li>
-                            <li class="password">
-                                <a href="/user/changepassword">修改密码</a>
+                            <li class="repUser">
+                                <a href="/admin/Report/RepUser">用户报表</a>
                             </li>
                         </ul>
-                    </div>*@
+                    </div>
+                    <div class="menu_sec">
+                        <div class="menu_title">账户管理</div>
+                        <ul>
+                            <li class="password">
+                                <a href="/Account/changepassword">修改密码</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 

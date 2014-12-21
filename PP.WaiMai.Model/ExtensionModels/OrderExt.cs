@@ -15,8 +15,10 @@ namespace PP.WaiMai.Model
     }
     public class OrderValidate
     {
-        [DisplayName("昵称：")]
-        [Required(ErrorMessage = "请填写你的昵称")]
-        public string NickName { get; set; }
+        [Required]
+        public int FoodMenuID { get; set; }
+
+        [Required]
+        public string TotalPrice { get; set; }
     }
 }

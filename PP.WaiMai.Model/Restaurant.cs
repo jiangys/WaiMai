@@ -23,6 +23,7 @@ namespace PP.WaiMai.Model
         public string RestaurantName { get; set; }
         public int SendOutCount { get; set; }
         public string TakeoutPhone { get; set; }
+        public string Description { get; set; }
         public bool IsEnable { get; set; }
         public System.DateTime CreateDate { get; set; }
         public string Creator { get; set; }

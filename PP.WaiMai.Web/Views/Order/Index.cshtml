@@ -3,17 +3,28 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style type="text/css">
-    .orderbox {
-        margin: 20px 0;
-    }
-
-        .orderbox span {
-            margin-left: 10px;
-        }
-</style>
+@section head{
+    <link href="~/Content/css/order.css" rel="stylesheet" />
+}
+@section Scripts{
+    <script>
+        //默认显示第一个tab
+        $(function () {
+            var showTabId = '@ViewBag.ShowTabId';
+            var href = "#Restaurant_" + showTabId;
+            //显示指定的tab
+            if (showTabId!=''&&showTabId != '0') {
+                $('#myTab a[href="' + href + '"]').tab('show')
+            }
+            else {
+                $('#myTab a:first').tab('show')
+            }
+          
+        })
+    </script>
+}
 <section class="container">
-    <div class="orderbox">
+    <div class="wrapper">
         <div class="alert alert-danger alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             <strong>温馨提示：</strong> 若要取消订单，请到【管理中心】→【订单查看】里取消，谢谢。
@@ -21,144 +32,32 @@
         <div class="alert alert-info" role="alert">
             @if (@ViewBag.IsDayMode)
             {
-            <span>今日订餐共：<strong>@Model.Count()</strong> 份</span>
+                <span>今日全部订餐共：<strong>@Model.Count()</strong> 份</span>
             }
             else
             {
-            <span>加班订餐共：<strong>@Model.Count()</strong> 份</span>
+                <span>加班全部订餐共：<strong>@Model.Count()</strong> 份</span>
             }
-            <span>应付总金额：<strong>@Model.Sum(m => m.TotalPrice)</strong> 元</span>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;应付总金额：<strong>@Model.Sum(m => m.TotalPrice)</strong> 元</span>
         </div>
 
-        <style type="text/css">
-            .bs-tabs:after {
-                color: #959595;
-                /*content: "根据餐厅汇总";
-                font-size: 12px;*/
-                font-weight: 700;
-                left: 15px;
-                letter-spacing: 1px;
-                position: absolute;
-                text-transform: uppercase;
-                top: 15px;
-            }
-            .bs-tabs {
-                background-color: #fff;
-                border-color: #ddd;
-                border-radius: 4px 4px 0 0;
-                border-width: 1px;
-                box-shadow: none;
-                margin-left: 0;
-                margin-right: 0;
-                border-color: #e5e5e5 #eee #eee;
-                border-style: solid;
-                border-width: 1px 0;
-                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05) inset;
-                padding: 30px 15px;
-                position: relative;
-            }
-            .tab-content{margin-top:20px;}
-        </style>
 
         <div class="bs-example bs-tabs" style="background-color:#ffffff;">
             <ul class="nav nav-tabs" role="tablist" id="myTab">
-                <li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab">汇味美食</a></li>
-                <li role="presentation"><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
-                <li role="presentation"><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
-                <li role="presentation"><a href="#settings" role="tab" data-toggle="tab">Settings</a></li>
+                @foreach (var item in @ViewBag.RestaurantList)
+                {
+                    <li role="presentation"><a href="#Restaurant_@item.RestaurantID" role="tab" data-toggle="tab">@item.RestaurantName</a></li>
+                }
             </ul>
 
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="home">
-                    <div class="panel panel-default">
-                        <!-- Default panel contents -->
-                        @if (@ViewBag.IsDayMode)
-                        {
-                            <div class="panel-heading">今日订单列表明细</div>
-                        }
-                        else
-                        {
-                            <div class="panel-heading">加班订单列表明细</div>
-                        }
-
-                        <!-- Table -->
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>昵称</th>
-                                    <th>菜单名称</th>
-                                    <th>价格</th>
-                                    <th>数量</th>
-                                    <th>下单时间</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{
-                                    int i = 1;
-                                    foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td>@(i++)</td>
-                                            <td>@item.NickName</td>
-                                            <td>@item.FoodMenu.MenuName</td>
-                                            <td>@item.TotalPrice 元</td>
-                                            <td>@item.TotalCount</td>
-                                            <td>@item.CreateDate</td>
-                                        </tr>
-                                    }
-                                }
-                            </tbody>
-                        </table>
+                @foreach (var item in Model.Select(m => m.FoodMenu.FoodMenuCategory.RestaurantID).Distinct())
+                {
+                    <div role="tabpanel" class="tab-pane" id="Restaurant_@item">
+                        @Html.Partial("_OrderListPartial", Model.Where(m => m.FoodMenu.FoodMenuCategory.RestaurantID == item).ToList())
                     </div>
-                    <div class="panel panel-default">
-                        <!-- Default panel contents -->
-                        @if (@ViewBag.IsDayMode)
-                        {
-                            <div class="panel-heading">今日订单汇总显示</div>
-                        }
-                        else
-                        {
-                            <div class="panel-heading">加班订单汇总显示</div>
-                        }
-                        <!-- Table -->
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>菜单名称</th>
-                                    <th>总价格</th>
-                                    <th>总数量</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{
-                                    int j = 1;
-                                    var MenuCategory = Model.Select(m => m.FoodMenu.MenuName).Distinct();
-
-                                    foreach (var MenuName in MenuCategory)
-                                    {
-                                        <tr>
-                                            <td>@(j++)</td>
-                                            <td>@MenuName</td>
-                                            <td>@Model.Where(m => m.FoodMenu.MenuName == MenuName).Sum(m => m.TotalPrice) 元</td>
-                                            <td>@Model.Where(m => m.FoodMenu.MenuName == MenuName).Sum(m => m.TotalCount)</td>
-                                        </tr>
-                                    }
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div role="tabpanel" class="tab-pane" id="profile">.22222..</div>
-                <div role="tabpanel" class="tab-pane" id="messages">.23333..</div>
-                <div role="tabpanel" class="tab-pane" id="settings">.444..</div>
+                }
             </div>
         </div>
-        @*<script>
-                $(function () {
-                    $('#myTab a:last').tab('show')
-                })
-            </script>*@
     </div>
 </section>

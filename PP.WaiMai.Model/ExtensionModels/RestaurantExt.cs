@@ -27,6 +27,9 @@ namespace PP.WaiMai.Model
         [Required(ErrorMessage = "请填写起送份数")]
         public int SendOutCount { get; set; }
 
+        [DisplayName("餐厅描述：")]
+        public int Description { get; set; }
+
         [DisplayName("是否启用：")]
         public bool IsEnable { get; set; }
     }

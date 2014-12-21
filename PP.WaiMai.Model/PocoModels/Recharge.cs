@@ -18,8 +18,13 @@ namespace PP.WaiMai.Model
 			return new Recharge(){
 				RechargeID = this.RechargeID,
 				UserID = this.UserID,
-				Amount = this.Amount,
+				RechargeAmount = this.RechargeAmount,
+				OpeningBalance = this.OpeningBalance,
+				CurrentBalance = this.CurrentBalance,
 				Status = this.Status,
+				Remark = this.Remark,
+				CreateDate = this.CreateDate,
+				RechargeUserName = this.RechargeUserName,
 				IsDel = this.IsDel,
 			};
 		}

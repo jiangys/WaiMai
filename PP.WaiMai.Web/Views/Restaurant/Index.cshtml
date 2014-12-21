@@ -1,0 +1,231 @@
+﻿@{
+    ViewBag.Title = "菜单列表";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section head{
+    <link href="~/Content/css/restaurant.css" rel="stylesheet" />
+
+}
+@section Scripts {
+    <script>
+        $(function () {
+            $(".addbtn").click(function () {
+                if(!checkIsLogin()){return;}//判断是否登陆
+                var id = $(this).attr("data-id");
+                var menu = $(this).attr("data-menu");
+                var price = $(this).attr("data-price");
+                $(".confirm-info").text(menu + "/" + price);
+                var elem = document.getElementById('confirm');
+                var d = dialog({
+                    title: '确定下单',
+                    content: elem,
+                    okValue: '提交订单',
+                    ok: function () {   
+                        var that = this;
+                        this.title('正在提交..');
+                        that.close().remove();
+                        var remark = $('#remark').val();
+                        $.post("/Order/add", { FoodMenuId: id, TotalPrice: price, Remark: remark }, function (jsonData) {
+                            $.artModalDialogMsg(jsonData, function () {
+                                //带上餐厅的ID，便于今日订单列表显示相应的Tab标签
+                                window.location.href = jsonData.BackUrl+"/"+@ViewBag.RestaurantModel.RestaurantID ;
+                            }, null);
+                            return true;
+                        });
+                    },
+                    cancelValue: '取消',
+                    cancel: function () { }
+                });
+                d.showModal();
+
+            });
+
+
+            // 窗口滚动的时候控制悬浮效果。
+            var $category = $('.menu-categories');
+            var categoryHook = $category.offset().top;
+            $(window).scroll(function () {
+                var scrollTop = $(window).scrollTop();
+                if (scrollTop < categoryHook) {
+                    $category.removeClass('menu-categories-fixed');
+                    $('#category-menu-container .content-list').removeAttr('style');
+                } else {
+                    $category.addClass('menu-categories-fixed');
+                    $('#category-menu-container .content-list').css('margin-top', $category.height() + 30 + 'px');
+                }
+            });
+            //点击菜单类别
+            $('.menu-categories li').click(function (e) {
+                e.preventDefault();
+                $('.menu-categories li').removeClass('active');
+                $(this).addClass('active');
+                var hashValue = $(this).find('a').data('href');
+                var $hash = $(hashValue);
+                var scrollTop = $hash.offset().top;
+                $(window).scrollTop(scrollTop - $('.menu-categories').height() - 25);
+            });
+        });
+        //判断是否登陆
+        function checkIsLogin(){
+            var isLogin='@OperateContext.Current.IsLogin()';
+            if (isLogin!="True") {
+                wrapper.timeoutErrModalDialog("亲，登陆后才能下单哦");
+                return false;
+            }
+            return true;
+        };
+    </script>
+}
+<section class="container">
+    <div class="alert alert-danger alert-dismissible" role="alert" style="margin-top:20px;">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <strong>温馨提示：</strong> 1.每天10点30分截止订餐，感谢配合；2.订餐费用，请统一交给周巧云，可以充值；3.订餐时，请看好菜单的供应时段。
+    </div>
+
+
+    <div class="basicinfo u-border clearfix">
+        @{
+            if (ViewBag.RestaurantModel == null)
+            {
+                <div style="margin:20px; font-size:22px;">请先到【管理中心】→【餐厅管理】启用一个餐厅进行订餐</div>
+            }
+            else
+            {
+                var restaurantModel = ViewBag.RestaurantModel as PP.WaiMai.Model.Restaurant;
+                <div class="b-img fl">
+                    <img width="120" height="120" src="~/Content/images/nopic_waimai.png">
+                </div>
+                <div class="b-info fl">
+                    <h3>@restaurantModel.RestaurantName</h3>
+                    <dl>
+                        <dt><i class="icon-time"></i>订餐状态:&nbsp;</dt>
+                        <dd>
+                            @if (ViewBag.IsDo == true)
+                            {
+                                <strong class="doing">进行中</strong>
+                            }
+                            else
+                            {
+                                <strong class="stop">订餐结束</strong>
+                            }
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i class="icon-time"></i>订餐电话:&nbsp;</dt>
+                        <dd>
+                            @restaurantModel.TakeoutPhone
+                        </dd>
+                    </dl>
+                </div>
+                <div class="b-cost fr">
+                    <div class="b-value">¥<strong class="b-num">0</strong></div>
+                    <p class="b-label">配送费</p>
+                </div>
+                <div class="b-divider fr"></div>
+                <div class="b-price fr">
+                    <div class="b-value"><strong class="b-num">@restaurantModel.SendOutCount</strong>份</div>
+                    <p class="b-label">起送份数</p>
+                </div>
+                <div class="b-divider fr"></div>
+                <div class="b-totime fr">
+                    <div class="b-value">
+                        <strong class="b-num">40分钟</strong>
+                        <span class="num-unit"></span>
+                    </div>
+                    <p class="b-label">平均送达时间</p>
+                </div>
+            }
+
+        }
+    </div>
+
+    <div data-spy="scroll" data-target=".navbar-example">
+        @{
+            var foodMenuList = ViewBag.FoodMenuList == null ? new List<FoodMenu>() : ViewBag.FoodMenuList as List<FoodMenu>;
+            var foodMenuViewList = ViewBag.FoodMenuViewList == null ? new List<FoodMenuViewModel>() : ViewBag.FoodMenuViewList as List<FoodMenuViewModel>;
+            var categoryList = foodMenuList.Select(m => new { m.FoodMenuCategoryID, m.FoodMenuCategory.CName, m.FoodMenuCategory.IsSale }).Distinct().ToList();
+            if (categoryList.Count() != 0)
+            {
+                <div class="menu-categories clearfix">
+                    <h3>菜品分类：</h3>
+                    <ul class="list clearfix">
+                        @foreach (var itemCategory in categoryList)
+                        {
+                            <li>
+                                <a data-href="#category-anchor-@itemCategory.FoodMenuCategoryID" href="javascript:;">@itemCategory.CName</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        }
+        <div id="content-list" class="content-list">
+            @{
+                foreach (var itemCategory in categoryList)
+                {
+                    <div class="one-category-menus-container">
+                        <a name="category-anchor-@itemCategory.FoodMenuCategoryID" id="category-anchor-@itemCategory.FoodMenuCategoryID"></a>
+                        <h4 class="one-category-menu-title">@itemCategory.CName</h4>
+                        <div class="one-category-menus ">
+                            <div class="clearfix" id="imgBoxList">
+                                @foreach (var item in foodMenuViewList.Where(m => m.FoodMenuCategoryID == itemCategory.FoodMenuCategoryID))
+                                {
+                                    <div class="item u-bgbox">
+                                        <div class="pic fl">
+                                            <img src="/Content/images/nopic_waimai.png">
+                                        </div>
+                                        <div class="item-detail fr">
+                                            <div class="name">
+                                                <span class="text-overflow-ellipsis " title="@item.MenuName">@item.MenuName</span>
+                                            </div>
+                                            <div class="item-desc">
+                                                <span class="sale">0人推荐</span>
+                                                <span class="sale-divider"></span>
+                                                <span class="sale">已售 @item.TotalCount 份</span>
+                                            </div>
+                                            <div class="item-add clearfix">
+                                                <div class="price fl">￥<i>@item.Price</i> / 份</div>
+                                                @if (ViewBag.IsDo == true)
+                                                {
+                                                    if (!itemCategory.IsSale || !item.IsSale)
+                                                    {
+                                                        <div class="tips fr">已售完</div>
+                                                        <div class="clear"></div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="addbtn fr" data-id="@item.FoodMenuID" data-price="@item.Price" data-menu="@item.MenuName">
+                                                            <span class="glyphicon glyphicon-plus-sign"></span>
+                                                        </div>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <div class="tips fr">已结束</div>
+                                                    <div class="clear"></div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+    </div>
+    <!--弹出确认信息框-->
+    <div class="confirm" id="confirm" style="width:400px; display:none;">
+        <blockquote>
+            <p class="confirm-title">请确定您选择的订餐信息：</p>
+            <p class="confirm-info"></p>
+        </blockquote>
+        <div class="form-group">
+            <label>备注（可为空）：</label>
+            <input class="form-control" id="remark" placeholder="备注,可为空">
+        </div>
+    </div>
+    <!--结束 弹出确认信息框-->
+</section>

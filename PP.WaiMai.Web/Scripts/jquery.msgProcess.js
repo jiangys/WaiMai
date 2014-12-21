@@ -19,6 +19,60 @@
 
                 }
             },
+            artDialogMsg: function (data, funcSuc, funcErr) {
+                switch (data.State) {
+                    case 1://操作成功
+                        wrapper.timeoutOkDialog(data.Msg);
+                        setTimeout(function () {
+                          if (funcSuc) funcSuc();    
+                        }, 2000); 
+                        break;
+                    case 2://操作因为某种原因失败（业务级：比如登陆密码错误）
+                        wrapper.timeoutErrDialog(data.Msg);
+                        if (funcErr) funcErr();
+                        break;
+                    case 3:// 没有登录
+                        wrapper.timeoutErrDialog(data.Msg);
+                        if (funcErr) funcErr();
+                        break;
+                    case 4:// 没有权限
+                        wrapper.timeoutErrDialog(data.Msg);
+                        if (funcErr) funcErr();
+                        break;
+                    case 5:// 异常
+                        wrapper.timeoutErrDialog(data.Msg);
+                        if (funcErr) funcErr();
+                        break;
+
+                }
+            },
+            artModalDialogMsg: function (data, funcSuc, funcErr) {
+                switch (data.State) {
+                    case 1://操作成功
+                        wrapper.timeoutOkModalDialog(data.Msg);
+                        setTimeout(function () {
+                            if (funcSuc) funcSuc();
+                        }, 2000);
+                        break;
+                    case 2://操作因为某种原因失败（业务级：比如登陆密码错误）
+                        wrapper.timeoutErrModalDialog(data.Msg);
+                        if (funcErr) funcErr();
+                        break;
+                    case 3:// 没有登录
+                        wrapper.timeoutErrModalDialog(data.Msg);
+                        if (funcErr) funcErr();
+                        break;
+                    case 4:// 没有权限
+                        wrapper.timeoutErrModalDialog(data.Msg);
+                        if (funcErr) funcErr();
+                        break;
+                    case 5:// 异常
+                        wrapper.timeoutErrModalDialog(data.Msg);
+                        if (funcErr) funcErr();
+                        break;
+
+                }
+            },
 
             /*
                1.0 处理 为 Ajax请求 规定的 Json格式数据

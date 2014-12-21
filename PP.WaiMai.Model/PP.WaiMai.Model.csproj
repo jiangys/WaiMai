@@ -52,17 +52,19 @@
       <DependentUpon>WaiMai.tt</DependentUpon>
     </Compile>
     <Compile Include="Enums\AjaxMsgStateEnum.cs" />
+    <Compile Include="Enums\RechargeStatusEnum.cs" />
     <Compile Include="ExtensionModels\FoodMenuCategoryExt.cs" />
+    <Compile Include="ExtensionModels\RechargeExt.cs" />
     <Compile Include="ExtensionModels\FoodMenuExt.cs" />
     <Compile Include="ExtensionModels\OrderExt.cs" />
     <Compile Include="ExtensionModels\RestaurantExt.cs" />
-    <Compile Include="FormatModels\AjaxMsgModel.cs" />
     <Compile Include="FoodMenu.cs">
       <DependentUpon>WaiMai.tt</DependentUpon>
     </Compile>
     <Compile Include="FoodMenuCategory.cs">
       <DependentUpon>WaiMai.tt</DependentUpon>
     </Compile>
+    <Compile Include="FormatModels\AjaxMsgModel.cs" />
     <Compile Include="FormatModels\PageData.cs" />
     <Compile Include="Order.cs">
       <DependentUpon>WaiMai.tt</DependentUpon>
@@ -105,6 +107,7 @@
     </Compile>
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\ConfigDoViewModel.cs" />
+    <Compile Include="ViewModels\ExpendViewModel.cs" />
     <Compile Include="ViewModels\FoodMenuCategoryViewModel.cs" />
     <Compile Include="ViewModels\FoodMenuViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
@@ -132,7 +135,9 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="PocoModels\PocoModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -155,7 +160,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="WaiMai.edmx.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

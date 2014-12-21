@@ -16,17 +16,20 @@ namespace PP.WaiMai.Model
     {
         public User()
         {
+            this.Order = new HashSet<Order>();
             this.Recharge = new HashSet<Recharge>();
         }
     
         public int UserID { get; set; }
         public string UserName { get; set; }
+        public string Password { get; set; }
         public string IPAddress { get; set; }
         public decimal Amount { get; set; }
+        public bool IsAdmin { get; set; }
         public System.DateTime CreateDate { get; set; }
         public bool IsDel { get; set; }
-        public string Password { get; set; }
     
+        public virtual ICollection<Order> Order { get; set; }
         public virtual ICollection<Recharge> Recharge { get; set; }
     }
 }

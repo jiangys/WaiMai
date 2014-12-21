@@ -19,11 +19,11 @@
     <script type="text/javascript">
         $(function () {
             $("#addRestaurant").click(function () {
-                wrapper.showModalDialog("/admin/restaurant/add", 350, 380);
+                wrapper.showModalDialog("/admin/restaurant/add", 350, 500);
             });
             $(".doEdit").click(function () {
                 var url = $(this).attr("data-href");
-                wrapper.showModalDialog(url, 350, 380);
+                wrapper.showModalDialog(url, 350, 500);
             });
             $(".deDel").click(function () {
                 var url = $(this).attr("data-href");

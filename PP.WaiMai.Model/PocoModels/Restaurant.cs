@@ -20,6 +20,7 @@ namespace PP.WaiMai.Model
 				RestaurantName = this.RestaurantName,
 				SendOutCount = this.SendOutCount,
 				TakeoutPhone = this.TakeoutPhone,
+				Description = this.Description,
 				IsEnable = this.IsEnable,
 				CreateDate = this.CreateDate,
 				Creator = this.Creator,

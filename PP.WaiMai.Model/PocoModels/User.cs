@@ -18,11 +18,12 @@ namespace PP.WaiMai.Model
 			return new User(){
 				UserID = this.UserID,
 				UserName = this.UserName,
+				Password = this.Password,
 				IPAddress = this.IPAddress,
 				Amount = this.Amount,
+				IsAdmin = this.IsAdmin,
 				CreateDate = this.CreateDate,
 				IsDel = this.IsDel,
-				Password = this.Password,
 			};
 		}
 	}

@@ -47,7 +47,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var modelList = BLLSession.IRestaurantService.Modify(model, "RestaurantName", "SendOutCount", "TakeoutPhone", "IsEnable");
+                var modelList = BLLSession.IRestaurantService.Modify(model, "RestaurantName", "SendOutCount", "TakeoutPhone", "Description", "IsEnable");
                 return JsonMsgOk("编辑成功", "/Admin/Restaurant");
             }
             // 如果我们进行到这一步时某个地方出错，则重新显示表单
