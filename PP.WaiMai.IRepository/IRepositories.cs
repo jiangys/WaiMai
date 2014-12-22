@@ -13,6 +13,10 @@ namespace PP.WaiMai.IRepository
     {
     }
 
+	public partial interface IExpendLogRepository : IBaseRepository<ExpendLog>
+    {
+    }
+
 	public partial interface IFoodMenuRepository : IBaseRepository<FoodMenu>
     {
     }

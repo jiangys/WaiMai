@@ -28,6 +28,25 @@ namespace PP.WaiMai.Repository
         }
 		#endregion
 
+		#region 数据接口 IExpendLogRepository
+		private IExpendLogRepository _ExpendLogRepository;
+        public IExpendLogRepository ExpendLogRepository 
+        {
+            get
+            {
+                if (_ExpendLogRepository == null)
+                {
+                    _ExpendLogRepository = new ExpendLogRepository();
+                }
+                return _ExpendLogRepository; 
+            }
+            set
+            {
+                _ExpendLogRepository = value;
+            }
+        }
+		#endregion
+
 		#region 数据接口 IFoodMenuRepository
 		private IFoodMenuRepository _FoodMenuRepository;
         public IFoodMenuRepository FoodMenuRepository 

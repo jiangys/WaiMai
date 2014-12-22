@@ -8,6 +8,7 @@ using PP.WaiMai.Model;
 using Newtonsoft.Json;
 using PP.WaiMai.Model.ViewModels;
 using System.Transactions;
+using PP.WaiMai.Model.Enums;
 
 namespace PP.WaiMai.Web.Controllers
 {
@@ -61,9 +62,9 @@ namespace PP.WaiMai.Web.Controllers
 
                         if (userModel.Amount < model.TotalPrice)
                         {
-                            return JsonMsgNoOk("当前余额为"+userModel.Amount+"元，余额不足，请先充值");
+                            return JsonMsgNoOk("当前余额为" + userModel.Amount + "元，余额不足，请先充值");
                         }
-
+                        //插入数据到订单
                         model.UserID = OperateHelper.User.UserID;
                         model.TotalCount = 1;
                         model.CreateDate = DateTime.Now;
@@ -73,6 +74,16 @@ namespace PP.WaiMai.Web.Controllers
                         //更新用户剩余金额
                         userModel.Amount = userModel.Amount - model.TotalPrice;
                         BLLSession.IUserService.ModifyModel(userModel);
+                        //插入数据到消费流水表
+                        BLLSession.IExpendLogService.Add(new ExpendLog()
+                        {
+                            ConsumeAmount = model.TotalPrice,
+                            RechargeAmount = 0,
+                            CreateDate = DateTime.Now,
+                            ExpendLogTypeID = model.OrderID,
+                            ExpendLogType = (int)ExpendLogTypeEnum.Order,
+                            Description = "订餐完成消耗金额"
+                        });
                         scope.Complete();//提交事务
                     }
                     return JsonMsgOk("下单成功", "/Order/Index");

@@ -51,10 +51,10 @@
             </ul>
 
             <div class="tab-content">
-                @foreach (var item in Model.Select(m => m.FoodMenu.FoodMenuCategory.RestaurantID).Distinct())
+                @foreach (var item in @ViewBag.RestaurantList)
                 {
-                    <div role="tabpanel" class="tab-pane" id="Restaurant_@item">
-                        @Html.Partial("_OrderListPartial", Model.Where(m => m.FoodMenu.FoodMenuCategory.RestaurantID == item).ToList())
+                    <div role="tabpanel" class="tab-pane" id="Restaurant_@item.RestaurantID">
+                        @Html.Partial("_OrderListPartial", Model.Where(m => m.FoodMenu.FoodMenuCategory.RestaurantID == item.RestaurantID).ToList())
                     </div>
                 }
             </div>

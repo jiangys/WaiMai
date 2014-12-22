@@ -14,6 +14,10 @@ namespace PP.WaiMai.Repository
     {
 
     }
+	public class ExpendLogRepository : BaseRepository<ExpendLog>,IExpendLogRepository
+    {
+
+    }
 	public class FoodMenuRepository : BaseRepository<FoodMenu>,IFoodMenuRepository
     {
 

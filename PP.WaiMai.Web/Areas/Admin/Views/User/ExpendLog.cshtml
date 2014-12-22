@@ -1,5 +1,5 @@
 ﻿@using PagedList.Mvc;
-@model PagedList.IPagedList<ExpendViewModel>
+@model PagedList.IPagedList<ExpendLog>
 @{
     ViewBag.Title = "用户报表";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutUser.cshtml";
@@ -92,34 +92,44 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                <tr>
-                                    <td>
-                                        @item.CreateDate
-                                    </td>
-                                    <td>
-                                        @if (@item.ConsumeAmount == 0)
+                                    <tr>
+                                        <td>
+                                            @item.CreateDate
+                                        </td>
+                                        <td>
+                                            @if (item.ConsumeAmount == 0)
                                             {
-                                            <text>-</text>
+                                                <text>-</text>
                                             }
                                             else
                                             {
-                                            @item.ConsumeAmount
+                                                @item.ConsumeAmount
                                             }
-                                    </td>
-                                    <td>
-                                        @if (@item.RechargeAmount == 0)
+                                        </td>
+                                        <td>
+                                            @if (item.RechargeAmount == 0)
                                             {
-                                            <text>-</text>
+                                                <text>-</text>
                                             }
                                             else
                                             {
-                                            @item.RechargeAmount
+                                                @item.RechargeAmount
                                             }
-                                    </td>
-                                    <td>
-                                        @item.Description
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td>
+                                            @switch ((ExpendLogTypeEnum)item.ExpendLogType)
+                                            {
+                                                case ExpendLogTypeEnum.Order:
+                                                    <text>@item.Description (订单号：@item.ExpendLogTypeID)</text>
+                                                    break;
+                                                case ExpendLogTypeEnum.Recharge:
+                                                <text>@item.Description (充值号：@item.ExpendLogTypeID)</text>
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        </td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>

@@ -14,6 +14,11 @@ namespace PP.WaiMai.IService
       
     }   
 	
+	public partial interface IExpendLogService : IBaseService<ExpendLog>
+    {
+      
+    }   
+	
 	public partial interface IFoodMenuService : IBaseService<FoodMenu>
     {
       

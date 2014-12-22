@@ -26,6 +26,7 @@ namespace PP.WaiMai.Model
         }
     
         public virtual DbSet<Config> Config { get; set; }
+        public virtual DbSet<ExpendLog> ExpendLog { get; set; }
         public virtual DbSet<FoodMenu> FoodMenu { get; set; }
         public virtual DbSet<FoodMenuCategory> FoodMenuCategory { get; set; }
         public virtual DbSet<Order> Order { get; set; }

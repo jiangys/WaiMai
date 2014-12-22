@@ -7,6 +7,7 @@ namespace PP.WaiMai.IRepository
     public partial interface IDbSession
     {
     IConfigRepository ConfigRepository{get;set;}
+    IExpendLogRepository ExpendLogRepository{get;set;}
     IFoodMenuRepository FoodMenuRepository{get;set;}
     IFoodMenuCategoryRepository FoodMenuCategoryRepository{get;set;}
     IOrderRepository OrderRepository{get;set;}

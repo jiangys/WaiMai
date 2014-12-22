@@ -21,6 +21,15 @@ namespace PP.WaiMai.Service
         }
     }   
 	
+	public partial class ExpendLogService : BaseService<ExpendLog>,IExpendLogService
+    {
+        public override void SetCurrentRepository()
+        {
+            //设置处理当前请求的仓储
+            this.CurrentRepository = DbSessionContext.ExpendLogRepository;
+        }
+    }   
+	
 	public partial class FoodMenuService : BaseService<FoodMenu>,IFoodMenuService
     {
         public override void SetCurrentRepository()

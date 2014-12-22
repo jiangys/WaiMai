@@ -1,0 +1,73 @@
+﻿@model PP.WaiMai.Model.ViewModels.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+    <link href="~/Content/css/register.css" rel="stylesheet" />
+}
+
+<div class="container">
+    <div class="wrapper">
+        <div class="w-980">
+            <div class="reg-content clearfix">
+                <div class="reg-header">
+                    <h4 class="reg-title">欢迎您注册&nbsp;&nbsp;<small>10秒快速注册,每个独立的IP限可以注册一次！</small></h4>
+                </div>
+                <div class="reg-body clearfix">
+                    <div class="reg-body-l">
+                        @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            @Html.HiddenFor(m => m.IPAddress);
+                            @Html.HiddenFor(m => m.Password);
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.UserName)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.IPAddress, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-6">
+                                    <label for="IPAddress" class="col-md-4 control-label">@Model.IPAddress</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-6">
+                                    <label for="IPAddress" class="col-md-10 control-label">@Model.Password（可到个人中心修改）</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-6">
+                                    <input type="submit" class="btn btn-danger btn-lg btn-block" value="同意以下协议并注册" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-offset-2 col-sm-6">我已阅读并同意<a href="#">《PPMoney用户协议》</a></label>
+                            </div>
+                        }
+                    </div>
+                    <div class="reg-body-r">
+                        @*<h4>用合作网站账号登录</h4>
+                            <ul>
+                                <li class="qq">
+                                    <a role="button" class="btn btn-primary" href="/Account/QQLogin"><i class="iconfont">&#xe617;</i>QQ登陆</a>
+                                </li>
+                            </ul>*@
+                        <h5>已有账号，<a href="/account/Login" class="cBlue">立即登录>></a></h5>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

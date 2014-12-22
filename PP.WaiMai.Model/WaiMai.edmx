@@ -4,13 +4,25 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="WaiMaiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="WaiMaiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Config">
           <Key>
             <PropertyRef Name="ConfigName" />
           </Key>
           <Property Name="ConfigName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ConfigValue" Type="nvarchar" MaxLength="2000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExpendLog">
+          <Key>
+            <PropertyRef Name="ExpendLogID" />
+          </Key>
+          <Property Name="ExpendLogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ExpendLogTypeID" Type="int" Nullable="false" />
+          <Property Name="ExpendLogType" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ConsumeAmount" Type="decimal" Precision="18" Scale="1" Nullable="false" />
+          <Property Name="RechargeAmount" Type="decimal" Precision="18" Scale="1" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="FoodMenu">
           <Key>
@@ -168,6 +180,7 @@
         </Association>
         <EntityContainer Name="WaiMaiModelStoreContainer">
           <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExpendLog" EntityType="Self.ExpendLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FoodMenu" EntityType="Self.FoodMenu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FoodMenuCategory" EntityType="Self.FoodMenuCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
@@ -201,6 +214,7 @@
       <Schema Namespace="WaiMaiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="WaiMaiEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Config" EntityType="WaiMaiModel.Config" />
+          <EntitySet Name="ExpendLog" EntityType="WaiMaiModel.ExpendLog" />
           <EntitySet Name="FoodMenu" EntityType="WaiMaiModel.FoodMenu" />
           <EntitySet Name="FoodMenuCategory" EntityType="WaiMaiModel.FoodMenuCategory" />
           <EntitySet Name="Order" EntityType="WaiMaiModel.Order" />
@@ -234,6 +248,18 @@
           </Key>
           <Property Name="ConfigName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ConfigValue" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ExpendLog">
+          <Key>
+            <PropertyRef Name="ExpendLogID" />
+          </Key>
+          <Property Name="ExpendLogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ConsumeAmount" Type="Decimal" Nullable="false" Precision="18" Scale="1" />
+          <Property Name="RechargeAmount" Type="Decimal" Nullable="false" Precision="18" Scale="1" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ExpendLogType" Type="Int32" Nullable="false" />
+          <Property Name="ExpendLogTypeID" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="FoodMenu">
           <Key>
@@ -410,6 +436,19 @@
               <MappingFragment StoreEntitySet="Config">
                 <ScalarProperty Name="ConfigValue" ColumnName="ConfigValue" />
                 <ScalarProperty Name="ConfigName" ColumnName="ConfigName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExpendLog">
+            <EntityTypeMapping TypeName="WaiMaiModel.ExpendLog">
+              <MappingFragment StoreEntitySet="ExpendLog">
+                <ScalarProperty Name="ExpendLogTypeID" ColumnName="ExpendLogTypeID" />
+                <ScalarProperty Name="ExpendLogType" ColumnName="ExpendLogType" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="RechargeAmount" ColumnName="RechargeAmount" />
+                <ScalarProperty Name="ConsumeAmount" ColumnName="ConsumeAmount" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ExpendLogID" ColumnName="ExpendLogID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

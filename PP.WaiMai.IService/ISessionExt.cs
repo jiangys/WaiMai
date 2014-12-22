@@ -10,6 +10,7 @@ namespace PP.WaiMai.IService
 	public partial interface IServiceSession
     { 
 		IConfigService IConfigService{get;set;}
+		IExpendLogService IExpendLogService{get;set;}
 		IFoodMenuService IFoodMenuService{get;set;}
 		IFoodMenuCategoryService IFoodMenuCategoryService{get;set;}
 		IOrderService IOrderService{get;set;}

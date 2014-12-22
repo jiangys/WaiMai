@@ -27,6 +27,23 @@ namespace PP.WaiMai.Service
 		}
 		#endregion
 
+		#region 业务接口 IExpendLogService
+		IExpendLogService iExpendLogService;
+		public IExpendLogService IExpendLogService
+		{
+			get
+			{
+				if(iExpendLogService==null)
+					iExpendLogService= new ExpendLogService();
+				return iExpendLogService;
+			}
+			set
+			{
+				iExpendLogService= value;
+			}
+		}
+		#endregion
+
 		#region 业务接口 IFoodMenuService
 		IFoodMenuService iFoodMenuService;
 		public IFoodMenuService IFoodMenuService

@@ -33,30 +33,25 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
                 //开启事务,保证数据的一致性
                 using (var scope = new TransactionScope())
                 {
-                    //注意，操作顺序不能乱，尤其是插入充值记录和更新用户剩余金额，如果倒过来，userModel.Amount会增加， 
-                    //因为userModel.Amount = userModel.Amount + orderModel.TotalPrice;
                     var orderModel = BLLSession.IOrderService.GetModel(m => m.OrderID == id);
-                    //获取用户剩余金额
-                    var userModel = BLLSession.IUserService.GetModel(m => m.UserID == orderModel.UserID);
-                    //插入充值记录表
-                    BLLSession.IRechargeService.Add(new Recharge()
+                    //插入数据到消费流水表
+                    BLLSession.IExpendLogService.Add(new ExpendLog()
                     {
-                        Status = (int)RechargeStatusEnum.Succeed,
-                        IsDel = false,
+                        ConsumeAmount = -orderModel.TotalPrice,
+                        RechargeAmount = 0,
                         CreateDate = DateTime.Now,
-                        RechargeAmount = orderModel.TotalPrice,
-                        OpeningBalance = userModel.Amount,
-                        CurrentBalance = userModel.Amount + orderModel.TotalPrice,
-                        RechargeUserName = "sys",
-                        UserID = orderModel.UserID,
-                        Remark = "订单取消退款，订单号为：" + id.ToString()
+                        ExpendLogTypeID = id,
+                        ExpendLogType = (int)ExpendLogTypeEnum.Order,
+                        Description = "取消订餐退款金额"
                     });
                     //更新用户剩余金额
+                    var userModel = BLLSession.IUserService.GetModel(m => m.UserID == orderModel.UserID);
                     userModel.Amount = userModel.Amount + orderModel.TotalPrice;
                     BLLSession.IUserService.ModifyModel(userModel);
                     //删除订单
                     orderModel.IsDel = true;
                     BLLSession.IOrderService.ModifyModel(orderModel);
+
                     scope.Complete();//提交事务 
                 }
                 return JsonMsgOk("删除成功", "/Admin/Restaurant");

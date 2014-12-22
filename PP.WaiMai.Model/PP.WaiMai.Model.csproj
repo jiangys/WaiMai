@@ -52,7 +52,11 @@
       <DependentUpon>WaiMai.tt</DependentUpon>
     </Compile>
     <Compile Include="Enums\AjaxMsgStateEnum.cs" />
+    <Compile Include="Enums\ExpendLogTypeEnum.cs" />
     <Compile Include="Enums\RechargeStatusEnum.cs" />
+    <Compile Include="ExpendLog.cs">
+      <DependentUpon>WaiMai.tt</DependentUpon>
+    </Compile>
     <Compile Include="ExtensionModels\FoodMenuCategoryExt.cs" />
     <Compile Include="ExtensionModels\RechargeExt.cs" />
     <Compile Include="ExtensionModels\FoodMenuExt.cs" />
@@ -70,6 +74,9 @@
       <DependentUpon>WaiMai.tt</DependentUpon>
     </Compile>
     <Compile Include="PocoModels\Config.cs">
+      <DependentUpon>PocoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PocoModels\ExpendLog.cs">
       <DependentUpon>PocoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PocoModels\FoodMenu.cs">

@@ -47,10 +47,10 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
                         }
                         if (!OperateHelper.User.IsAdmin)
                         {
-                             return JsonMsgNoOk("对不起，你没权限操作");
+                            return JsonMsgNoOk("对不起，你没权限操作");
                         }
                         var userModel = BLLSession.IUserService.GetModel(m => m.UserID == model.UserID);
-
+                        //插入充值表
                         model.Status = (int)RechargeStatusEnum.Succeed;
                         model.IsDel = false;
                         model.CreateDate = DateTime.Now;
@@ -61,6 +61,16 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
                         //更新用户剩余金额
                         userModel.Amount = model.CurrentBalance;
                         BLLSession.IUserService.ModifyModel(userModel);
+                        //插入数据到消费流水表
+                        BLLSession.IExpendLogService.Add(new ExpendLog()
+                        {
+                            ConsumeAmount = 0,
+                            RechargeAmount = model.RechargeAmount,
+                            CreateDate = DateTime.Now,
+                            ExpendLogTypeID = model.RechargeID,
+                            ExpendLogType = (int)ExpendLogTypeEnum.Recharge,
+                            Description = "充值完成增加金额"
+                        });
                         scope.Complete();//提交事务
                     }
                     return JsonMsgOk("充值成功");
