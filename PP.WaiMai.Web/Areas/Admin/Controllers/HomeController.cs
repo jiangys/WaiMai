@@ -17,7 +17,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var startDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
-            var modelList = BLLSession.IOrderService.GetListBy(m => m.CreateDate > startDate && m.CreateDate < DateTime.Now);
+            var modelList = BLLSession.IOrderService.GetListBy(m => m.CreateDate > startDate && m.CreateDate < DateTime.Now && !m.IsDel);
             ViewBag.OrderList = modelList;
             //判断当前的订餐状态，ture为可订中
             ViewBag.IsDo = DoOrder();

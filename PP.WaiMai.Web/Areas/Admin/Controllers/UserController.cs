@@ -24,6 +24,8 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
                 return View();
             }
             var model = BLLSession.IExpendLogService.GetListBy(m => m.UserID==CurrentUser.UserID).OrderByDescending(m => m.ExpendLogID);
+            //剩余总金额
+            ViewBag.RemainAmount = model.Sum(m => m.RechargeAmount) - model.Sum(m => m.ConsumeAmount);
             return View(model.ToPagedList(page ?? 1, 15));
         }
     }

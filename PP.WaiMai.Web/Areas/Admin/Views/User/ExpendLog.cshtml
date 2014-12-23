@@ -14,13 +14,6 @@
             border-top: 1px solid #e5e5e5;
             padding: 8px 0 8px 37px;
         }
-
-        .user-box {
-            background: none repeat scroll 0 0 #fff;
-            border: 1px solid #dfdfdf;
-            margin-bottom: 15px;
-            padding: 15px;
-        }
     </style>
 }
 @section Scripts {
@@ -65,10 +58,8 @@
                 }
                 else
                 {
-                    <div class="user-box">
-                        <div class="jifen-info clearfix">
-                            <h4 class="fl">当前余额：<span style="color: #e95c00">&nbsp;@(@Model.Sum(m => m.RechargeAmount) - @Model.Sum(m => m.ConsumeAmount))&nbsp;</span>元</h4>
-                        </div>
+                    <div class="user-box ">
+                            <h4>当前余额：<span style="color: #e95c00">&nbsp;@ViewBag.RemainAmount&nbsp;</span>元</h4>
                     </div>
 
                     <div class="table-responsive">
@@ -133,7 +124,7 @@
                                 }
                             </tbody>
                         </table>
-                        @Html.PagedListPager(Model, page => Url.Action("RepUser", new { page }))
+                        @Html.PagedListPager(Model, page => Url.Action("ExpendLog", new { page }))
                     </div>
                 }
             </div>

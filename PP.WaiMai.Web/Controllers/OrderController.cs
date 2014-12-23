@@ -30,7 +30,7 @@ namespace PP.WaiMai.Web.Controllers
                 var doModeTypeValue = JsonConvert.DeserializeObject<ConfigDoModeTypeViewModel>(doModeType.ConfigValue);
                 if (doModeTypeValue.DoTime.ToShortDateString() == DateTime.Now.ToShortDateString() && !doModeTypeValue.IsDayMode)
                 {
-                    var list = BLLSession.IOrderService.GetListBy(m => m.CreateDate > doModeTypeValue.DoTime && m.CreateDate < DateTime.Now);
+                    var list = BLLSession.IOrderService.GetListBy(m => m.CreateDate > doModeTypeValue.DoTime && m.CreateDate < DateTime.Now && !m.IsDel);
                     //返回餐厅集合
                     ViewBag.RestaurantList = BLLSession.IRestaurantService.GetListBy(m => m.IsEnable).Take(2).ToList().Select(m => m.ToPOCO()).ToList();
                     ViewBag.IsDayMode = false;
@@ -41,7 +41,7 @@ namespace PP.WaiMai.Web.Controllers
             ViewBag.IsDayMode = true;
             var startDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
             //得到所有的订单列表
-            var orderList = BLLSession.IOrderService.GetListBy(m => m.CreateDate > startDate && m.CreateDate < DateTime.Now);
+            var orderList = BLLSession.IOrderService.GetListBy(m => m.CreateDate > startDate && m.CreateDate < DateTime.Now&&!m.IsDel);
             //返回餐厅集合
             ViewBag.RestaurantList = BLLSession.IRestaurantService.GetListBy(m => m.IsEnable).Take(2).ToList().Select(m => m.ToPOCO()).ToList();
             //显示相应的Tab标签页

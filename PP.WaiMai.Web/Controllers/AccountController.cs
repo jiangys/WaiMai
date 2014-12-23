@@ -22,7 +22,7 @@ namespace PP.WaiMai.Web.Controllers
         public ActionResult Login()
         {
             //获取本地的IP地址
-            var ip = WaiMai.Util.IPAddress.GetInternalIP();
+            var ip = WaiMai.Util.Http.CheckIP.GetIP();
             //从数据库里查找，看有没有相关的。如果存在，则显示出用户名
 
             return View();
@@ -59,17 +59,26 @@ namespace PP.WaiMai.Web.Controllers
         {
             RegisterViewModel model = new RegisterViewModel();
             model.Password = "pp123456";
-            model.IPAddress = Util.IPAddress.GetInternalIP();
+            model.IPAddress = WaiMai.Util.Http.CheckIP.GetIP();
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(User model)
+        public ActionResult Register(RegisterViewModel registerViewModel)
         {
             if (ModelState.IsValid)
             {
-                model.Password = Util.Security.UEncypt.DESEncrypt(model.Password);
+                var isExist = BLLSession.IUserService.GetListBy(m => m.UserName == registerViewModel.UserName).Count() > 0;
+                if (isExist)
+                {
+                    ModelState.AddModelError("", "该用户名已经存在，请直接登陆.");
+                    return View(registerViewModel);
+                }
+                User model = new Model.User();
+                model.UserName = registerViewModel.UserName;
+                model.IPAddress = registerViewModel.IPAddress;
+                model.Password = Util.Security.UEncypt.DESEncrypt(registerViewModel.Password);
                 model.Amount = 0;
                 model.CreateDate = DateTime.Now;
                 model.IsDel = false;
@@ -79,7 +88,7 @@ namespace PP.WaiMai.Web.Controllers
                 return Redirect("/home");
             }
 
-            return View(model);
+            return View(registerViewModel);
         }
 
         // POST: /Account/LogOff
@@ -90,6 +99,9 @@ namespace PP.WaiMai.Web.Controllers
             WebHelper.OperateContext.Current.LogOff();
             return RedirectToAction("Index", "Home");
         }
+
+
+
 
         #region --修改密码+ChangePassword
         /// <summary>
@@ -119,7 +131,7 @@ namespace PP.WaiMai.Web.Controllers
                 var newModel = BLLSession.IUserService.GetListBy(m => m.UserID == OperateHelper.User.UserID && m.Password == oldPassword).FirstOrDefault();
                 if (newModel != null)
                 {
-                    newModel.Password = UEncypt.DESEncrypt(model.NewPassword); 
+                    newModel.Password = UEncypt.DESEncrypt(model.NewPassword);
                     BLLSession.IUserService.ModifyModel(newModel);
                     return JsonMsgOk("修改密码成功，下次登陆生效");
                 }
