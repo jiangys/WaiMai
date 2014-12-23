@@ -12,18 +12,15 @@ using System.Collections.Generic;
 
 namespace PP.WaiMai.Model
 {
-	public partial class ExpendLog
+	public partial class sysdiagrams
 	{
-		public ExpendLog ToPOCO(bool isPOCO = true){
-			return new ExpendLog(){
-				ExpendLogID = this.ExpendLogID,
-				CreateDate = this.CreateDate,
-				ConsumeAmount = this.ConsumeAmount,
-				RechargeAmount = this.RechargeAmount,
-				Description = this.Description,
-				ExpendLogType = this.ExpendLogType,
-				ExpendLogTypeID = this.ExpendLogTypeID,
-				UserID = this.UserID,
+		public sysdiagrams ToPOCO(bool isPOCO = true){
+			return new sysdiagrams(){
+				name = this.name,
+				principal_id = this.principal_id,
+				diagram_id = this.diagram_id,
+				version = this.version,
+				definition = this.definition,
 			};
 		}
 	}

@@ -23,6 +23,7 @@ namespace PP.WaiMai.Web.Controllers
         /// <returns></returns>
         public ActionResult Index(int? id)
         {
+
             var doModeType = BLLSession.IConfigService.GetModel(m => m.ConfigName == "DoModeType");
             if (doModeType != null && !string.IsNullOrEmpty(doModeType.ConfigValue))
             {
@@ -30,7 +31,10 @@ namespace PP.WaiMai.Web.Controllers
                 if (doModeTypeValue.DoTime.ToShortDateString() == DateTime.Now.ToShortDateString() && !doModeTypeValue.IsDayMode)
                 {
                     var list = BLLSession.IOrderService.GetListBy(m => m.CreateDate > doModeTypeValue.DoTime && m.CreateDate < DateTime.Now);
+                    //返回餐厅集合
+                    ViewBag.RestaurantList = BLLSession.IRestaurantService.GetListBy(m => m.IsEnable).Take(2).ToList().Select(m => m.ToPOCO()).ToList();
                     ViewBag.IsDayMode = false;
+                    ViewBag.ShowTabId = id;
                     return View(list);
                 }
             }
@@ -77,6 +81,7 @@ namespace PP.WaiMai.Web.Controllers
                         //插入数据到消费流水表
                         BLLSession.IExpendLogService.Add(new ExpendLog()
                         {
+                            UserID = CurrentUser.UserID,
                             ConsumeAmount = model.TotalPrice,
                             RechargeAmount = 0,
                             CreateDate = DateTime.Now,

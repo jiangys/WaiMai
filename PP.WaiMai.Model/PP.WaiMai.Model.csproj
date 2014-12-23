@@ -99,6 +99,9 @@
     <Compile Include="PocoModels\Restaurant.cs">
       <DependentUpon>PocoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="PocoModels\sysdiagrams.cs">
+      <DependentUpon>PocoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="PocoModels\User.cs">
       <DependentUpon>PocoModel.tt</DependentUpon>
     </Compile>
@@ -107,6 +110,9 @@
       <DependentUpon>WaiMai.tt</DependentUpon>
     </Compile>
     <Compile Include="Restaurant.cs">
+      <DependentUpon>WaiMai.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
       <DependentUpon>WaiMai.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">

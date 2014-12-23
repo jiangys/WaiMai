@@ -33,5 +33,6 @@ namespace PP.WaiMai.Model
         public virtual DbSet<Recharge> Recharge { get; set; }
         public virtual DbSet<Restaurant> Restaurant { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }

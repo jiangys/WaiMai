@@ -64,6 +64,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
                         //插入数据到消费流水表
                         BLLSession.IExpendLogService.Add(new ExpendLog()
                         {
+                            UserID = model.UserID,
                             ConsumeAmount = 0,
                             RechargeAmount = model.RechargeAmount,
                             CreateDate = DateTime.Now,
@@ -84,7 +85,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
         }
         public ActionResult SelectUser(int? page, string Keyword)
         {
-            var model = BLLSession.IUserService.GetListBy(m => m.IsDel == false).ToList();
+            var model = BLLSession.IUserService.GetListBy(m => m.IsDel == false).OrderBy(m => m.UserID).Skip(2).ToList();
             if (!string.IsNullOrEmpty(Keyword))
             {
                 model = model.Where(m => m.UserName.Contains(Keyword)).ToList();

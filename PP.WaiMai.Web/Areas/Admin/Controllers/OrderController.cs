@@ -37,6 +37,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
                     //插入数据到消费流水表
                     BLLSession.IExpendLogService.Add(new ExpendLog()
                     {
+                        UserID = CurrentUser.UserID,
                         ConsumeAmount = -orderModel.TotalPrice,
                         RechargeAmount = 0,
                         CreateDate = DateTime.Now,
