@@ -7,7 +7,7 @@
 @section head{
     <style type="text/css">
         /*左边样式的变化*/
-        .user-menu .menu_sec li.order {
+        .user-menu .menu_sec li.repOrder {
             background: none repeat scroll 0 0 #fff;
             border-bottom: 1px solid #e5e5e5;
             border-left: 3px solid #e95c00;
@@ -16,42 +16,6 @@
         }
     </style>
 }
-@section Scripts {
-    <script type="text/javascript">
-        $(function () {
-            //$("#addRestaurant").click(function () {
-            //    wrapper.showModalDialog("/admin/restaurant/add", 350, 380);
-            //});
-            $(".doEdit").click(function () {
-                var url = $(this).attr("data-href");
-                wrapper.showModalDialog(url, 350, 380);
-            });
-            $(".deDel").click(function () {
-                var url = $(this).attr("data-href");
-                var name = $(this).attr("data-name");
-                var d = dialog({
-                    title: '取消订单',
-                    content: '是否要取消【' + name + '】的订单？',
-                    okValue: '确定',
-                    ok: function () {
-                        this.title('正在提交..');
-                        $.post(url, function (jsonData) {
-                            $.procAjaxData(jsonData, function () {
-                                window.location.reload();
-                            });
-                        });
-                        return false;
-                    },
-                    cancelValue: '取消',
-                    cancel: function () { }
-                });
-                d.show();
-            });
-        });
-    </script>
-}
-
-
 
 <div class="row">
     <div class="col-md-12">
@@ -156,14 +120,20 @@
                                         {
                                             if (@item.CreateDate.ToShortDateString() == DateTime.Now.ToShortDateString())
                                             {
-                                                <button class="btn default btn-xs black btn-del deDel" data-name="@item.OrderID / @item.User.UserName / @item.FoodMenu.MenuName" data-href="/admin/order/del/@item.OrderID">
+                                                @*<button class="btn default btn-xs black btn-del deDel" data-name="@item.OrderID / @item.User.UserName / @item.FoodMenu.MenuName" data-href="/admin/order/del/@item.OrderID">
                                                     <i class="fa fa-trash-o"></i> 取消订单
-                                                </button>
+                                                </button>*@
+                                            <span class="label label-sm label-danger">
+											 Blocked
+										</span>
                                             }
                                             else
                                             {
-                                                <span class="btn default btn-xs black btn-del" disabled="disabled">
-                                                    交易成功
+                                                @*<span class="btn default btn-xs black btn-del" disabled="disabled">
+                                                        交易成功
+                                                    </span>*@
+                                                <span class="label label-sm label-success">
+                                                    Approved
                                                 </span>
                                             }
                                         }
@@ -173,7 +143,7 @@
                             }
                         </tbody>
                     </table>
-                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                    @Html.PagedListPager(Model, page => Url.Action("reporder", new { page }))
                 </div>
             </div>
         </div>

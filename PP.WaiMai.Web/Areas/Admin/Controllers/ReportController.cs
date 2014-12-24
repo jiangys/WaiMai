@@ -27,5 +27,15 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
             }
             return View(model.ToPagedList(page ?? 1, 15));
         }
+
+        public ActionResult RepOrder(int? page, string Keyword)
+        {
+            var model = BLLSession.IOrderService.GetListBy(m => true).OrderByDescending(m => m.OrderID).ToList();
+            if (!string.IsNullOrEmpty(Keyword))
+            {
+                model = model.Where(m => m.FoodMenu.MenuName.Contains(Keyword) || m.User.UserName.Contains(Keyword)).ToList();
+            }
+            return View(model.ToPagedList(page ?? 1, 15));
+        }
 	}
 }

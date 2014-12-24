@@ -170,7 +170,6 @@
     <Compile Include="Areas\Admin\Controllers\FoodMenuCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\FoodMenuController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\RechargeController.cs" />
     <Compile Include="Areas\Admin\Controllers\ReportController.cs" />
     <Compile Include="Areas\Admin\Controllers\RestaurantController.cs" />
@@ -309,11 +308,12 @@
     <Content Include="Areas\Admin\Views\FoodMenu\Add.cshtml" />
     <Content Include="Areas\Admin\Views\FoodMenu\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\FoodMenu\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\RepOrder.cshtml" />
     <Content Include="Areas\Admin\Views\Recharge\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Recharge\SelectUser.cshtml" />
     <Content Include="Areas\Admin\Views\Report\RepUser.cshtml" />
     <Content Include="Areas\Admin\Views\User\ExpendLog.cshtml" />
+    <Content Include="Areas\Admin\Views\User\MyOrder.cshtml" />
     <None Include="Properties\PublishProfiles\WaiMai.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
