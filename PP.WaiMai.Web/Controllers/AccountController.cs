@@ -37,7 +37,7 @@ namespace PP.WaiMai.Web.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginViewModel model, string returnUrl)
+        public ActionResult LoginDialog(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -45,20 +45,33 @@ namespace PP.WaiMai.Web.Controllers
                 {
                     return JsonMsgOk("登陆成功");
                 }
+            }
+            // 如果我们进行到这一步时某个地方出错，则重新显示表单
+            return JsonMsgNoOk("用户名或密码错误");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(LoginViewModel model, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                if (OperateContext.Current.Login(model))
+                {
+                    return Redirect("/");
+                }
                 else
                 {
                     ModelState.AddModelError("", "用户名或密码错误.");
                 }
             }
             // 如果我们进行到这一步时某个地方出错，则重新显示表单
-            return JsonMsgNoOk("用户名或密码错误");
+            return View(model);
         }
-
 
         public ActionResult Register()
         {
             RegisterViewModel model = new RegisterViewModel();
-            model.Password = "pp123456";
             model.IPAddress = WaiMai.Util.Http.CheckIP.GetIP();
             return View(model);
         }

@@ -9,11 +9,11 @@ namespace PP.WaiMai.Model.ViewModels
 {
     public class LoginViewModel
     {
-        [Required]
         [Display(Name = "姓名")]
+        [Required(ErrorMessage = "忘记填写姓名了哦")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "忘记填写密码了哦")]
         [DataType(DataType.Password)]
         [Display(Name = "密码")]
         public string Password { get; set; }
@@ -29,8 +29,15 @@ namespace PP.WaiMai.Model.ViewModels
         [Required]
         [StringLength(100, ErrorMessage = "{0} 必须至少包含 {2} 个字符。", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "默认密码")]
+        [Display(Name = "密码")]
         public string Password { get; set; }
+
+
+        [DataType(DataType.Password)]
+        [Display(Name = "确认密码")]
+        [Compare("Password", ErrorMessage = "密码和确认密码不匹配。")]
+        public string ConfirmPassword { get; set; }
+
 
         [Display(Name = "IP地址")]
         public string IPAddress { get; set; }

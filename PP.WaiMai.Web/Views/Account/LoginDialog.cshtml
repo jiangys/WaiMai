@@ -52,7 +52,7 @@
         }
 </style>
 <div class="login-box">
-    @using (Ajax.BeginForm("Login", "Account", new AjaxOptions() { HttpMethod = "Post", OnSuccess = "onSuccessed" }, new { @class = "form-horizontal", role = "form", id = "SubmitForm" }))
+    @using (Ajax.BeginForm("LoginDialog", "Account", new AjaxOptions() { HttpMethod = "Post", OnSuccess = "onSuccessed" }, new { @class = "form-horizontal", role = "form", id = "SubmitForm" }))
     {
         @*<div class="alert alert-info">如果显示用户名，则账号已存在，默认密码ppmoney</div>*@
         @Html.AntiForgeryToken()

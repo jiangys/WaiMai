@@ -1,35 +1,63 @@
 ﻿@model LoginViewModel
 @{
-    ViewBag.Title = "Login";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
-
-<link href="~/Content/css/loginpage.css" rel="stylesheet" />
-<section class="container">
-    <div class="main advertiseOne">
-        <div class="main_right">
-            <div class="login">
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width">
+    <link href="~/Content/bootstrap-3.3.0/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/css/base.css" rel="stylesheet" />
+    <link href="~/Content/css/account.css" rel="stylesheet" />
+    <title>外卖订餐－用户登陆</title>
+</head>
+<body>
+    <div>
+        <div class="container">
+            <div class="header text-center">
+                <h1>
+                    <a href="/" class="logo">
+                        <img src="~/Content/images/logo_register.png" />
+                    </a>
+                </h1>
+                <p class="description text-muted">欢迎加入最潮流的订餐队伍</p>
+            </div>
+            <div class="col-md-8 col-md-offset-2 bg-white login-wrap sfShake">
+                <p class="text-muted">本站账号登录</p>
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "row", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
-                    <div class="login-part">
-                        <h2 class="login_title">请登录</h2>
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control input-lg", placeholder = "用户名" })
-                                @Html.ValidationMessageFor(m => m.UserName)
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                @Html.PasswordFor(m => m.Password, new { @class = "form-control input-lg",placeholder = "密码"  })
-                                @Html.ValidationMessageFor(m => m.Password)
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">登陆</button>
+                    <div class="form-group col-sm-5">
+                        <label class="" for="">姓名</label>
+                        @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "fr" })
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "姓名" })
                     </div>
+                    <div class="form-group col-sm-5">
+                        <label class="" for="">密码</label>
+                        @Html.ValidationMessageFor(m => m.Password, null, new { @class = "pull-right" })
+
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "密码" })
+                        <div class="checkbox">
+                            <label><input type="checkbox" checked="" value="1" name="remember" id="remember"> 记住登录状态</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="invisible hidden-xs" for="">登录</label>
+                        <button class="btn btn-block btn-primary" type="submit" id="login">登录</button>
+                    </div>
+                    @Html.ValidationSummary(true)
                 }
+            </div>
+            <div class="text-center col-md-12 login-link">
+                <a href="/account/register">账号注册</a>
+                |
+                <a href="/">首页</a>
             </div>
         </div>
     </div>
-</section>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

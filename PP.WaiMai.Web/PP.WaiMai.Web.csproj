@@ -244,7 +244,7 @@
     <Content Include="Content\css\loginpage.css" />
     <Content Include="Content\css\animate\animate.css" />
     <Content Include="Content\css\order.css" />
-    <Content Include="Content\css\register.css" />
+    <Content Include="Content\css\account.css" />
     <Content Include="Content\css\restaurant.css" />
     <Content Include="Content\css\templatemo_style.css" />
     <Content Include="Content\css\admin\common.css" />
@@ -267,6 +267,7 @@
     <Content Include="Content\images\home\templatemo_event_04.jpg" />
     <Content Include="Content\images\home\time_line_bg.jpg" />
     <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\logo_register.png" />
     <Content Include="Content\images\msgBox\loader.gif" />
     <Content Include="Content\images\msgBox\qzonebg.gif" />
     <Content Include="Content\images\nopic_waimai.png" />
@@ -354,12 +355,11 @@
     <Content Include="Areas\Admin\Views\Restaurant\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutDialog.cshtml" />
     <Content Include="Views\Account\LoginDialog.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Order\_OrderListPartial.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
-    <Content Include="Views\Account\Register - 复制.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
