@@ -123,6 +123,9 @@
                         <thead>
                             <tr>
                                 <th>
+                                    <i class="fa fa-thumb-tack"></i>&nbsp;充值号
+                                </th>
+                                <th>
                                     <span class="glyphicon glyphicon-th"></span>&nbsp;姓名
                                 </th>
                                 <th>
@@ -146,6 +149,9 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
+                                    <td>
+                                        @item.RechargeID
+                                    </td>
                                     <td>
                                         @item.User.UserName
                                     </td>

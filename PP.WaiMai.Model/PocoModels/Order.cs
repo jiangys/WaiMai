@@ -29,6 +29,7 @@ namespace PP.WaiMai.Model
 				Editor = this.Editor,
 				IsDel = this.IsDel,
 				Version = this.Version,
+				OrderStatus = this.OrderStatus,
 			};
 		}
 	}

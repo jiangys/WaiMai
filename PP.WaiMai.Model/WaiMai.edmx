@@ -67,6 +67,7 @@
           <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="1" Nullable="false" />
           <Property Name="NickName" Type="nvarchar" MaxLength="100" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+          <Property Name="OrderStatus" Type="int" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="Creator" Type="nvarchar" MaxLength="50" />
           <Property Name="EditDate" Type="datetime" />
@@ -329,6 +330,7 @@
           <Property Name="Version" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FoodMenu" Relationship="WaiMaiModel.FK_Order_FoodMenu" FromRole="Order" ToRole="FoodMenu" />
           <NavigationProperty Name="User" Relationship="WaiMaiModel.FK_Order_User" FromRole="Order" ToRole="User" />
+          <Property Name="OrderStatus" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Recharge">
           <Key>
@@ -513,6 +515,7 @@
           <EntitySetMapping Name="Order">
             <EntityTypeMapping TypeName="WaiMaiModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
                 <ScalarProperty Name="Version" ColumnName="Version" />
                 <ScalarProperty Name="IsDel" ColumnName="IsDel" />
                 <ScalarProperty Name="Editor" ColumnName="Editor" />

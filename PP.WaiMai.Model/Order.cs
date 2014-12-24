@@ -27,6 +27,7 @@ namespace PP.WaiMai.Model
         public string Editor { get; set; }
         public bool IsDel { get; set; }
         public int Version { get; set; }
+        public int OrderStatus { get; set; }
     
         public virtual FoodMenu FoodMenu { get; set; }
         public virtual User User { get; set; }

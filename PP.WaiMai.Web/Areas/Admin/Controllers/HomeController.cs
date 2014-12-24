@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using PP.WaiMai.WebHelper;
 using PP.WaiMai.Model.ViewModels;
 using PP.WaiMai.Model;
+using PP.WaiMai.Model.Enums;
 
 namespace PP.WaiMai.Web.Areas.Admin.Controllers
 {
@@ -16,13 +17,11 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
         // GET: /Admin/Home/
         public ActionResult Index()
         {
-            var startDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
-            var modelList = BLLSession.IOrderService.GetListBy(m => m.CreateDate > startDate && m.CreateDate < DateTime.Now && !m.IsDel);
-            ViewBag.OrderList = modelList;
+            DateTime currDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+            //得到所有的订单列表
+            ViewBag.OrderList = BLLSession.IOrderService.GetListBy(m => m.OrderStatus == (int)OrderStatusEnum.Handle && m.CreateDate > currDate);
             //判断当前的订餐状态，ture为可订中
             ViewBag.IsDo = DoOrder();
-            //当前模式
-            ViewBag.IsDayMode = DoModeType();
             return View();
         }
         /// <summary>
@@ -43,27 +42,9 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
             }
             return isDo;
         }
-        /// <summary>
-        /// 当前模式
-        /// </summary>
-        /// <returns></returns>
-        private bool DoModeType()
-        {
-            var isDayMode = true;
-            var doModeType = BLLSession.IConfigService.GetModel(m => m.ConfigName == "DoModeType");
-            if (doModeType != null && !string.IsNullOrEmpty(doModeType.ConfigValue))
-            {
-                var doModeTypeValue = JsonConvert.DeserializeObject<ConfigDoModeTypeViewModel>(doModeType.ConfigValue);
-                if (doModeTypeValue.DoTime.ToShortDateString() == DateTime.Now.ToShortDateString())
-                {
-                    isDayMode = doModeTypeValue.IsDayMode;
-                }
-            }
-            return isDayMode;
-        }
 
         /// <summary>
-        /// 前台异步控制是否停止订餐
+        /// 是否停止订餐
         /// </summary>
         /// <param name="isDo"></param>
         /// <returns></returns>
@@ -78,23 +59,6 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
             var configModel = new Config()
             {
                 ConfigName = "DoOrder",
-                ConfigValue = modelJson
-            };
-            BLLSession.IConfigService.ModifyModel(configModel);
-            return JsonMsgOk();
-        }
-
-        public ActionResult ChangeDoModeType(bool isDayMode)
-        {
-            var model = new ConfigDoModeTypeViewModel()
-            {
-                DoTime = DateTime.Now,
-                IsDayMode = isDayMode
-            };
-            var modelJson = JsonConvert.SerializeObject(model);
-            var configModel = new Config()
-            {
-                ConfigName = "DoModeType",
                 ConfigValue = modelJson
             };
             BLLSession.IConfigService.ModifyModel(configModel);

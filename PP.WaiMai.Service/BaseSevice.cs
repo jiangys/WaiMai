@@ -114,6 +114,20 @@ namespace PP.WaiMai.Service
         }
         #endregion
 
+        #region  4.2 批量修改 +int Modify(Expression<Func<T, bool>> whereLambda, params string[] modifiedProNames)
+        /// <summary>
+        ///  4.2 批量修改 +int Modify(T model, Expression<Func<T, bool>> whereLambda, params string[] modifiedProNames)
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="whereLambda"></param>
+        /// <param name="modifiedProNames"></param>
+        /// <returns></returns>
+        public virtual int ModifyBy(T model, Expression<Func<T, bool>> whereLambda, params string[] modifiedProNames)
+        {
+            return this.CurrentRepository.ModifyBy(model, whereLambda, modifiedProNames);
+        }
+        #endregion
+
         #region 5.0 根据条件查询 +List<T> GetListBy(Expression<Func<T,bool>> whereLambda)
         /// <summary>
         /// 5.0 根据条件查询 +List<T> GetListBy(Expression<Func<T,bool>> whereLambda)

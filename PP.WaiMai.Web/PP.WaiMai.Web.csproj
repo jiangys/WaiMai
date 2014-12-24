@@ -170,6 +170,7 @@
     <Compile Include="Areas\Admin\Controllers\FoodMenuCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\FoodMenuController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\RechargeController.cs" />
     <Compile Include="Areas\Admin\Controllers\ReportController.cs" />
     <Compile Include="Areas\Admin\Controllers\RestaurantController.cs" />
@@ -364,6 +365,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Order\" />
     <Folder Include="Content\images\admin\" />
   </ItemGroup>
   <ItemGroup>
@@ -409,7 +411,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>5520</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

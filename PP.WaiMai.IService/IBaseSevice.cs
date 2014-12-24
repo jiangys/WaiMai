@@ -57,6 +57,18 @@ namespace PP.WaiMai.IService
         int ModifyModel(T entity);
         #endregion
 
+        #region 4.2 批量修改 +int Modify(T model, Expression<Func<T, bool>> whereLambda, params string[] modifiedProNames)
+        /// <summary>
+        /// 4.2 批量修改
+        /// 使用用例子： var model = BLLSession.IOrderService.ModifyBy(new Order() { OrderStatus = (int)OrderStatusEnum.Succeed }, m => m.OrderStatus == (int)OrderStatusEnum.Handle, new string[]{"OrderStatus"});
+        /// </summary>
+        /// <param name="model">要修改的实体对象</param>
+        /// <param name="whereLambda">查询条件</param>
+        /// <param name="proNames">要修改的 属性 名称</param>
+        /// <returns></returns>
+        int ModifyBy(T model, Expression<Func<T, bool>> whereLambda, params string[] modifiedProNames);
+        #endregion
+
         T GetModel(System.Linq.Expressions.Expression<Func<T, bool>> whereLambda);
 
         #region 5.0 根据条件查询 +List<T> GetListBy(Expression<Func<T,bool>> whereLambda)

@@ -16,12 +16,37 @@
         }
     </style>
 }
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            $("#checkOrder").click(function () {
+                var d = dialog({
+                    title: '审核订单',
+                    content: '是否要审核所有【下单成功】的订单？',
+                    okValue: '确定',
+                    ok: function () {
+                        this.title('正在提交..');
+                        $.post("/admin/order/checkOrder", function (jsonData) {
+                            $.artDialogMsg(jsonData, function () {
+                                window.location.reload();
+                            });
+                        });
+                        return true;
+                    },
+                    cancelValue: '取消',
+                    cancel: function () { }
+                });
+                d.show();
+            });
+        });
+    </script>
+}
 
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN PAGE TITLE & BREADCRUMB-->
         <h3 class="page-title">
-            订单管理 <small>修改删除订单</small>
+            订单管理 <small>订单报表</small>
         </h3>
         <ul class="page-breadcrumb breadcrumb">
             <li>
@@ -40,11 +65,11 @@
     <div class="col-md-12">
         <div class="portlet">
             <div class="portlet-title clearfix">
-                @*<div class="fl">
-                        <button class="btn blue thickbox" id="addRestaurant">
-                            <i class="fa fa-plus"></i>&nbsp;订单管理
-                        </button>
-                    </div>*@
+                <div class="fl">
+                    <button class="btn blue thickbox" id="checkOrder">
+                        <i class="fa fa-check-square-o"></i>&nbsp;审核订单
+                    </button>
+                </div>
                 <div class="fr col-md-4">
                     @using (Html.BeginForm("Index", "Order", FormMethod.Post, new { @class = "form-inline", role = "form", id = "frmSubmit" }))
                     {
@@ -110,34 +135,26 @@
                                         @item.CreateDate
                                     </td>
                                     <td>
-                                        @if (item.IsDel)
+                                        @switch ((OrderStatusEnum)item.OrderStatus)
                                         {
-                                            <span class="btn default btn-xs black btn-del" disabled="disabled">
-                                                已取消
-                                            </span>
-                                        }
-                                        else
-                                        {
-                                            if (@item.CreateDate.ToShortDateString() == DateTime.Now.ToShortDateString())
-                                            {
-                                                @*<button class="btn default btn-xs black btn-del deDel" data-name="@item.OrderID / @item.User.UserName / @item.FoodMenu.MenuName" data-href="/admin/order/del/@item.OrderID">
-                                                    <i class="fa fa-trash-o"></i> 取消订单
-                                                </button>*@
-                                            <span class="label label-sm label-danger">
-											 Blocked
-										</span>
-                                            }
-                                            else
-                                            {
-                                                @*<span class="btn default btn-xs black btn-del" disabled="disabled">
-                                                        交易成功
-                                                    </span>*@
-                                                <span class="label label-sm label-success">
-                                                    Approved
+                                            case OrderStatusEnum.Cancel:
+                                                <span class="btn default btn-xs black btn-del" disabled="disabled">
+                                                    已取消
                                                 </span>
-                                            }
+                                                break;
+                                            case OrderStatusEnum.Handle:
+                                            <span class="label label-sm label-success">
+                                                下单成功
+                                            </span>
+                                                break;
+                                            case OrderStatusEnum.Succeed:
+                                            <span class="btn default btn-xs black btn-del" disabled="disabled">
+                                                交易成功
+                                            </span>
+                                                break;
+                                            default:
+                                                break;
                                         }
-
                                     </td>
                                 </tr>
                             }

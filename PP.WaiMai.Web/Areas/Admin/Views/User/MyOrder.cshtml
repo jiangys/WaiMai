@@ -19,8 +19,8 @@
 @section Scripts {
     <script type="text/javascript">
         $(function () {
-            $(".deDel").click(function () {
-                var url = "/admin/user/OrderCancel/" + $(this).attr("data-orderID");
+            $(".doCancel").click(function () {
+                var url = "/admin/Order/OrderCancel/" + $(this).attr("data-orderID");
                 var name = $(this).attr("data-name");
                 var d = dialog({
                     title: '取消订单',
@@ -29,11 +29,10 @@
                     ok: function () {
                         this.title('正在提交..');
                         $.post(url, function (jsonData) {
-                            $.procAjaxData(jsonData, function () {
-                                window.location.reload();
-                            });
+                            $.artDialogMsg(jsonData, function () {
+                                window.location.reload();});
                         });
-                        return false;
+                        return true;
                     },
                     cancelValue: '取消',
                     cancel: function () { }
@@ -123,31 +122,26 @@
                                             @item.CreateDate
                                         </td>
                                         <td>
-                                            @if (item.IsDel)
+                                            @switch ((OrderStatusEnum)item.OrderStatus)
                                             {
-                                                <span class="btn default btn-xs black btn-del" disabled="disabled">
-                                                    已取消
-                                                </span>
-                                            }
-                                            else
-                                            {
-                                                if (@item.CreateDate.ToShortDateString() == DateTime.Now.ToShortDateString())
-                                                {
-                                                    <button class="btn default btn-xs black btn-del deDel" data-name="@item.OrderID / @item.User.UserName / @item.FoodMenu.MenuName" data-orderid="@item.OrderID">
-                                                        <i class="fa fa-trash-o"></i> 取消订单
-                                                    </button>
-                                                }
-                                                else
-                                                {
-                                                    <span class="label label-sm label-success">
-                                                        Approved
+                                                case OrderStatusEnum.Cancel:
+                                                    <span class="btn default btn-xs black btn-del" disabled="disabled">
+                                                        已取消
                                                     </span>
-                                                    @*<span class="btn default btn-xs black btn-del" disabled="disabled">
-                                                            交易成功
-                                                        </span>*@
-                                                }
+                                                    break;
+                                                case OrderStatusEnum.Handle:
+                                                <button class="btn default btn-xs black btn-del doCancel" data-name="@item.OrderID / @item.FoodMenu.MenuName" data-orderid="@item.OrderID">
+                                                    <i class="fa fa-trash-o"></i> 取消订单
+                                                </button>
+                                                    break;
+                                                case OrderStatusEnum.Succeed:
+                                                <span class="btn default btn-xs black btn-del" disabled="disabled">
+                                                    交易成功
+                                                </span>
+                                                    break;
+                                                default:
+                                                    break;
                                             }
-
                                         </td>
                                     </tr>
                                 }

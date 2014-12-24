@@ -14,12 +14,6 @@
             padding: 8px 0 8px 37px;
         }
 
-        .user-box {
-            background: none repeat scroll 0 0 #fff;
-            border: 1px solid #dfdfdf;
-            margin-bottom: 15px;
-        }
-
             .user-box .box-bd {
                 border: 0 none;
                 height: 80px;
@@ -51,11 +45,6 @@
             margin-top: 20px;
         }
 
-        /*积分*/
-        .jifen-info, .order-doing {
-            padding: 15px;
-        }
-
             .jifen-info h4 {
                 padding-top: 2px;
             }
@@ -76,36 +65,6 @@
                 $.post("/admin/Home/ChangeDoOrderState", { isDo: false }, function () {
                     window.location.reload();
                 });
-            });
-            $("#doOvertimeMode").click(function () {
-                var d = dialog({
-                    title: '切换模式',
-                    content: '切换模式后，今日订单将会消失，是否要切换模式？',
-                    okValue: '确定',
-                    ok: function () {
-                        this.title('正在提交..');
-                        ChangeDoModeType(false);
-                        return false;
-                    },
-                    cancelValue: '取消',
-                    cancel: function () { }
-                });
-                d.show();
-            });
-            $("#doDayMode").click(function () {
-                var d = dialog({
-                    title: '切换模式',
-                    content: '切换到白天模式，加班订单将会全部转为今日订单，是否要切换模式？',
-                    okValue: '确定',
-                    ok: function () {
-                        this.title('正在提交..');
-                        ChangeDoModeType(true);
-                        return false;
-                    },
-                    cancelValue: '取消',
-                    cancel: function () { }
-                });
-                d.show();
             });
         });
 
@@ -139,25 +98,6 @@
 
     <div class="user-box">
         <div class="order-doing clearfix">
-            @if (@ViewBag.IsDayMode == true)
-            {
-                <h4 class="fl">当前模式：<span style="color: #e95c00">&nbsp;白天模式&nbsp;</span></h4>
-                <span class="fr">
-                    <button class="btn btn-default btn-sm" id="doOvertimeMode">进入加班模式</button>
-                </span>
-            }
-            else
-            {
-                <h4 class="fl">当前订餐状态：<span style="color: #6d6d6d">&nbsp;加班模式&nbsp;</span></h4>
-                <span class="fr">
-                    <button class="btn btn-default btn-sm" id="doDayMode">白天模式</button>
-                </span>
-            }
-        </div>
-    </div>
-
-    <div class="user-box">
-        <div class="order-doing clearfix">
             @if (@ViewBag.IsDo == true)
             {
             <h4 class="fl">当前订餐状态：<span style="color: #e95c00">&nbsp;进行中&nbsp;</span></h4>
@@ -174,7 +114,4 @@
             }
         </div>
     </div>
-
-
-
 </div>

@@ -23,25 +23,9 @@ namespace PP.WaiMai.Web.Controllers
         /// <returns></returns>
         public ActionResult Index(int? id)
         {
-
-            var doModeType = BLLSession.IConfigService.GetModel(m => m.ConfigName == "DoModeType");
-            if (doModeType != null && !string.IsNullOrEmpty(doModeType.ConfigValue))
-            {
-                var doModeTypeValue = JsonConvert.DeserializeObject<ConfigDoModeTypeViewModel>(doModeType.ConfigValue);
-                if (doModeTypeValue.DoTime.ToShortDateString() == DateTime.Now.ToShortDateString() && !doModeTypeValue.IsDayMode)
-                {
-                    var list = BLLSession.IOrderService.GetListBy(m => m.CreateDate > doModeTypeValue.DoTime && m.CreateDate < DateTime.Now && !m.IsDel);
-                    //返回餐厅集合
-                    ViewBag.RestaurantList = BLLSession.IRestaurantService.GetListBy(m => m.IsEnable).Take(2).ToList().Select(m => m.ToPOCO()).ToList();
-                    ViewBag.IsDayMode = false;
-                    ViewBag.ShowTabId = id;
-                    return View(list);
-                }
-            }
-            ViewBag.IsDayMode = true;
-            var startDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
+            DateTime currDate = DateTime.Parse(DateTime.Now.ToShortDateString());
             //得到所有的订单列表
-            var orderList = BLLSession.IOrderService.GetListBy(m => m.CreateDate > startDate && m.CreateDate < DateTime.Now&&!m.IsDel);
+            var orderList = BLLSession.IOrderService.GetListBy(m => m.OrderStatus == (int)OrderStatusEnum.Handle && m.CreateDate > currDate);
             //返回餐厅集合
             ViewBag.RestaurantList = BLLSession.IRestaurantService.GetListBy(m => m.IsEnable).Take(2).ToList().Select(m => m.ToPOCO()).ToList();
             //显示相应的Tab标签页
@@ -55,6 +39,21 @@ namespace PP.WaiMai.Web.Controllers
             {
                 try
                 {
+                    var isDo = true;
+                    var doOrderValue = BLLSession.IConfigService.GetModel(m => m.ConfigName == "DoOrder").ConfigValue;
+                    if (doOrderValue != null)
+                    {
+                        var doOrderModel = JsonConvert.DeserializeObject<ConfigDoOrderViewModel>(doOrderValue);
+                        if (doOrderModel.DoTime == DateTime.Now.ToShortDateString())
+                        {
+                            isDo = doOrderModel.IsDo;
+                        }
+                    }
+                    if (!isDo)
+                    {
+                        return JsonMsgNoOk("订餐已停止，系统关闭中");
+                    }
+
                     //开启事务,保证数据的一致性
                     using (var scope = new TransactionScope())
                     {

@@ -1,28 +1,13 @@
 ﻿@model IEnumerable<Order>
 
 <div class="alert alert-info alert-info-item" role="alert">
-    @if (@ViewBag.IsDayMode)
-    {
-        <span>今日订餐共：<strong>@Model.Count()</strong> 份</span>
-    }
-    else
-    {
-        <span>加班订餐共：<strong>@Model.Count()</strong> 份</span>
-    }
+    <span>今日订餐共：<strong>@Model.Count()</strong> 份</span>
     <span>&nbsp;&nbsp;&nbsp;&nbsp;应付总金额：<strong>@Model.Sum(m => m.TotalPrice)</strong> 元</span>
 </div>
 
 <div class="panel panel-default">
     <!-- Default panel contents -->
-    @if (@ViewBag.IsDayMode)
-    {
-        <div class="panel-heading">今日订单列表明细</div>
-    }
-    else
-    {
-        <div class="panel-heading">加班订单列表明细</div>
-    }
-
+    <div class="panel-heading">今日订单列表明细</div>
     <!-- Table -->
     <table class="table">
         <thead>
@@ -41,15 +26,15 @@
                 int i = 1;
                 foreach (var item in Model)
                 {
-            <tr>
-                <td>@(i++)</td>
-                <td>@item.User.UserName</td>
-                <td>@item.FoodMenu.MenuName</td>
-                <td>@item.TotalPrice 元</td>
-                <td>@item.TotalCount</td>
-                <td>@item.CreateDate</td>
-                <td>@item.Remark</td>
-            </tr>
+                    <tr>
+                        <td>@(i++)</td>
+                        <td>@item.User.UserName</td>
+                        <td>@item.FoodMenu.MenuName</td>
+                        <td>@item.TotalPrice 元</td>
+                        <td>@item.TotalCount</td>
+                        <td>@item.CreateDate</td>
+                        <td>@item.Remark</td>
+                    </tr>
                 }
             }
         </tbody>
@@ -58,14 +43,7 @@
 
 <div class="panel panel-default">
     <!-- Default panel contents -->
-    @if (@ViewBag.IsDayMode)
-    {
-        <div class="panel-heading">今日订单汇总显示</div>
-    }
-    else
-    {
-        <div class="panel-heading">加班订单汇总显示</div>
-    }
+    <div class="panel-heading">今日订单汇总显示</div>
     <!-- Table -->
     <table class="table">
         <thead>
