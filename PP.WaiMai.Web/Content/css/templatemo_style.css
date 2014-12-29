@@ -196,46 +196,16 @@ nav {
 /*------------------------------------------------------
 	FOOTER 
 --------------------------------------------------------*/
-footer {
-    background: #283147;
-    min-height: 141px;
-    color: white;
-}
-
-    footer img {
-        padding-top: 30px;
-    }
-
-    footer a {
-        text-decoration: none;
-        color: white;
-    }
-
-        footer a:hover {
-            color: #cbcbcb;
-            text-decoration: none;
+ 
+        .footer-section {
+            background-color: #efefef;
+            border-top: 1px solid #bbb;
+            padding: 30px 0;
+            text-align: left;
         }
-
-    footer .row {
-        height: 100%;
-    }
-
-.back_to_top {
-    background-color: #c5454a;
-    text-align: center;
-    height: 41px;
-    line-height: 41px;
-}
-/*http://stackoverflow.com/questions/2939914/vertically-align-text-in-a-div*/
-
-.social_buttons a {
-    text-decoration: none;
-}
-
-#templatemo_copyright {
-    font-size: .9em;
-}
-
+        .col-footer .fa.fa-heart {
+            color: #fd487d;
+        }
 /* Wrapper */
 .social_buttons .icon-button {
     background-color: #20283e;

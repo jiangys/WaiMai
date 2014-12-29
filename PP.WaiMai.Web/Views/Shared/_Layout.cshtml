@@ -42,7 +42,7 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="/home"><i class="fa fa-home"></i>首页</a></li>
                             <li><a href="/order"><i class="fa fa-list"></i>今日订单</a></li>
-                            @*<li><a href="/order"><i class="fa fa-list"></i>吐槽墙</a></li>*@
+                            <li><a href="/tucao"><i class="fa fa-list"></i>吐槽墙</a></li>
                             <li><a href="/admin/home"><i class="fa fa-cogs"></i>管理中心</a></li>
                             <li class="sep"></li>
                             @if (OperateContext.Current.IsLogin())
@@ -82,28 +82,29 @@
     @RenderBody()
 
 
-    <footer>
+
+    <!-- Footer -->
+    <footer class="footer-section" role="contentinfo">
+
         <div class="container">
+
             <div class="row">
-                <div class="col col-md-6 col-sm-6 col-xs-6 col-xxs" style=" margin-top:30px;">
-                    <div class="" style="font-size:30px;">吃饭是一种态度</div>
-                    <div id="templatemo_copyright">
-                        Copyright &copy; 2014.Company name All rights reserved.
-                    </div>
-                </div>
-                <div class="col col-md-6 col-sm-6 col-xs-6 col-xxs">
-                    <div class="pull-right">
-                        @*<div class="social_buttons">
-                                <a href="#" rel="nofollow" class="icon-button facebook"><i class="fa fa-facebook"></i></a>
-                                <a href="#" rel="nofollow" class="icon-button twitter"><i class="fa fa-twitter"></i></a>
-                                <a href="#" rel="nofollow" class="icon-button youtube"><i class="fa fa-youtube"></i></a>
-                            </div>*@
-                        <a href="#" id="go-top"><div class="back_to_top" style="margin-top:50px;width:100px;">回到顶部</div></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+
+                <div class="col-md-12 col-footer col-padding">
+
+                    <!-- Footer 1 -->
+                    <section class="text-center">
+                        <p>Made with <i class="fa fa-heart"></i> by jiangyongsheng.</p>
+                        <p>吃饭是一种态度,爱惜自己</p>
+                    </section>
+
+                </div> <!-- /.col-md-4 -->
+
+            </div> <!-- /.row -->
+
+        </div> <!-- /.container -->
+
+    </footer> <!-- /.footer-section -->
 
 
     <script src="~/Scripts/jquery.validate.js"></script>

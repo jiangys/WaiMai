@@ -67,216 +67,101 @@ jQuery(function(){
             $(this).children(".event_box_caption").stop().animate({"top": "-" + hide_paragraph_height + "px"});
         }
     });
+
     //timeline
-    $(window).on("load resize", function(){
-        $.timeline_right_position_top = 0 ;
-        $.timeline_old_right_position_top = 0 ;
-        $.timeline_left_position_top = 0 ;
-        $.timeline_old_left_position_top = 0 ;
+    $(window).on("load resize", function () {
+        $.timeline_right_position_top = 0;
+        $.timeline_old_right_position_top = 0;
+        $.timeline_left_position_top = 0;
+        $.timeline_old_left_position_top = 0;
         w_width = ($(window).width() > 1200) ? 1200 : $(window).width();
-        $.timeline_item_width = ( w_width - 50) / 2;
-        $(".time_line_wap").each(function(){
+        $.timeline_item_width = (w_width - 50) / 2;
+        $(".time_line_wap").each(function () {
             //if class name already exit remove
             $(this).children("a.left_timer").remove();
             $(this).children("a.right_timer").remove();
             $(this).removeClass("left_timeline");
             $(this).removeClass("right_timeline");
-            if($(window).width()<970){
-                $("#templatemo_timeline .container-fluid").css({"position":"absolute"});
-                positon_left = $("#templatemo_timeline .container-fluid").position().left +100;
+            if ($(window).width() < 970) {
+                $("#templatemo_timeline .container-fluid").css({ "position": "absolute" });
+                positon_left = $("#templatemo_timeline .container-fluid").position().left + 100;
                 //put on right
-                $(this).css({   
-                                    'left': 70,
-                                    'top':$.timeline_right_position_top,
-                                    'width': $(window).width() - positon_left
-                                 });
+                $(this).css({
+                    'left': 70,
+                    'top': $.timeline_right_position_top,
+                    'width': $(window).width() - positon_left
+                });
                 $(this).addClass("right_timeline");
                 $.timeline_old_right_position_top = $.timeline_right_position_top;
-                $.timeline_right_position_top = $.timeline_right_position_top + $(this).outerHeight() + 40 ;
+                $.timeline_right_position_top = $.timeline_right_position_top + $(this).outerHeight() + 40;
                 $(this).prepend("<a href=\"#\" class=\"right_timer\"><span class=\"glyphicon glyphicon-time\"></span></a>");
-                $(this).children("a.right_timer").css({left:-86, width: 60 ,});
-            }else if($.timeline_left_position_top == 0){
-                $("#templatemo_timeline .container-fluid").css({"position":"relative"});
+                $(this).children("a.right_timer").css({ left: -86, width: 60, });
+            } else if ($.timeline_left_position_top == 0) {
+                $("#templatemo_timeline .container-fluid").css({ "position": "relative" });
                 //put on left
-                $(this).css({   
-                                    'left':0,
-                                    'top':0,
-                                    'width': $.timeline_item_width - 50
-                                 });
+                $(this).css({
+                    'left': 0,
+                    'top': 0,
+                    'width': $.timeline_item_width - 50
+                });
                 $(this).addClass("left_timeline");
                 $.timeline_old_left_position_top = $.timeline_left_position_top;
-                $.timeline_left_position_top = $.timeline_left_position_top + $(this).outerHeight() + 40 ;
+                $.timeline_left_position_top = $.timeline_left_position_top + $(this).outerHeight() + 40;
                 $(this).prepend("<a href=\"#\" class=\"left_timer\"><span class=\"glyphicon glyphicon-time\"></span></a>");
-                $(this).children("a.left_timer").css({left:$.timeline_item_width-50,});
-            }else if( $.timeline_right_position_top < $.timeline_left_position_top ){
-                $("#templatemo_timeline .container-fluid").css({"position":"relative"});
-                $.timeline_right_position_top = ($.timeline_old_left_position_top + 40) < $.timeline_right_position_top  ? $.timeline_right_position_top : $.timeline_right_position_top + 40;
+                $(this).children("a.left_timer").css({ left: $.timeline_item_width - 50, });
+            } else if ($.timeline_right_position_top < $.timeline_left_position_top) {
+                $("#templatemo_timeline .container-fluid").css({ "position": "relative" });
+                $.timeline_right_position_top = ($.timeline_old_left_position_top + 40) < $.timeline_right_position_top ? $.timeline_right_position_top : $.timeline_right_position_top + 40;
                 //put on right
-                $(this).css({   
-                                    'left': $.timeline_item_width + 79,
-                                    'top':$.timeline_right_position_top,
-                                    'width': $.timeline_item_width - 50
-                                 });
+                $(this).css({
+                    'left': $.timeline_item_width + 79,
+                    'top': $.timeline_right_position_top,
+                    'width': $.timeline_item_width - 50
+                });
                 $(this).addClass("right_timeline");
                 $.timeline_old_right_position_top = $.timeline_right_position_top;
-                $.timeline_right_position_top = $.timeline_right_position_top + $(this).outerHeight() + 40 ;
+                $.timeline_right_position_top = $.timeline_right_position_top + $(this).outerHeight() + 40;
                 $(this).prepend("<a href=\"#\" class=\"right_timer\"><span class=\"glyphicon glyphicon-time\"></span></a>");
-                $(this).children("a.right_timer").css({left:-99,});
-            }else{
-                $("#templatemo_timeline .container-fluid").css({"position":"relative"});
+                $(this).children("a.right_timer").css({ left: -99, });
+            } else {
+                $("#templatemo_timeline .container-fluid").css({ "position": "relative" });
                 $.timeline_left_position_top = ($.timeline_old_right_position_top + 40) < $.timeline_left_position_top ? $.timeline_left_position_top : $.timeline_left_position_top + 40;
                 //put on left
                 $(this).css({
-                                    'left':0,
-                                    'top':$.timeline_left_position_top,
-                                    'width': $.timeline_item_width - 50
-                                 });
+                    'left': 0,
+                    'top': $.timeline_left_position_top,
+                    'width': $.timeline_item_width - 50
+                });
                 $(this).addClass("left_timeline");
                 $.timeline_old_left_position_top = $.timeline_left_position_top;
-                $.timeline_left_position_top = $.timeline_left_position_top + $(this).outerHeight() + 40 ;
+                $.timeline_left_position_top = $.timeline_left_position_top + $(this).outerHeight() + 40;
                 $(this).prepend("<a href=\"#\" class=\"left_timer\"><span class=\"glyphicon glyphicon-time\"></span></a>");
-                $(this).children("a.left_timer").css({left:$.timeline_item_width-50,});
+                $(this).children("a.left_timer").css({ left: $.timeline_item_width - 50, });
             }
             //calculate and define container height
-            if($.timeline_left_position_top > $.timeline_right_position_top ){
-                $("#templatemo_timeline .container-fluid").height($.timeline_left_position_top-40);
-                $("#templatemo_timeline").height($.timeline_left_position_top+200);
-            }else{
-                $("#templatemo_timeline .container-fluid").height($.timeline_right_position_top-40);
-                $("#templatemo_timeline").height($.timeline_right_position_top+200);
+            if ($.timeline_left_position_top > $.timeline_right_position_top) {
+                $("#templatemo_timeline .container-fluid").height($.timeline_left_position_top - 40);
+                $("#templatemo_timeline").height($.timeline_left_position_top + 200);
+            } else {
+                $("#templatemo_timeline .container-fluid").height($.timeline_right_position_top - 40);
+                $("#templatemo_timeline").height($.timeline_right_position_top + 200);
             }
             $(this).fadeIn();
         });
     });
-    //mobile menu and desktop menu
-    $("#templatemo_mobile_menu").css({"right":-1500});
-    $("#mobile_menu").click(function(){
-            $("#templatemo_mobile_menu").show();
-            $("#templatemo_mobile_menu").animate({"right":0});
-            return false;
-    });
-    $(window).on("load resize", function(){
-            if($(window).width()>768){
-                $("#templatemo_mobile_menu").css({"right":-1500});
-            }
-    });
-
-    jQuery.fn.anchorAnimate = function(settings) {
-        settings = jQuery.extend({
-            speed : 1100
-        }, settings);	
-        return this.each(function(){
-            var caller = this
-            $(caller).click(function (event){
-                event.preventDefault();
-                var locationHref = window.location.href;
-                var elementClick = $(caller).attr("href");
-                var destination = $(elementClick).offset().top - $('#templatemo_banner_menu').outerHeight() ;
-                $("#templatemo_mobile_menu").animate({"right":-1500});
-                $("#templatemo_mobile_menu").fadeOut() ;
-                $("html,body").css({"overflow":"auto"});
-                $("html,body").stop().animate({ scrollTop: destination}, settings.speed, function(){
-                    // Detect if pushState is available
-                    if(history.pushState) {
-                        history.pushState(null, null, elementClick);
-                    }
-                });
-                return false;
-            });
-        });
-    }
-    //animate scroll function calll
-    $("#templatemo_mobile_menu a").anchorAnimate();    
-    //about
-    $(document).scroll(function(){
-        document_top = $(document).scrollTop();
-        event_wapper_top = $("#templatemo_about").position().top - $('#templatemo_banner_menu').outerHeight();
-        if(document_top<event_wapper_top){
-            degree = (360/event_wapper_top)*(document_top);
-            event_animate_num = event_wapper_top - document_top;
-            event_animate_alpha = (1/document_top)*(event_wapper_top);
-            $("#templatemo_about .imgwap").css({
-                        '-webkit-transform': 'rotate(' + degree + 'deg)',
-                        '-moz-transform': 'rotate(' + degree + 'deg)',
-                        '-ms-transform': 'rotate(' + degree + 'deg)',
-                        '-o-transform': 'rotate(' + degree + 'deg)',
-                        'transform': 'rotate(' + degree + 'deg)',
-            });
-            $("#templatemo_about .about_icon").css({
-                        'opacity':event_animate_alpha
-            });
-        }else{
-            $("#templatemo_about .imgwap").css({
-                        '-webkit-transform': 'rotate(' + 360 + 'deg)',
-                        '-moz-transform': 'rotate(' + 360 + 'deg)',
-                        '-ms-transform': 'rotate(' + 360 + 'deg)',
-                        '-o-transform': 'rotate(' + 360 + 'deg)',
-                        'transform': 'rotate(' + 360 + 'deg)',
-            });
-            $("#templatemo_about .about_icon").css({
-                        'opacity':1
-            });
-        }
-    });
     //events
     //event
-    $(document).scroll(function(){
-        document_top = $(document).scrollTop();
-        event_wapper_top = $("#templatemo_events").position().top - $('#templatemo_banner_menu').outerHeight();
-        if(document_top<event_wapper_top){
-            event_animate_num = event_wapper_top - document_top;
-            event_animate_alpha = (1/event_wapper_top)*(document_top);
-            $("#templatemo_events .event_animate_left").css({'left': -event_animate_num,'opacity':event_animate_alpha});
-            $("#templatemo_events .event_animate_right").css({'left':event_animate_num,'opacity':event_animate_alpha});
-        }else{
-            $("#templatemo_events .event_animate_left").css({'left': 0,'opacity':1});
-            $("#templatemo_events .event_animate_right").css({'left':0,'opacity':1});
-        }
-    }); 
+    //$(document).scroll(function(){
+    //    document_top = $(document).scrollTop();
+    //    event_wapper_top = $("#templatemo_events").position().top - $('#templatemo_banner_menu').outerHeight();
+    //    if(document_top<event_wapper_top){
+    //        event_animate_num = event_wapper_top - document_top;
+    //        event_animate_alpha = (1/event_wapper_top)*(document_top);
+    //        $("#templatemo_events .event_animate_left").css({'left': -event_animate_num,'opacity':event_animate_alpha});
+    //        $("#templatemo_events .event_animate_right").css({'left':event_animate_num,'opacity':event_animate_alpha});
+    //    }else{
+    //        $("#templatemo_events .event_animate_left").css({'left': 0,'opacity':1});
+    //        $("#templatemo_events .event_animate_right").css({'left':0,'opacity':1});
+    //    }
+    //}); 
 });
-//google map
-function initialize(){
-    //define map
-    var map;
-    //lat lng
-    myLatlng = new google.maps.LatLng(16.8496189,96.1288854);
-    //define style
-    var styles = [
-        {
-            //set all color
-            featureType: "all",
-            stylers: [{ hue: "#35a9d8" }]
-        },
-        {
-            //hide business
-            featureType: "poi.business",
-            elementType: "labels",
-            stylers: [{ visibility: "off" }]
-        }
-    ];
-    //map options
-    var mapOptions = {
-        zoom: 16,
-        center: myLatlng ,
-        mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']} ,
-        panControl: false , //hide panControl
-        zoomControl: true , //hide zoomControl
-        mapTypeControl: false , //hide mapTypeControl
-        scaleControl: false , //hide scaleControl
-        streetViewControl: false , //hide streetViewControl
-        overviewMapControl: false , //hide overviewMapControl
-    }
-    //adding attribute value
-    map = new google.maps.Map(document.getElementById('templatemo_contact_map'), mapOptions);
-    var styledMap = new google.maps.StyledMapType(styles,{name: "Styled Map"});
-    map.mapTypes.set('map_style', styledMap);
-    map.setMapTypeId('map_style');
-    //add marker
-    var marker = new google.maps.Marker({
-        position: myLatlng,
-        map: map,
-        title: 'Welcome to Yangon'
-    });
-}
-google.maps.event.addDomListener(window, 'load', initialize);
-google.maps.event.addDomListener(window, 'resize', initialize);

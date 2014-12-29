@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "吐槽墙";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+    <link href="~/Content/css/tucao.css" rel="stylesheet" />
+    <style type="text/css">
+        blockquote {
+            background-color: #ebfcee;
+            border-left: 5px solid #3cc051;
+            height: 80px;
+            padding: 28px 20px;
+        }
+            blockquote .btn-success {
+            margin-top:-5px;
+            font-size:16px;
+            
+            }
+             .time_line_paragraph {
+                background: #ffffff;
+                padding: 15px;
+                border-radius: 5px;
+                width: 100%;
+                margin-top: 20px;
+                font-family: 'Century Gothic', sans-serif;
+            }
+
+            .time_line_paragraph p {
+                padding: 5px 20px;
+                text-align: left;
+                margin: 0;
+                font-size: 14px;
+                line-height: 2em;
+                color: #000;
+            }
+    </style>
+}
+@section Scripts{
+
+}
+<section class="container">
+    <div class="wrapper">
+
+        <blockquote>
+            <h3 class="col-md-9">今天，你遇到了什么怨什么仇吗？和大伙吐吐槽吧</h3>
+            <button type="button" class="btn btn-success">我要吐槽</button>
+        </blockquote>
+
+        @for (int i = 0; i < 10; i++)
+        {
+            <div class="time_line_paragraph">
+                <p>
+                    <span class="glyphicon glyphicon-user"></span>&nbsp;小江 &nbsp;&nbsp;
+                    <span class="glyphicon glyphicon-time"></span>&nbsp;2014-12-13 14:50 &nbsp;&nbsp;
+                </p>
+                <p>不要在同一个元素上同时使用多个插件的 data 属性。例如，button 组件不能同时支持工具提示和控制模态框。如果需要的话，可以在其外面包裹一个额外的元素。</p>
+            </div>
+        }
+
+    </div>
+</section>
+
