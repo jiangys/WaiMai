@@ -34,19 +34,27 @@
                 line-height: 2em;
                 color: #000;
             }
+        .publish {
+            background: none repeat scroll 0 0 #e5e5e5;
+            padding: 15px 0;
+            height:120px;
+        }
     </style>
 }
 @section Scripts{
 
 }
-<section class="container">
-    <div class="wrapper">
+<section class="publish">
+    <div class="container">
 
-        <blockquote>
             <h3 class="col-md-9">今天，你遇到了什么怨什么仇吗？和大伙吐吐槽吧</h3>
             <button type="button" class="btn btn-success">我要吐槽</button>
-        </blockquote>
 
+    </div>
+
+</section>
+<section class="container">
+    <div class="wrapper">
         @for (int i = 0; i < 10; i++)
         {
             <div class="time_line_paragraph">

@@ -14,5 +14,10 @@ namespace PP.WaiMai.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult Publish()
+        {
+            return View();
+        }
 	}
 }
