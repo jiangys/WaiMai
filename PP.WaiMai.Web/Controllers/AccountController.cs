@@ -19,12 +19,9 @@ namespace PP.WaiMai.Web.Controllers
         {
             return View();
         }
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl)
         {
-            //获取本地的IP地址
-            var ip = WaiMai.Util.Http.CheckIP.GetIP();
-            //从数据库里查找，看有没有相关的。如果存在，则显示出用户名
-
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
         public ActionResult LoginDialog()
@@ -58,13 +55,15 @@ namespace PP.WaiMai.Web.Controllers
             {
                 if (OperateContext.Current.Login(model))
                 {
-                    return Redirect("/");
+                    return RedirectToLocal(returnUrl);
                 }
                 else
                 {
                     ModelState.AddModelError("", "用户名或密码错误.");
                 }
             }
+            //跳转到原来的地址
+            ViewBag.ReturnUrl = returnUrl;
             // 如果我们进行到这一步时某个地方出错，则重新显示表单
             return View(model);
         }
@@ -153,5 +152,17 @@ namespace PP.WaiMai.Web.Controllers
             return JsonMsgErr("修改密码失败，请联系管理员");
         }
         #endregion
+
+        private ActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
     }
 }

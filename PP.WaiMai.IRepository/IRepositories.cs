@@ -9,6 +9,10 @@ using PP.WaiMai.Model;
 
 namespace PP.WaiMai.IRepository
 { 
+	public partial interface ICommentRepository : IBaseRepository<Comment>
+    {
+    }
+
 	public partial interface IConfigRepository : IBaseRepository<Config>
     {
     }
@@ -34,6 +38,14 @@ namespace PP.WaiMai.IRepository
     }
 
 	public partial interface IRestaurantRepository : IBaseRepository<Restaurant>
+    {
+    }
+
+	public partial interface ISarcasmRepository : IBaseRepository<Sarcasm>
+    {
+    }
+
+	public partial interface IsysdiagramsRepository : IBaseRepository<sysdiagrams>
     {
     }
 

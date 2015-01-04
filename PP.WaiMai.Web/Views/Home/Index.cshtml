@@ -78,19 +78,21 @@
 <div id="templatemo_timeline" class="container_wapper">
     <h1>吐槽轴</h1>
     <div class="container-fluid">
-        @for (int i = 0; i < 8; i++)
+
+        @foreach (var item in ViewBag.SarcasmList)
         {
             <div class="time_line_wap">
-                <div class="time_line_caption">10 days ago</div>
+                <div class="time_line_caption">@item.CreateTime</div>
                 <div class="time_line_paragraph">
                     <p>
-                        <span class="glyphicon glyphicon-user"></span>&nbsp;小江 &nbsp;&nbsp;
-                        <span class="glyphicon glyphicon-edit"></span><a href="#">3 comments</a>
+                        <span class="glyphicon glyphicon-user"></span>&nbsp;@item.UserName &nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-edit"></span><a href="#">@item.CommentCount comments</a>
                     </p>
-                    <p>不要在同一个元素上同时使用多个插件的 data 属性。例如，button 组件不能同时支持工具提示和控制模态框。如果需要的话，可以在其外面包裹一个额外的元素。</p>
+                    <p>@Html.Raw(@item.Content)</p>
                 </div>
             </div>
         }
+
     </div>
 </div>
 <div class="clear"></div>
@@ -114,7 +116,7 @@
                         </form> <!-- /.subscribe-form -->
 
                         <section class="subscribe-description">
-                            <p>一切恨你，只因有你 :)</p>
+                            <p>一切恨你，只因有你</p>
 
                         </section> <!-- /.subscribe-description -->
 
@@ -126,6 +128,64 @@
         </div> <!-- /.row -->
     </div> <!-- /.container -->
 </section><div class="clear"></div>
+<script type="text/javascript">
+    function dateTimeStamp(varparam) {
+        var minute = 1000 * 60;
+        var hour = minute * 60;
+        var day = hour * 24;
+        var halfamonth = day * 15;
+        var month = day * 30;
+        var dateTimeStamp = varparam ? Date.parse(varparam.replace(/-/gi, "/")) : new Date().getTime();
+
+        var now = new Date().getTime();
+        var diffValue = now - dateTimeStamp;
+
+        if (diffValue < 0) {
+            alert("结束日期不能小于开始日期！");
+        }
+        var monthC = diffValue / month;
+        var weekC = diffValue / (7 * day);
+        var dayC = diffValue / day;
+        var hourC = diffValue / hour;
+        var minC = diffValue / minute;
+        if (monthC >= 1) {
+            return varparam;
+        }
+        else if (weekC >= 1) {
+            result = "发表于" + parseInt(weekC) + "个星期前";
+        }
+        else if (dayC >= 1) {
+            result = "发表于" + parseInt(dayC) + "天前";
+        }
+        else if (hourC >= 1) {
+            result = "发表于" + parseInt(hourC) + "个小时前";
+        }
+        else if (minC >= 1) {
+            result = "发表于" + parseInt(minC) + "分钟前";
+        } else
+            result = "刚刚发表";
+
+        return result;
+    };
+
+    $(function () {
+        //$.post("/tucao/GetSarcasm", null, function (jsonData) {
+        //    var html = "";
+        //    var dataObj = jQuery.parseJSON(jsonData.data);
+        //    $.each(dataObj, function (i, item) {
+        //        html += "<div class='time_line_wap'>" +
+        //                    "<div class='time_line_caption'>" + dateTimeStamp(item.CreateTime) + "</div>" +
+        //                          "<div class='time_line_paragraph'><p>" +
+        //                          "<span class='glyphicon glyphicon-user'></span>&nbsp;小江 &nbsp;&nbsp;" +
+        //                          "<span class='glyphicon glyphicon-edit'></span>3 comments" +
+        //                          "</p><p>" + item.Content + "</p>" +
+        //                     "</div>" +
+        //                "</div>"
+        //    });
+        //    $(".container-fluid").html(html);
+        //}, "json");
+    });
+</script>
 <script src="~/Content/js/jquery.singlePageNav.min.js"></script>
 <script src="~/Content/js/templatemo_script.js"></script>
 <script src="~/Content/js/unslider.min.js"></script>

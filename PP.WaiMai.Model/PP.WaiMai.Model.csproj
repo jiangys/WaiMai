@@ -48,6 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comment.cs">
+      <DependentUpon>WaiMai.tt</DependentUpon>
+    </Compile>
     <Compile Include="Config.cs">
       <DependentUpon>WaiMai.tt</DependentUpon>
     </Compile>
@@ -73,6 +76,9 @@
     <Compile Include="FormatModels\PageData.cs" />
     <Compile Include="Order.cs">
       <DependentUpon>WaiMai.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PocoModels\Comment.cs">
+      <DependentUpon>PocoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PocoModels\Config.cs">
       <DependentUpon>PocoModel.tt</DependentUpon>
@@ -100,6 +106,9 @@
     <Compile Include="PocoModels\Restaurant.cs">
       <DependentUpon>PocoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="PocoModels\Sarcasm.cs">
+      <DependentUpon>PocoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="PocoModels\sysdiagrams.cs">
       <DependentUpon>PocoModel.tt</DependentUpon>
     </Compile>
@@ -111,6 +120,9 @@
       <DependentUpon>WaiMai.tt</DependentUpon>
     </Compile>
     <Compile Include="Restaurant.cs">
+      <DependentUpon>WaiMai.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sarcasm.cs">
       <DependentUpon>WaiMai.tt</DependentUpon>
     </Compile>
     <Compile Include="sysdiagrams.cs">
@@ -126,6 +138,8 @@
     <Compile Include="ViewModels\FoodMenuViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\RestaurantViewModel.cs" />
+    <Compile Include="ViewModels\SarcasmHomeViewModel.cs" />
+    <Compile Include="ViewModels\SarcasmViewModel.cs" />
     <Compile Include="WaiMai.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

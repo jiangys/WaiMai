@@ -9,6 +9,25 @@ namespace PP.WaiMai.Repository
 {
 	public partial class DbSession : IDbSession 
     { 
+		#region 数据接口 ICommentRepository
+		private ICommentRepository _CommentRepository;
+        public ICommentRepository CommentRepository 
+        {
+            get
+            {
+                if (_CommentRepository == null)
+                {
+                    _CommentRepository = new CommentRepository();
+                }
+                return _CommentRepository; 
+            }
+            set
+            {
+                _CommentRepository = value;
+            }
+        }
+		#endregion
+
 		#region 数据接口 IConfigRepository
 		private IConfigRepository _ConfigRepository;
         public IConfigRepository ConfigRepository 
@@ -138,6 +157,44 @@ namespace PP.WaiMai.Repository
             set
             {
                 _RestaurantRepository = value;
+            }
+        }
+		#endregion
+
+		#region 数据接口 ISarcasmRepository
+		private ISarcasmRepository _SarcasmRepository;
+        public ISarcasmRepository SarcasmRepository 
+        {
+            get
+            {
+                if (_SarcasmRepository == null)
+                {
+                    _SarcasmRepository = new SarcasmRepository();
+                }
+                return _SarcasmRepository; 
+            }
+            set
+            {
+                _SarcasmRepository = value;
+            }
+        }
+		#endregion
+
+		#region 数据接口 IsysdiagramsRepository
+		private IsysdiagramsRepository _sysdiagramsRepository;
+        public IsysdiagramsRepository sysdiagramsRepository 
+        {
+            get
+            {
+                if (_sysdiagramsRepository == null)
+                {
+                    _sysdiagramsRepository = new sysdiagramsRepository();
+                }
+                return _sysdiagramsRepository; 
+            }
+            set
+            {
+                _sysdiagramsRepository = value;
             }
         }
 		#endregion

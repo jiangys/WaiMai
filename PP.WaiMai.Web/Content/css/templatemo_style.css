@@ -3,9 +3,19 @@
 /*-----------------------------------------------------------------------------------*/
 /*	GENERAL
 /*-----------------------------------------------------------------------------------*/
+html, body {
+    height: 100%;
+}
+
 body {
     font: 14px/1.5 arial,"Microsoft Yahei","Hiragino Sans GB",sans-serif;
     background-color: #eeeeee;
+}
+
+.main {
+    min-height: 100%;
+    overflow: auto;
+    padding-bottom: 141px;
 }
 
 section .outer_container {
@@ -41,7 +51,10 @@ section h1 {
     padding-left: 0;
     padding-right: 0;
 }
-.wrapper{padding:30px 0;}
+
+.wrapper {
+    padding: 30px 0;
+}
 
 .center-row {
     display: table;
@@ -196,16 +209,45 @@ nav {
 /*------------------------------------------------------
 	FOOTER 
 --------------------------------------------------------*/
- 
-        .footer-section {
-            background-color: #efefef;
-            border-top: 1px solid #bbb;
-            padding: 30px 0;
-            text-align: left;
+footer {
+    background: #283147;
+    min-height: 141px;
+    color: white;
+    margin-top: -141px;
+}
+
+    footer img {
+        padding-top: 30px;
+    }
+
+    footer a {
+        text-decoration: none;
+        color: white;
+    }
+
+        footer a:hover {
+            color: #cbcbcb;
+            text-decoration: none;
         }
-        .col-footer .fa.fa-heart {
-            color: #fd487d;
-        }
+
+    footer .row {
+        height: 100%;
+    }
+
+.back_to_top {
+    background-color: #c5454a;
+    text-align: center;
+    height: 41px;
+    line-height: 41px;
+}
+
+.social_buttons a {
+    text-decoration: none;
+}
+
+#templatemo_copyright {
+    font-size: .9em;
+}
 /* Wrapper */
 .social_buttons .icon-button {
     background-color: #20283e;

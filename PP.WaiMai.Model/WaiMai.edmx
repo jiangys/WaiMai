@@ -5,6 +5,17 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="WaiMaiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="SarcasmID" Type="int" Nullable="false" />
+          <Property Name="Content" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="IsDel" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Config">
           <Key>
             <PropertyRef Name="ConfigName" />
@@ -107,6 +118,16 @@
           <Property Name="IsDel" Type="bit" Nullable="false" />
           <Property Name="Version" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Sarcasm">
+          <Key>
+            <PropertyRef Name="SarcasmID" />
+          </Key>
+          <Property Name="SarcasmID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Content" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="IsDel" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -130,6 +151,42 @@
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="IsDel" Type="bit" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Comment_Sarcasm">
+          <End Role="Sarcasm" Type="Self.Sarcasm" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sarcasm">
+              <PropertyRef Name="SarcasmID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="SarcasmID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExpendLog_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ExpendLog" Type="Self.ExpendLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ExpendLog">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FoodMenu_FoodMenuCategory">
           <End Role="FoodMenuCategory" Type="Self.FoodMenuCategory" Multiplicity="1" />
           <End Role="FoodMenu" Type="Self.FoodMenu" Multiplicity="*" />
@@ -190,7 +247,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Sarcasm_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Sarcasm" Type="Self.Sarcasm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Sarcasm">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="WaiMaiModelStoreContainer">
+          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExpendLog" EntityType="Self.ExpendLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FoodMenu" EntityType="Self.FoodMenu" Schema="dbo" store:Type="Tables" />
@@ -198,8 +268,21 @@
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Recharge" EntityType="Self.Recharge" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Restaurant" EntityType="Self.Restaurant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sarcasm" EntityType="Self.Sarcasm" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Comment_Sarcasm" Association="Self.FK_Comment_Sarcasm">
+            <End Role="Sarcasm" EntitySet="Sarcasm" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_User" Association="Self.FK_Comment_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExpendLog_User" Association="Self.FK_ExpendLog_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ExpendLog" EntitySet="ExpendLog" />
+          </AssociationSet>
           <AssociationSet Name="FK_FoodMenu_FoodMenuCategory" Association="Self.FK_FoodMenu_FoodMenuCategory">
             <End Role="FoodMenuCategory" EntitySet="FoodMenuCategory" />
             <End Role="FoodMenu" EntitySet="FoodMenu" />
@@ -219,6 +302,10 @@
           <AssociationSet Name="FK_Recharge_User" Association="Self.FK_Recharge_User">
             <End Role="User" EntitySet="User" />
             <End Role="Recharge" EntitySet="Recharge" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sarcasm_User" Association="Self.FK_Sarcasm_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Sarcasm" EntitySet="Sarcasm" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -255,6 +342,24 @@
             <End Role="Recharge" EntitySet="Recharge" />
           </AssociationSet>
           <EntitySet Name="sysdiagrams" EntityType="WaiMaiModel.sysdiagrams" />
+          <EntitySet Name="Comment" EntityType="WaiMaiModel.Comment" />
+          <EntitySet Name="Sarcasm" EntityType="WaiMaiModel.Sarcasm" />
+          <AssociationSet Name="FK_Comment_Sarcasm" Association="WaiMaiModel.FK_Comment_Sarcasm">
+            <End Role="Sarcasm" EntitySet="Sarcasm" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_User" Association="WaiMaiModel.FK_Comment_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExpendLog_User" Association="WaiMaiModel.FK_ExpendLog_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ExpendLog" EntitySet="ExpendLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sarcasm_User" Association="WaiMaiModel.FK_Sarcasm_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Sarcasm" EntitySet="Sarcasm" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Config">
           <Key>
@@ -275,6 +380,7 @@
           <Property Name="ExpendLogType" Type="Int32" Nullable="false" />
           <Property Name="ExpendLogTypeID" Type="Int32" Nullable="false" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="WaiMaiModel.FK_ExpendLog_User" FromRole="ExpendLog" ToRole="User" />
         </EntityType>
         <EntityType Name="FoodMenu">
           <Key>
@@ -380,6 +486,9 @@
           <Property Name="IsDel" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Order" Relationship="WaiMaiModel.FK_Order_User" FromRole="User" ToRole="Order" />
           <NavigationProperty Name="Recharge" Relationship="WaiMaiModel.FK_Recharge_User" FromRole="User" ToRole="Recharge" />
+          <NavigationProperty Name="Comment" Relationship="WaiMaiModel.FK_Comment_User" FromRole="User" ToRole="Comment" />
+          <NavigationProperty Name="ExpendLog" Relationship="WaiMaiModel.FK_ExpendLog_User" FromRole="User" ToRole="ExpendLog" />
+          <NavigationProperty Name="Sarcasm" Relationship="WaiMaiModel.FK_Sarcasm_User" FromRole="User" ToRole="Sarcasm" />
         </EntityType>
         <Association Name="FK_FoodMenu_FoodMenuCategory">
           <End Type="WaiMaiModel.FoodMenuCategory" Role="FoodMenuCategory" Multiplicity="1" />
@@ -451,6 +560,79 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="SarcasmID" Type="Int32" Nullable="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDel" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Sarcasm" Relationship="WaiMaiModel.FK_Comment_Sarcasm" FromRole="Comment" ToRole="Sarcasm" />
+          <NavigationProperty Name="User" Relationship="WaiMaiModel.FK_Comment_User" FromRole="Comment" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Sarcasm">
+          <Key>
+            <PropertyRef Name="SarcasmID" />
+          </Key>
+          <Property Name="SarcasmID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDel" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Comment" Relationship="WaiMaiModel.FK_Comment_Sarcasm" FromRole="Sarcasm" ToRole="Comment" />
+          <NavigationProperty Name="User" Relationship="WaiMaiModel.FK_Sarcasm_User" FromRole="Sarcasm" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Comment_Sarcasm">
+          <End Type="WaiMaiModel.Sarcasm" Role="Sarcasm" Multiplicity="1" />
+          <End Type="WaiMaiModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sarcasm">
+              <PropertyRef Name="SarcasmID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="SarcasmID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_User">
+          <End Type="WaiMaiModel.User" Role="User" Multiplicity="1" />
+          <End Type="WaiMaiModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExpendLog_User">
+          <End Type="WaiMaiModel.User" Role="User" Multiplicity="1" />
+          <End Type="WaiMaiModel.ExpendLog" Role="ExpendLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ExpendLog">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sarcasm_User">
+          <End Type="WaiMaiModel.User" Role="User" Multiplicity="1" />
+          <End Type="WaiMaiModel.Sarcasm" Role="Sarcasm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Sarcasm">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -588,6 +770,29 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comment">
+            <EntityTypeMapping TypeName="WaiMaiModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="SarcasmID" ColumnName="SarcasmID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sarcasm">
+            <EntityTypeMapping TypeName="WaiMaiModel.Sarcasm">
+              <MappingFragment StoreEntitySet="Sarcasm">
+                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="SarcasmID" ColumnName="SarcasmID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -34,5 +34,7 @@ namespace PP.WaiMai.Model
         public virtual DbSet<Restaurant> Restaurant { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Comment> Comment { get; set; }
+        public virtual DbSet<Sarcasm> Sarcasm { get; set; }
     }
 }

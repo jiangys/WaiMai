@@ -153,7 +153,7 @@ h1 {
 }
 #templatemo_timeline .time_line_wap {
     position: absolute;
-    display: none;
+    /*display: none;*/
 }
 #templatemo_timeline .time_line_caption {
     background: #f15556;
@@ -229,7 +229,7 @@ h1 {
 }
 /*contact*/
  .subscribe-section {
-            background-color: #283147;
+            background-color: #ccc;
             color: white;
             padding: 100px 0;
             text-align: center;

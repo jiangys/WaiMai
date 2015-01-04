@@ -1,8 +1,71 @@
-﻿
+﻿@model SarcasmViewModel
 @{
     ViewBag.Title = "Publish";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Publish</h2>
+@section head{
+    <style type="text/css">
+        .wrapper {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 5px;
+            width: 100%;
+            margin: 20px 0;
+            font-family: 'Century Gothic', sans-serif;
+        }
 
+        .postcon .row {
+            margin: 15px 0 0;
+        }
+
+        .editor-field {
+            margin: 15px 0 20px;
+        }
+    </style>
+
+    <script src="~/Content/js/kindeditor-4.1.10/kindeditor.js"></script>
+    <link href="~/Content/js/kindeditor-4.1.10/themes/default/default.css" rel="stylesheet" />
+    <script src="~/Content/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
+    <script type="text/javascript">
+        KindEditor.ready(function (K) {
+            var editor = K.create('#editor', {
+                uploadJson: '/Content/js/kindeditor-4.1.10/asp.net/upload_json.ashx',
+                fileManagerJson: '/Content/js/kindeditor-4.1.10/asp.net/file_manager_json.ashx',
+                //关键代码，当失去焦点时执行 this.sync();
+                afterBlur: function () { editor.sync(); },
+                allowFileManager: true,
+                items: [
+                        'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                        'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                        'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+            });
+        });
+    </script>
+}
+
+<section class="container">
+    <div class="wrapper">
+        <div class="postcon">
+            <h3>发表新吐槽</h3>
+            @using (Html.BeginForm("publish", "TuCao", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "SubmitForm" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <label class="radio-inline">
+                        @Html.RadioButtonFor(m => m.Type, "1", new { @checked = "checked" })江永升
+                    </label>
+                    <label class="radio-inline">
+                        @Html.RadioButtonFor(m => m.Type, "2")匿名发表
+                    </label>
+                </div>
+                <div class="editor-field">
+                    @Html.TextAreaFor(m => m.Content, new { @style = "width:100%; height: 400px;", id = "editor" })
+                    @Html.ValidationMessageFor(m => m.Content)
+                </div> 
+                <button type="submit" class="btn btn-primary btn-lg">发表吐槽</button>    
+                @Html.ValidationSummary(true)
+            }
+        </div>
+    </div>
+</section>

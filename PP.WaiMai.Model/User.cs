@@ -18,6 +18,9 @@ namespace PP.WaiMai.Model
         {
             this.Order = new HashSet<Order>();
             this.Recharge = new HashSet<Recharge>();
+            this.Comment = new HashSet<Comment>();
+            this.ExpendLog = new HashSet<ExpendLog>();
+            this.Sarcasm = new HashSet<Sarcasm>();
         }
     
         public int UserID { get; set; }
@@ -31,5 +34,8 @@ namespace PP.WaiMai.Model
     
         public virtual ICollection<Order> Order { get; set; }
         public virtual ICollection<Recharge> Recharge { get; set; }
+        public virtual ICollection<Comment> Comment { get; set; }
+        public virtual ICollection<ExpendLog> ExpendLog { get; set; }
+        public virtual ICollection<Sarcasm> Sarcasm { get; set; }
     }
 }

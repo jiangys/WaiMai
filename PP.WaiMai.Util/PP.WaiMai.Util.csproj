@@ -53,6 +53,7 @@
     <Compile Include="Http\Other.cs" />
     <Compile Include="Http\Path.cs" />
     <Compile Include="Http\Server.cs" />
+    <Compile Include="StringFormat\DateTimeFormat.cs" />
     <Compile Include="Web\UCache.cs" />
     <Compile Include="Web\UConfig.cs" />
     <Compile Include="Web\UCookies.cs" />

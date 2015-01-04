@@ -22,5 +22,7 @@ namespace PP.WaiMai.Model
         public int ExpendLogType { get; set; }
         public int ExpendLogTypeID { get; set; }
         public int UserID { get; set; }
+    
+        public virtual User User { get; set; }
     }
 }
