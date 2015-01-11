@@ -86,10 +86,10 @@
                 });
                 var node = $(this).parent().find(".public_reply");
                 if (node.is(":hidden") == true) {
-                    node.slideDown(1000);
+                    node.slideDown(500);
                 }
                 else {
-                    node.slideUp(1000);
+                    node.slideUp(500);
                 }
             });
             $(".btn-reply-content").click(function () {
@@ -129,7 +129,7 @@
 <section class="publish">
     <div class="container">
         <div class="publish-info">
-            <h3 class="fl">今天，你遇到了什么怨什么仇吗？和大伙吐吐槽吧</h3>
+            <h3 class="fl">今天，你遇了什么怨什么仇？和大伙吐吐槽吧</h3>
             @Html.ActionLink("我要吐槽", "publish", null, new { @class = "btn btn-success fr" })
         </div>
     </div>

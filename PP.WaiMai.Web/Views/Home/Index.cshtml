@@ -86,7 +86,7 @@
                 <div class="time_line_paragraph">
                     <p>
                         <span class="glyphicon glyphicon-user"></span>&nbsp;@item.UserName &nbsp;&nbsp;
-                        <span class="glyphicon glyphicon-edit"></span><a href="#">@item.CommentCount comments</a>
+                        <span class="glyphicon glyphicon-edit"></span>@item.CommentCount comments
                     </p>
                     <p>@Html.Raw(@item.Content)</p>
                 </div>
@@ -101,7 +101,7 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- Title -->
-                <h2>Welcome advice,Your opinion is our progress</h2>
+                <h2>我们非常珍视您的反馈，请留下您的宝贵意见</h2>
                 <!-- Subscribe form -->
                 <div class="row">
                     <div class="col-md-9 col-md-offset-2 col-subscribe">
@@ -115,10 +115,10 @@
                             <button type="submit" class="btn btn-success">提交意见</button>
                         </form> <!-- /.subscribe-form -->
 
-                        <section class="subscribe-description">
+                        @*<section class="subscribe-description">
                             <p>一切恨你，只因有你</p>
 
-                        </section> <!-- /.subscribe-description -->
+                        </section>*@ <!-- /.subscribe-description -->
 
                     </div> <!-- /.col-md-6 -->
                 </div> <!-- /.row -->

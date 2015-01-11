@@ -64,5 +64,9 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
             BLLSession.IConfigService.ModifyModel(configModel);
             return JsonMsgOk();
         }
+
+        public ActionResult test() {
+            return View(); 
+        }
     }
 }
