@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using PP.WaiMai.WebHelper;
 using PP.WaiMai.Model.ViewModels;
+using PP.WaiMai.Model;
 
 namespace PP.WaiMai.Web.Controllers
 {
@@ -13,7 +14,7 @@ namespace PP.WaiMai.Web.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.RestaurantList = BLLSession.IRestaurantService.GetListBy(m=>m.IsEnable).Take(2).ToList();
+            ViewBag.RestaurantList = BLLSession.IRestaurantService.GetListBy(m => m.IsEnable).Take(2).ToList();
             //获取吐槽列表  
             int totalCount = 0;
             var sarcasmList = BLLSession.ISarcasmService.GetPagedList(1, 10, ref totalCount, m => !m.IsDel, m => m.SarcasmID, false);
@@ -27,6 +28,27 @@ namespace PP.WaiMai.Web.Controllers
                         };
             ViewBag.SarcasmList = query.ToList();
             return View();
+        }
+        /// <summary>
+        /// 意见反馈
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Feedback(string contentMsg)
+        {
+            if (string.IsNullOrEmpty(contentMsg))
+            {
+                return JsonMsgNoOk("请填写反馈内容");
+            }
+            Feedback model = new Feedback();
+            model.ContentMsg = contentMsg;
+            model.CreateTime = DateTime.Now;
+            if (OperateHelper.IsLogin())
+            {
+                model.UserID = CurrentUser.UserID;
+            }
+            BLLSession.IFeedbackService.Add(model);
+            return JsonMsgOk("反馈成功");
         }
     }
 }

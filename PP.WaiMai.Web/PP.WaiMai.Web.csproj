@@ -378,26 +378,6 @@
     <Content Include="Content\js\kindeditor-4.1.10\asp.net\demo.aspx" />
     <Content Include="Content\js\kindeditor-4.1.10\asp.net\README.txt" />
     <Content Include="Content\js\kindeditor-4.1.10\attachedimage\20140916\20140916222340_2414.gif" />
-    <Content Include="Content\js\kindeditor-4.1.10\attached\image\20140710\20140710215001_5468.jpg" />
-    <Content Include="Content\js\kindeditor-4.1.10\attached\image\20140712\20140712153923_3140.png" />
-    <Content Include="Content\js\kindeditor-4.1.10\attached\image\20140727\20140727150817_6650.png" />
-    <Content Include="Content\js\kindeditor-4.1.10\attached\image\20140729\20140729122508_5749.jpg" />
-    <Content Include="Content\js\kindeditor-4.1.10\attached\image\20140729\20140729122518_6153.jpg" />
-    <Content Include="Content\js\kindeditor-4.1.10\attached\image\20140729\20140729122628_0669.jpg" />
-    <Content Include="Content\js\kindeditor-4.1.10\attached\image\20140729\20140729173013_9534.jpg" />
-    <Content Include="Content\js\kindeditor-4.1.10\attached\image\20140729\20140729173038_0063.jpg" />
-    <Content Include="Content\js\kindeditor-4.1.10\attached\image\20140813\20140813233903_2317.jpg" />
-    <Content Include="Content\js\kindeditor-4.1.10\attached\image\20140916\20140916223107_4939.jpg" />
-    <Content Include="Content\js\kindeditor-4.1.10\attached\image\20140916\20140916223228_8649.gif" />
-    <Content Include="Content\js\kindeditor-4.1.10\attached\image\20140916\20140916223536_6383.png" />
-    <Content Include="Content\js\kindeditor-4.1.10\attached\image\20140916\20140916223607_4998.gif" />
-    <Content Include="Content\js\kindeditor-4.1.10\attached\image\20140916\20140916234351_0377.png" />
-    <Content Include="Content\js\kindeditor-4.1.10\attached\image\20140917\20140917120002_8090.jpg" />
-    <Content Include="Content\js\kindeditor-4.1.10\attached\image\20140917\20140917120021_3963.jpg" />
-    <Content Include="Content\js\kindeditor-4.1.10\attached\image\20140917\20140917120215_2707.gif" />
-    <Content Include="Content\js\kindeditor-4.1.10\attached\image\20140917\20140917120231_5166.jpg" />
-    <Content Include="Content\js\kindeditor-4.1.10\attached\image\20141005\20141005201648_7162.jpg" />
-    <Content Include="Content\js\kindeditor-4.1.10\attached\image\20141005\20141005201824_4176.jpg" />
     <Content Include="Content\js\kindeditor-4.1.10\kindeditor-all-min.js" />
     <Content Include="Content\js\kindeditor-4.1.10\kindeditor-all.js" />
     <Content Include="Content\js\kindeditor-4.1.10\kindeditor-min.js" />
@@ -713,6 +693,7 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Order\" />
     <Folder Include="Content\images\admin\" />
+    <Folder Include="Content\js\kindeditor-4.1.10\attached\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

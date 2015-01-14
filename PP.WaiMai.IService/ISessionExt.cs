@@ -12,6 +12,7 @@ namespace PP.WaiMai.IService
 		ICommentService ICommentService{get;set;}
 		IConfigService IConfigService{get;set;}
 		IExpendLogService IExpendLogService{get;set;}
+		IFeedbackService IFeedbackService{get;set;}
 		IFoodMenuService IFoodMenuService{get;set;}
 		IFoodMenuCategoryService IFoodMenuCategoryService{get;set;}
 		IOrderService IOrderService{get;set;}

@@ -66,6 +66,25 @@ namespace PP.WaiMai.Repository
         }
 		#endregion
 
+		#region 数据接口 IFeedbackRepository
+		private IFeedbackRepository _FeedbackRepository;
+        public IFeedbackRepository FeedbackRepository 
+        {
+            get
+            {
+                if (_FeedbackRepository == null)
+                {
+                    _FeedbackRepository = new FeedbackRepository();
+                }
+                return _FeedbackRepository; 
+            }
+            set
+            {
+                _FeedbackRepository = value;
+            }
+        }
+		#endregion
+
 		#region 数据接口 IFoodMenuRepository
 		private IFoodMenuRepository _FoodMenuRepository;
         public IFoodMenuRepository FoodMenuRepository 

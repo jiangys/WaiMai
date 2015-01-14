@@ -9,6 +9,7 @@ namespace PP.WaiMai.IRepository
     ICommentRepository CommentRepository{get;set;}
     IConfigRepository ConfigRepository{get;set;}
     IExpendLogRepository ExpendLogRepository{get;set;}
+    IFeedbackRepository FeedbackRepository{get;set;}
     IFoodMenuRepository FoodMenuRepository{get;set;}
     IFoodMenuCategoryRepository FoodMenuCategoryRepository{get;set;}
     IOrderRepository OrderRepository{get;set;}
