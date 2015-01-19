@@ -58,6 +58,17 @@ namespace PP.WaiMai.IRepository
         int ModifyModel(T entity);
         #endregion
 
+        #region 批量修改 +int Modify(T model, Expression<Func<T, bool>> whereLambda, params string[] modifiedProNames)
+        /// <summary>
+        /// 批量修改
+        /// </summary>
+        /// <param name="model">要修改的实体对象</param>
+        /// <param name="whereLambda">查询条件</param>
+        /// <param name="proNames">要修改的 属性 名称</param>
+        /// <returns></returns>
+        int ModifyBy(T model, Expression<Func<T, bool>> whereLambda, params string[] modifiedProNames);
+        #endregion
+
         #region 根据条件查询 +List<T> GetModel(Expression<Func<T,bool>> whereLambda)
         /// <summary>
         /// 根据条件查询 +List<T> GetModel(Expression<Func<T,bool>> whereLambda)

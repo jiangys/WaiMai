@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using PP.WaiMai.WebHelper;
 using PP.WaiMai.Model.ViewModels;
+using PP.WaiMai.Model;
 
 namespace PP.WaiMai.Web.Controllers
 {
@@ -13,77 +14,41 @@ namespace PP.WaiMai.Web.Controllers
     {
         public ActionResult Index()
         {
-            var restaurantModel = BLLSession.IRestaurantService.GetListBy(m => m.IsEnable == true && !m.IsDel).FirstOrDefault();
-            if (restaurantModel==null)
-            {
-                return View();
-            }
-            var foodMenuList = BLLSession.IFoodMenuService.GetListBy(m => m.FoodMenuCategory.RestaurantID == restaurantModel.RestaurantID && !m.IsDel);
-            var foodMenuIdList = foodMenuList.Select(m => m.FoodMenuID);
-            var orderList = BLLSession.IOrderService.GetListBy(m => foodMenuIdList.Contains(m.FoodMenuID)&&!m.IsDel);
-
-            var foodMenuViewList = foodMenuList.Select(m => new FoodMenuViewModel()
-            {
-                FoodMenuID = m.FoodMenuID,
-                FoodMenuCategoryID = m.FoodMenuCategoryID,
-                CName = m.FoodMenuCategory.CName,
-                IsSale = m.IsSale,
-                MenuName = m.MenuName,
-                Price = m.Price,
-                RestaurantName = restaurantModel.RestaurantName,
-                TotalCount = orderList.Where(u => u.FoodMenuID == m.FoodMenuID).Sum(u => u.TotalCount)
-            }).ToList();
-
-            ViewBag.FoodMenuViewList = foodMenuViewList;
-            ViewBag.FoodMenuList = foodMenuList;
-            ViewBag.RestaurantModel = restaurantModel;
-
-            #region --状态
-            var isDo = true;
-            var doOrderValue = BLLSession.IConfigService.GetModel(m => m.ConfigName == "DoOrder").ConfigValue;
-            if (doOrderValue != null)
-            {
-                var doOrderModel = JsonConvert.DeserializeObject<ConfigDoOrderViewModel>(doOrderValue);
-                if (doOrderModel.DoTime == DateTime.Now.ToShortDateString())
-                {
-                    isDo = doOrderModel.IsDo;
-                }
-            }
-            ViewBag.IsDo = isDo;
-            #endregion
-
-
+            ViewBag.RestaurantList = BLLSession.IRestaurantService.GetListBy(m => m.IsEnable).Take(2).ToList();
+            //获取吐槽列表  
+            int totalCount = 0;
+            var sarcasmList = BLLSession.ISarcasmService.GetPagedList(1, 10, ref totalCount, m => !m.IsDel, m => m.SarcasmID, false);
+            var query = from m in sarcasmList
+                        select new SarcasmHomeViewModel
+                        {
+                            UserName = m.User.UserName,
+                            CreateTime = Util.StringFormat.DateTimeFormat.DateStringFromNow(m.CreateDate),
+                            Content = m.Content,
+                            CommentCount = m.Comment.Count()
+                        };
+            ViewBag.SarcasmList = query.ToList();
             return View();
         }
-
-        public ActionResult About()
+        /// <summary>
+        /// 意见反馈
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Feedback(string contentMsg)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-        //获取内网IP
-        private string GetInternalIP()
-        {
-            System.Net.IPHostEntry host;
-            string localIP = "?";
-            host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
-            foreach (System.Net.IPAddress ip in host.AddressList)
+            if (string.IsNullOrEmpty(contentMsg))
             {
-                if (ip.AddressFamily.ToString() == "InterNetwork")
-                {
-                    localIP = ip.ToString();
-                    break;
-                }
+                return JsonMsgNoOk("请填写反馈内容");
             }
-            return localIP;
+            Feedback model = new Feedback();
+            model.ContentMsg = contentMsg;
+            model.CreateTime = DateTime.Now;
+            if (OperateHelper.IsLogin())
+            {
+                model.UserID = CurrentUser.UserID;
+            }
+            BLLSession.IFeedbackService.Add(model);
+            return JsonMsgOk("反馈成功");
         }
     }
 }

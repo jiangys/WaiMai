@@ -45,6 +45,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IService.tt</DependentUpon>
     </Compile>
+    <Compile Include="IServiceExtension\IOrderService.cs" />
     <Compile Include="IServiceExtension\IUserService.cs" />
     <Compile Include="ISessionExt.cs">
       <AutoGen>True</AutoGen>

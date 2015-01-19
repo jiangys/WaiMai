@@ -1,0 +1,105 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<User>
+@{
+    ViewBag.Title = "用户报表";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutUser.cshtml";
+}
+@section head{
+    <style type="text/css">
+        /*左边样式的变化*/
+        .user-menu .menu_sec li.repUser {
+            background: none repeat scroll 0 0 #fff;
+            border-bottom: 1px solid #e5e5e5;
+            border-left: 3px solid #e95c00;
+            border-top: 1px solid #e5e5e5;
+            padding: 8px 0 8px 37px;
+        }
+    </style>
+}
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            $(".doEdit").click(function () {
+                var url = $(this).attr("data-href");
+                wrapper.showModalDialog(url, 350, 380);
+            });
+        });
+    </script>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+        <h3 class="page-title">
+            用户报表 <small>用户信息显示</small>
+        </h3>
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="/">首页</a>
+            </li>
+            <li>
+                用户报表
+            </li>
+        </ul>
+        <!-- END PAGE TITLE & BREADCRUMB-->
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="user-box ">
+            <h4>当前总余额：<span style="color: #e95c00">&nbsp;@ViewBag.AllAmount &nbsp;</span>元</h4>
+        </div>
+        <div class="portlet">
+            <div class="portlet-content">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-advance table-hover">
+                        <thead>
+                            <tr>
+                                <th width="100px">
+                                    <i class="fa fa-thumb-tack"></i>&nbsp;编号
+                                </th>
+                                <th width="200px">
+                                    <i class="fa fa-github-alt"></i>&nbsp;姓名
+                                </th>
+                                <th width="200px">
+                                    <i class="fa fa-align-justify"></i>&nbsp;IP地址
+                                </th>
+                                <th width="100px">
+                                    <i class="fa fa-rmb"></i>&nbsp;可用金额
+                                </th>
+                                <th width="100px">
+
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.UserID
+                                    </td>
+                                    <td>
+                                        @item.UserName
+                                    </td>
+                                    <td>
+                                        @item.IPAddress
+                                    </td>
+                                    <td>
+                                        @item.Amount
+                                    </td>
+
+                                    <td></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager(Model, page => Url.Action("RepUser", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

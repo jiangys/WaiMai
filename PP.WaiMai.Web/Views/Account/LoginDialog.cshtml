@@ -8,19 +8,24 @@
         //获取响应报文成功后调用的方法
         function onSuccessed(jsonData) {
             //alert("不错");
-            $.procAjaxData(jsonData, function () {
-                if (jsonData.BackUrl != null) {
-                    var dialog = top.dialog.get(window);
-                    dialog.close(jsonData.BackUrl);
-                    dialog.remove();
-                }
-            });
+            if (jsonData.State != 1) {
+                alert(jsonData.Msg);
+            }
+            else {
+                var dialog = top.dialog.get(window);
+                dialog.close(top.window.location.href);
+                dialog.remove();
+            }
         }
         $(function () {
             var dialog = top.dialog.get(window);
             dialog.title('请登陆');
             $("#btn-close").click(function () {
                 dialog.remove();
+            });
+            $(".pass-reglink").click(function () {
+                var url = $(this).attr("data-href");
+                top.window.location.href = url;
             });
         });
     </script>
@@ -41,11 +46,17 @@
             cursor: pointer;
             margin-top: 10px;
         }
+
+        .login-box .form-group {
+            margin-bottom: 25px;
+        }
 </style>
 <div class="login-box">
-    @using (Ajax.BeginForm("Login", "Account", new AjaxOptions() { HttpMethod = "Post", OnSuccess = "onSuccessed" }, new { @class = "form-horizontal", role = "form", id = "SubmitForm" }))
+    @using (Ajax.BeginForm("LoginDialog", "Account", new AjaxOptions() { HttpMethod = "Post", OnSuccess = "onSuccessed" }, new { @class = "form-horizontal", role = "form", id = "SubmitForm" }))
     {
         @*<div class="alert alert-info">如果显示用户名，则账号已存在，默认密码ppmoney</div>*@
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
         <div class="form-group">
             <div class="input-group">
                 <div class="input-group-addon">登陆名</div>
@@ -61,6 +72,7 @@
             @Html.ValidationMessageFor(m => m.Password)
         </div>
         <button type="submit" class="btn btn-primary btn-lg btn-block">登陆</button>
-        @Html.ActionLink("立即注册", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "pass-reglink fr" })
+        <a data-href="/Account/Register" class="pass-reglink fr">立即注册</a>
+        @*@Html.ActionLink("立即注册", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "pass-reglink fr" })*@
     }
 </div>

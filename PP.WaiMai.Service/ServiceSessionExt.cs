@@ -10,6 +10,23 @@ namespace PP.WaiMai.Service
 {
 	public partial class ServiceSession:IService.IServiceSession
     {
+		#region 业务接口 ICommentService
+		ICommentService iCommentService;
+		public ICommentService ICommentService
+		{
+			get
+			{
+				if(iCommentService==null)
+					iCommentService= new CommentService();
+				return iCommentService;
+			}
+			set
+			{
+				iCommentService= value;
+			}
+		}
+		#endregion
+
 		#region 业务接口 IConfigService
 		IConfigService iConfigService;
 		public IConfigService IConfigService
@@ -23,6 +40,40 @@ namespace PP.WaiMai.Service
 			set
 			{
 				iConfigService= value;
+			}
+		}
+		#endregion
+
+		#region 业务接口 IExpendLogService
+		IExpendLogService iExpendLogService;
+		public IExpendLogService IExpendLogService
+		{
+			get
+			{
+				if(iExpendLogService==null)
+					iExpendLogService= new ExpendLogService();
+				return iExpendLogService;
+			}
+			set
+			{
+				iExpendLogService= value;
+			}
+		}
+		#endregion
+
+		#region 业务接口 IFeedbackService
+		IFeedbackService iFeedbackService;
+		public IFeedbackService IFeedbackService
+		{
+			get
+			{
+				if(iFeedbackService==null)
+					iFeedbackService= new FeedbackService();
+				return iFeedbackService;
+			}
+			set
+			{
+				iFeedbackService= value;
 			}
 		}
 		#endregion
@@ -108,6 +159,40 @@ namespace PP.WaiMai.Service
 			set
 			{
 				iRestaurantService= value;
+			}
+		}
+		#endregion
+
+		#region 业务接口 ISarcasmService
+		ISarcasmService iSarcasmService;
+		public ISarcasmService ISarcasmService
+		{
+			get
+			{
+				if(iSarcasmService==null)
+					iSarcasmService= new SarcasmService();
+				return iSarcasmService;
+			}
+			set
+			{
+				iSarcasmService= value;
+			}
+		}
+		#endregion
+
+		#region 业务接口 IsysdiagramsService
+		IsysdiagramsService isysdiagramsService;
+		public IsysdiagramsService IsysdiagramsService
+		{
+			get
+			{
+				if(isysdiagramsService==null)
+					isysdiagramsService= new sysdiagramsService();
+				return isysdiagramsService;
+			}
+			set
+			{
+				isysdiagramsService= value;
 			}
 		}
 		#endregion

@@ -5,17 +5,27 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b4eb1648747d4cba9d2712d4e1972b55" Name="Diagram1">
-        <EntityTypeShape EntityType="WaiMaiModel.Config" Width="1.5" PointX="5.75" PointY="5.75" />
-        <EntityTypeShape EntityType="WaiMaiModel.FoodMenu" Width="1.5" PointX="5.25" PointY="1" />
-        <EntityTypeShape EntityType="WaiMaiModel.FoodMenuCategory" Width="1.5" PointX="3" PointY="1.125" />
-        <EntityTypeShape EntityType="WaiMaiModel.Order" Width="1.5" PointX="7.5" PointY="1.125" />
-        <EntityTypeShape EntityType="WaiMaiModel.Recharge" Width="1.5" PointX="3" PointY="6" />
-        <EntityTypeShape EntityType="WaiMaiModel.Restaurant" Width="1.5" PointX="0.75" PointY="1.125" />
-        <EntityTypeShape EntityType="WaiMaiModel.User" Width="1.5" PointX="0.75" PointY="6" />
+        <EntityTypeShape EntityType="WaiMaiModel.Config" Width="1.5" PointX="2.75" PointY="2.125" />
+        <EntityTypeShape EntityType="WaiMaiModel.ExpendLog" Width="1.5" PointX="5.75" PointY="2.125" />
+        <EntityTypeShape EntityType="WaiMaiModel.FoodMenu" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WaiMaiModel.FoodMenuCategory" Width="1.5" PointX="1.5" PointY="14.625" />
+        <EntityTypeShape EntityType="WaiMaiModel.Order" Width="1.5" PointX="3" PointY="4.5" />
+        <EntityTypeShape EntityType="WaiMaiModel.Recharge" Width="1.5" PointX="3" PointY="9.625" />
+        <EntityTypeShape EntityType="WaiMaiModel.Restaurant" Width="1.5" PointX="1.5" PointY="19.5" />
+        <EntityTypeShape EntityType="WaiMaiModel.User" Width="1.5" PointX="0.75" PointY="5" />
         <AssociationConnector Association="WaiMaiModel.FK_FoodMenu_FoodMenuCategory" />
         <AssociationConnector Association="WaiMaiModel.FK_Order_FoodMenu" />
         <AssociationConnector Association="WaiMaiModel.FK_FoodMenuCategory_Restaurant" />
+        <AssociationConnector Association="WaiMaiModel.FK_Order_User" />
         <AssociationConnector Association="WaiMaiModel.FK_Recharge_User" />
+        <EntityTypeShape EntityType="WaiMaiModel.sysdiagrams" Width="1.5" PointX="5.375" PointY="5.75" />
+        <EntityTypeShape EntityType="WaiMaiModel.Comment" Width="1.5" PointX="5.25" PointY="14.25" />
+        <EntityTypeShape EntityType="WaiMaiModel.Sarcasm" Width="1.5" PointX="3" PointY="23.75" />
+        <AssociationConnector Association="WaiMaiModel.FK_Comment_Sarcasm" />
+        <AssociationConnector Association="WaiMaiModel.FK_Comment_User" />
+        <AssociationConnector Association="WaiMaiModel.FK_ExpendLog_User" />
+        <AssociationConnector Association="WaiMaiModel.FK_Sarcasm_User" />
+        <EntityTypeShape EntityType="WaiMaiModel.Feedback" Width="1.5" PointX="7.375" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

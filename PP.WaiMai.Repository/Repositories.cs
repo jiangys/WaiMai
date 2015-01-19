@@ -10,7 +10,19 @@ using PP.WaiMai.IRepository;
 
 namespace PP.WaiMai.Repository
 {
+	public class CommentRepository : BaseRepository<Comment>,ICommentRepository
+    {
+
+    }
 	public class ConfigRepository : BaseRepository<Config>,IConfigRepository
+    {
+
+    }
+	public class ExpendLogRepository : BaseRepository<ExpendLog>,IExpendLogRepository
+    {
+
+    }
+	public class FeedbackRepository : BaseRepository<Feedback>,IFeedbackRepository
     {
 
     }
@@ -31,6 +43,14 @@ namespace PP.WaiMai.Repository
 
     }
 	public class RestaurantRepository : BaseRepository<Restaurant>,IRestaurantRepository
+    {
+
+    }
+	public class SarcasmRepository : BaseRepository<Sarcasm>,ISarcasmRepository
+    {
+
+    }
+	public class sysdiagramsRepository : BaseRepository<sysdiagrams>,IsysdiagramsRepository
     {
 
     }

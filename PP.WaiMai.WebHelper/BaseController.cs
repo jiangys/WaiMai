@@ -1,4 +1,5 @@
-﻿using PP.WaiMai.Model.Enums;
+﻿using PP.WaiMai.Model;
+using PP.WaiMai.Model.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +18,21 @@ namespace PP.WaiMai.WebHelper
         {
             get { return OperateContext.Current; }
         }
+
         /// <summary>
         /// 业务仓储
         /// </summary>
         public IService.IServiceSession BLLSession
         {
             get { return OperateHelper.ServiceSession; }
+        }
+
+        /// <summary>
+        /// 当前登陆用户
+        /// </summary>
+        public User CurrentUser
+        {
+            get { return OperateHelper.User; }
         }
 
         #region 生成Json格式的返回值 +ActionResult RedirectAjax(string statu, string msg, object data, string backurl)

@@ -30,8 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,9 +45,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Http\AddFile.cs" />
+    <Compile Include="Http\CheckIP.cs" />
+    <Compile Include="Http\Client.cs" />
+    <Compile Include="Http\ContentType.cs" />
+    <Compile Include="Http\HttpMethod.cs" />
+    <Compile Include="Http\Other.cs" />
+    <Compile Include="Http\Path.cs" />
+    <Compile Include="Http\Server.cs" />
+    <Compile Include="StringFormat\DateTimeFormat.cs" />
+    <Compile Include="Web\UCache.cs" />
+    <Compile Include="Web\UConfig.cs" />
+    <Compile Include="Web\UCookies.cs" />
+    <Compile Include="Web\UCookiesHelper.cs" />
+    <Compile Include="Web\UResource.cs" />
+    <Compile Include="Web\USession.cs" />
+    <Compile Include="Web\UScript.cs" />
     <Compile Include="ChineseWord.cs" />
     <Compile Include="IPAddress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\DES.cs" />
+    <Compile Include="Security\MD5.cs" />
+    <Compile Include="Security\SHA256.cs" />
+    <Compile Include="Security\Symmetric.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

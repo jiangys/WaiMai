@@ -12,12 +12,39 @@ namespace PP.WaiMai.Service
 {
     
 	
+	public partial class CommentService : BaseService<Comment>,ICommentService
+    {
+        public override void SetCurrentRepository()
+        {
+            //设置处理当前请求的仓储
+            this.CurrentRepository = DbSessionContext.CommentRepository;
+        }
+    }   
+	
 	public partial class ConfigService : BaseService<Config>,IConfigService
     {
         public override void SetCurrentRepository()
         {
             //设置处理当前请求的仓储
             this.CurrentRepository = DbSessionContext.ConfigRepository;
+        }
+    }   
+	
+	public partial class ExpendLogService : BaseService<ExpendLog>,IExpendLogService
+    {
+        public override void SetCurrentRepository()
+        {
+            //设置处理当前请求的仓储
+            this.CurrentRepository = DbSessionContext.ExpendLogRepository;
+        }
+    }   
+	
+	public partial class FeedbackService : BaseService<Feedback>,IFeedbackService
+    {
+        public override void SetCurrentRepository()
+        {
+            //设置处理当前请求的仓储
+            this.CurrentRepository = DbSessionContext.FeedbackRepository;
         }
     }   
 	
@@ -63,6 +90,24 @@ namespace PP.WaiMai.Service
         {
             //设置处理当前请求的仓储
             this.CurrentRepository = DbSessionContext.RestaurantRepository;
+        }
+    }   
+	
+	public partial class SarcasmService : BaseService<Sarcasm>,ISarcasmService
+    {
+        public override void SetCurrentRepository()
+        {
+            //设置处理当前请求的仓储
+            this.CurrentRepository = DbSessionContext.SarcasmRepository;
+        }
+    }   
+	
+	public partial class sysdiagramsService : BaseService<sysdiagrams>,IsysdiagramsService
+    {
+        public override void SetCurrentRepository()
+        {
+            //设置处理当前请求的仓储
+            this.CurrentRepository = DbSessionContext.sysdiagramsRepository;
         }
     }   
 	

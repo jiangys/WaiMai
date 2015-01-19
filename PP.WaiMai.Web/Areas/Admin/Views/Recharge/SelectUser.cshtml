@@ -1,0 +1,79 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<User>
+@{
+    ViewBag.Title = "SelectUser";
+    Layout = "~/Views/Shared/_LayoutDialog.cshtml";
+}
+@section head{
+    <style type="text/css">
+        .sl-search {
+            padding: 0 0 10px;
+        }
+    </style>
+}
+@section Scripts{
+    <script type="text/javascript">
+        //获取响应报文成功后调用的方法
+        $(function () {
+            var dialog = top.dialog.get(window);
+            dialog.title('双击行选中用户');
+            $("#btn-close").click(function () {
+                dialog.remove();
+            });
+            $("tbody tr").dblclick(function () {
+                var userId = $(this).children().eq(0).text().trim();
+                var userName = $(this).children().eq(1).text().trim();
+                var returnValue = userId + "_" + userName;
+                dialog.close(returnValue);
+                dialog.remove();
+            });
+        });
+    </script>
+}
+<div class="col-md-12 sl-search">
+    @using (Html.BeginForm("SelectUser", "Recharge", FormMethod.Post, new { @class = "form-inline", role = "form", id = "frmSubmit" }))
+    {
+        <div class="input-group">
+            <div class="input-cont">
+                <input type="text" name="Keyword" class="form-control" placeholder="请输入姓名">
+            </div>
+            <span class="input-group-btn">
+                <button class="btn btn-danger" type="submit">
+                    查询 &nbsp;
+                </button>
+            </span>
+        </div>
+    }
+</div>
+
+<div class="portlet-content">
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-advance table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        <span class="glyphicon glyphicon-th"></span>&nbsp;编号
+                    </th>
+                    <th>
+                        <i class="glyphicon glyphicon-user"></i>&nbsp;姓名
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.UserID
+                        </td>
+                        <td>
+                            @item.UserName
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+@Html.PagedListPager(Model, page => Url.Action("SelectUser", new { page }))

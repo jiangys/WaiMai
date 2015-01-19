@@ -10,7 +10,7 @@
             $.procAjaxData(jsonData, function () {
                 if (jsonData.BackUrl != null) {
                     var dialog = top.dialog.get(window);
-                    dialog.close(jsonData.BackUrl);
+                    dialog.close(top.window.location.href);
                     dialog.remove();
                 }
             });
@@ -48,6 +48,13 @@
             <div class="col-sm-8">
                 @Html.TextBoxFor(model => model.TakeoutPhone, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.TakeoutPhone)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, new { @class = "col-sm-3 control-label" })
+            <div class="col-sm-8">
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = "3" })
+                @Html.ValidationMessageFor(m => m.Description)
             </div>
         </div>
         <div class="form-group">

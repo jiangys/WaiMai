@@ -10,7 +10,7 @@
 .user-menu .menu-wrap .menu_sec li{color:#323440;cursor:pointer;font-size:14px;font-weight:400;padding:8px 0 8px 40px;text-decoration:none;}
 /*.user-menu .menu-wrap .menu_sec li.selected{background:none repeat scroll 0 0 #fff;border-bottom:1px solid #e5e5e5;border-left:3px solid #e95c00;border-top:1px solid #e5e5e5;padding:8px 0 8px 37px;}*/
 /*右边*/
-.user-detail{background:none repeat scroll 0 0 #fff;float:left;padding:0 30px 30px;width:798px;min-height:650px;}
+.user-detail{background:none repeat scroll 0 0 #fff;float:left;padding:0 30px 30px;width:798px;min-height:700px;}
 /*右边标题*/
 .user-title h5{padding-top:30px;font-size:16px;}
 .user-title .order-list-type{padding-top:32px;}
@@ -29,5 +29,7 @@
 /*弹出框样式*/
 .modal-dialog em{color:red;display:inline-block;text-align:center;vertical-align:middle;width:18px;}
 .fix-footer {z-index: 999;position: fixed;bottom: 0;left: 0;border: 0;padding: 15px 15px 0;width:100%;}
+/*空白白色边框*/
+.user-box {background: none repeat scroll 0 0 #fff;border: 1px solid #dfdfdf;margin-bottom: 15px;padding: 15px;}
 
 

@@ -18,15 +18,18 @@ namespace PP.WaiMai.Model
 			return new Order(){
 				OrderID = this.OrderID,
 				FoodMenuID = this.FoodMenuID,
+				UserID = this.UserID,
 				TotalCount = this.TotalCount,
 				TotalPrice = this.TotalPrice,
 				NickName = this.NickName,
+				Remark = this.Remark,
 				CreateDate = this.CreateDate,
 				Creator = this.Creator,
 				EditDate = this.EditDate,
 				Editor = this.Editor,
 				IsDel = this.IsDel,
 				Version = this.Version,
+				OrderStatus = this.OrderStatus,
 			};
 		}
 	}

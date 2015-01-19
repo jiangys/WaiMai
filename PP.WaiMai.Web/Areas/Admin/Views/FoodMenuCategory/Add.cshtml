@@ -10,7 +10,7 @@
             $.procAjaxData(jsonData, function () {
                 if (jsonData.BackUrl != null) {
                     var dialog = top.dialog.get(window);
-                    dialog.close(jsonData.BackUrl);
+                    dialog.close(top.window.location.href);
                     dialog.remove();
                 }
             });

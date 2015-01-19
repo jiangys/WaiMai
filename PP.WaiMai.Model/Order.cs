@@ -16,16 +16,20 @@ namespace PP.WaiMai.Model
     {
         public int OrderID { get; set; }
         public int FoodMenuID { get; set; }
+        public int UserID { get; set; }
         public int TotalCount { get; set; }
         public decimal TotalPrice { get; set; }
         public string NickName { get; set; }
+        public string Remark { get; set; }
         public System.DateTime CreateDate { get; set; }
         public string Creator { get; set; }
         public Nullable<System.DateTime> EditDate { get; set; }
         public string Editor { get; set; }
         public bool IsDel { get; set; }
         public int Version { get; set; }
+        public int OrderStatus { get; set; }
     
         public virtual FoodMenu FoodMenu { get; set; }
+        public virtual User User { get; set; }
     }
 }

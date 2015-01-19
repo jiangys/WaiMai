@@ -46,9 +46,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Uxiaoyuan.Common">
-      <HintPath>..\..\Uxiaoyuan.WeiXin\lib\Uxiaoyuan.Common.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\NeedAuthorizeAttribute.cs" />
@@ -68,6 +65,10 @@
     <ProjectReference Include="..\PP.WaiMai.Service\PP.WaiMai.Service.csproj">
       <Project>{b5dca081-d09b-4454-983a-1838dbec00fe}</Project>
       <Name>PP.WaiMai.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PP.WaiMai.Util\PP.WaiMai.Util.csproj">
+      <Project>{9bf92c9d-129d-49b5-a8a2-516e32c012b0}</Project>
+      <Name>PP.WaiMai.Util</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

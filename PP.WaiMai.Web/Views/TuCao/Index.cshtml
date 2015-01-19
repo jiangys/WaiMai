@@ -1,0 +1,176 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<Sarcasm>
+
+@{
+    ViewBag.Title = "吐槽墙";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+    <link href="~/Content/css/tucao.css" rel="stylesheet" />
+    <style type="text/css">
+        .publish {
+            background: none repeat scroll 0 0 #e5e5e5;
+            padding: 35px 10px;
+        }
+
+        .publish-info {
+            padding: 0 30px;
+        }
+
+        .publish .btn-success {
+            margin-top: -4px;
+        }
+
+        .wrapper {
+            padding: 0 0 30px;
+        }
+
+        .time_line_paragraph {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 5px;
+            width: 100%;
+            margin-top: 20px;
+            font-family: 'Century Gothic', sans-serif;
+        }
+
+            .time_line_paragraph p {
+                padding: 5px 20px;
+                text-align: left;
+                margin: 0;
+                font-size: 14px;
+                line-height: 2em;
+                color: #000;
+            }
+
+            .time_line_paragraph .btn-reply {
+                padding: 0 20px;
+                font-size: 12px;
+                color: #c2c0c0;
+            }
+
+        .public_reply {
+            padding: 0 25px;
+            width: 900px;
+        }
+
+        .btn-reply {
+            cursor: pointer;
+        }
+
+        .public_reply .btn-primary {
+            margin-top: 10px;
+        }
+
+        .reply-user {
+            color: #0094ff;
+        }
+
+        .reply-time {
+            color: #808080;
+        }
+
+        .reply-list li {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+}
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            $(".btn-reply").click(function () {
+                $(".public_reply").each(function () {
+                    $(this).slideUp();
+                });
+                var node = $(this).parent().find(".public_reply");
+                if (node.is(":hidden") == true) {
+                    node.slideDown(500);
+                }
+                else {
+                    node.slideUp(500);
+                }
+            });
+            $(".btn-reply-content").click(function () {
+                var that = $(this).parent();
+                var sarcasmID = that.find(".reply-content").attr("data-id")
+                var content = that.find(".reply-content").val();
+                if (!content || content == "") {
+                    wrapper.timeoutErrDialog("请输入评论内容");
+                    return;
+                }
+                $.post("/tucao/comment", { sarcasmID: sarcasmID, content: content }, function (jsonData) {
+                    if (jsonData.State != 1) {
+                        wrapper.timeoutErrDialog(jsonData.Msg);
+                        return;
+                    }
+                    //接收数据（data）并绑定
+                    var html = "<ul>";
+                    var dataObj = eval("(" + jsonData.Data + ")");
+                    $.each(dataObj, function (i, item) {
+                        //alert(item.Content);
+                        html += "<li><span class='glyphicon glyphicon-user'></span>" +
+                                    "<span class='reply-user'>&nbsp;" + item.UserName + "</span>&nbsp;" + item.Content + "&nbsp;"
+                                     + "<span class='reply-time'>(" + item.CreateTime + ")</span>" +
+                                "</li>";
+                    });
+                    html += "</ul>";
+                    that.parent().find(".reply-list").html(html);
+                    //清空文本框
+                    that.find(".reply-content").val("");
+                    that.parent().parent().find(".reply-count").text(dataObj.length);
+                    wrapper.timeoutOkDialog("评论成功");
+                });
+            });
+        });
+    </script>
+}
+<section class="publish">
+    <div class="container">
+        <div class="publish-info">
+            <h3 class="fl">今天，你遇了什么怨什么仇？和大伙吐吐槽吧</h3>
+            @Html.ActionLink("我要吐槽", "publish", null, new { @class = "btn btn-success fr" })
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <div class="wrapper">
+        @foreach (var item in Model)
+        {
+            <div class="time_line_paragraph">
+                <p>
+                    <span class="glyphicon glyphicon-user"></span>&nbsp;@item.User.UserName &nbsp;&nbsp;
+                    <span class="glyphicon glyphicon-time"></span>&nbsp;@item.CreateDate &nbsp;&nbsp;
+                </p>
+                <p>@Html.Raw(@item.Content)</p>
+                @{
+            var CommentList = (ViewBag.CommentList as List<Comment>).Where(m => m.SarcasmID == item.SarcasmID);
+            <p class="btn-reply"><i class="glyphicon glyphicon-share-alt"></i>回复(<span class="reply-count">@CommentList.Count()</span>)</p>
+
+                    <div class="public_reply" style="display:none">
+                        <div class="reply-box-content clearfix">
+                            <textarea class="form-control reply-content" rows="2" data-id="@item.SarcasmID"></textarea>
+                            <button type="button" class="btn btn-primary fr btn-reply-content">评&nbsp;论</button>
+                        </div>
+                        <div class="reply-list">
+                            <ul>
+                                @foreach (var commentList in CommentList)
+                                {
+                                    <li>
+                                        <span class="glyphicon glyphicon-user"></span>
+                                        <span class="reply-user">&nbsp;@commentList.User.UserName</span>&nbsp;
+                                        @commentList.Content
+                                        <span class="reply-time">(@commentList.CreateTime)</span>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        @Html.PagedListPager(Model, page => Url.Action("reporder", new { page }))
+    </div>
+</section>

@@ -9,6 +9,25 @@ namespace PP.WaiMai.Repository
 {
 	public partial class DbSession : IDbSession 
     { 
+		#region 数据接口 ICommentRepository
+		private ICommentRepository _CommentRepository;
+        public ICommentRepository CommentRepository 
+        {
+            get
+            {
+                if (_CommentRepository == null)
+                {
+                    _CommentRepository = new CommentRepository();
+                }
+                return _CommentRepository; 
+            }
+            set
+            {
+                _CommentRepository = value;
+            }
+        }
+		#endregion
+
 		#region 数据接口 IConfigRepository
 		private IConfigRepository _ConfigRepository;
         public IConfigRepository ConfigRepository 
@@ -24,6 +43,44 @@ namespace PP.WaiMai.Repository
             set
             {
                 _ConfigRepository = value;
+            }
+        }
+		#endregion
+
+		#region 数据接口 IExpendLogRepository
+		private IExpendLogRepository _ExpendLogRepository;
+        public IExpendLogRepository ExpendLogRepository 
+        {
+            get
+            {
+                if (_ExpendLogRepository == null)
+                {
+                    _ExpendLogRepository = new ExpendLogRepository();
+                }
+                return _ExpendLogRepository; 
+            }
+            set
+            {
+                _ExpendLogRepository = value;
+            }
+        }
+		#endregion
+
+		#region 数据接口 IFeedbackRepository
+		private IFeedbackRepository _FeedbackRepository;
+        public IFeedbackRepository FeedbackRepository 
+        {
+            get
+            {
+                if (_FeedbackRepository == null)
+                {
+                    _FeedbackRepository = new FeedbackRepository();
+                }
+                return _FeedbackRepository; 
+            }
+            set
+            {
+                _FeedbackRepository = value;
             }
         }
 		#endregion
@@ -119,6 +176,44 @@ namespace PP.WaiMai.Repository
             set
             {
                 _RestaurantRepository = value;
+            }
+        }
+		#endregion
+
+		#region 数据接口 ISarcasmRepository
+		private ISarcasmRepository _SarcasmRepository;
+        public ISarcasmRepository SarcasmRepository 
+        {
+            get
+            {
+                if (_SarcasmRepository == null)
+                {
+                    _SarcasmRepository = new SarcasmRepository();
+                }
+                return _SarcasmRepository; 
+            }
+            set
+            {
+                _SarcasmRepository = value;
+            }
+        }
+		#endregion
+
+		#region 数据接口 IsysdiagramsRepository
+		private IsysdiagramsRepository _sysdiagramsRepository;
+        public IsysdiagramsRepository sysdiagramsRepository 
+        {
+            get
+            {
+                if (_sysdiagramsRepository == null)
+                {
+                    _sysdiagramsRepository = new sysdiagramsRepository();
+                }
+                return _sysdiagramsRepository; 
+            }
+            set
+            {
+                _sysdiagramsRepository = value;
             }
         }
 		#endregion

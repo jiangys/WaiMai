@@ -112,6 +112,58 @@ namespace PP.WaiMai.Repository
         }
         #endregion
 
+        #region 4.2 批量修改 +int Modify(T model, Expression<Func<T, bool>> whereLambda, params string[] modifiedProNames)
+        /// <summary>
+        /// 4.2 批量修改
+        /// </summary>
+        /// <param name="model">要修改的实体对象</param>
+        /// <param name="whereLambda">查询条件</param>
+        /// <param name="proNames">要修改的 属性 名称</param>
+        /// <returns></returns>
+        public virtual int ModifyBy(T model, Expression<Func<T, bool>> whereLambda, params string[] modifiedProNames)
+        {
+            //4.1查询要修改的数据
+            List<T> listModifing = db.Set<T>().Where(whereLambda).ToList();
+
+            //获取 实体类 类型对象
+            Type t = typeof(T); // model.GetType();
+            //获取 实体类 所有的 公有属性
+            List<PropertyInfo> proInfos = t.GetProperties(BindingFlags.Instance | BindingFlags.Public).ToList();
+            //创建 实体属性 字典集合
+            Dictionary<string, PropertyInfo> dictPros = new Dictionary<string, PropertyInfo>();
+            //将 实体属性 中要修改的属性名 添加到 字典集合中 键：属性名  值：属性对象
+            proInfos.ForEach(p =>
+            {
+                if (modifiedProNames.Contains(p.Name))
+                {
+                    dictPros.Add(p.Name, p);
+                }
+            });
+
+            //4.3循环 要修改的属性名
+            foreach (string proName in modifiedProNames)
+            {
+                //判断 要修改的属性名是否在 实体类的属性集合中存在
+                if (dictPros.ContainsKey(proName))
+                {
+                    //如果存在，则取出要修改的 属性对象
+                    PropertyInfo proInfo = dictPros[proName];
+                    //取出 要修改的值
+                    object newValue = proInfo.GetValue(model, null); //object newValue = model.uName;
+
+                    //4.4批量设置 要修改 对象的 属性
+                    foreach (T usrO in listModifing)
+                    {
+                        //为 要修改的对象 的 要修改的属性 设置新的值
+                        proInfo.SetValue(usrO, newValue, null); //usrO.uName = newValue;
+                    }
+                }
+            }
+            //4.4一次性 生成sql语句到数据库执行
+            return db.SaveChanges();
+        }
+        #endregion
+
         #region 5.0 根据条件查询 +T GetModel(Expression<Func<T,bool>> whereLambda)
         /// <summary>
         /// 5.0 根据条件查询 +List<T> GetOne(Expression<Func<T,bool>> whereLambda)
