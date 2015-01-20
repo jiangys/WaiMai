@@ -35,17 +35,17 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
                 }
 
                 var modelOrder = BLLSession.IOrderService.GetListBy(m => true).OrderByDescending(m => m.OrderID).ToList();
-                if (string.IsNullOrEmpty(beginTime))
+                if (!string.IsNullOrEmpty(beginTime))
                 {
                     DateTime beginTime1 = DateTime.Parse(beginTime);
                     modelOrder = modelOrder.Where(m => m.CreateDate >= beginTime1).ToList();
                 }
-                if (string.IsNullOrEmpty(endTime))
+                if (!string.IsNullOrEmpty(endTime))
                 {
                     DateTime endTime1 = DateTime.Parse(endTime);
                     modelOrder = modelOrder.Where(m => m.CreateDate <= endTime1).ToList();
                 }
-                if (string.IsNullOrEmpty(userName))
+                if (!string.IsNullOrEmpty(userName))
                 {
                     modelOrder = modelOrder.Where(m => m.User.UserName.Contains(userName)).ToList();
                 }

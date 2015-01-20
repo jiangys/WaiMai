@@ -29,7 +29,7 @@
             $("#checkOrder").click(function () {
                 var d = dialog({
                     title: '审核订单',
-                    content: '是否要审核所有【下单成功】的订单？',
+                    content: '是否要审核订单？',
                     okValue: '确定',
                     ok: function () {
                         this.title('正在提交..');
@@ -38,7 +38,8 @@
                         var userName = $("#userName").val();
                         $.post("/admin/order/checkOrder", { beginTime: beginTime, endTime: endTime, userName: userName }, function (jsonData) {
                             $.artDialogMsg(jsonData, function () {
-                                window.location.reload();
+                                //window.location.reload();
+                                $("#frmSubmit").submit();
                             });
                         });
                         return true;
@@ -52,6 +53,11 @@
                 format: 'yyyy-mm-dd hh:ii',
                 autoclose: true,
                 todayBtn: true
+            });
+            $("#btn-clear").click(function () {
+                $("#beginTime").val("");
+                $("#endTime").val("");
+                $("#userName").val("");
             });
         });
     </script>
@@ -99,10 +105,13 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <input class="form-control col-md-2" id="username" name="username" value="@ViewBag.SearchModel.userName" placeholder="姓名/用户名">
+                            <input class="form-control col-md-2" id="userName" name="userName" value="@ViewBag.SearchModel.userName" placeholder="姓名/用户名">
                         </div>
                         <button class="btn blue thickbox" type="submit">
                             查询
+                        </button>
+                        <button class="btn blue thickbox" type="button" id="btn-clear">
+                            清空
                         </button>
                     </div>
                 }
@@ -112,27 +121,6 @@
                     </button>
                 </div>
             </div>
-
-            @*<div class="fl">
-                    <button class="btn blue thickbox" id="checkOrder">
-                        <i class="fa fa-check-square-o"></i>&nbsp;审核订单
-                    </button>
-                </div>
-                <div class="fr col-md-4">
-                    @using (Html.BeginForm("Index", "Order", FormMethod.Post, new { @class = "form-inline", role = "form", id = "frmSubmit" }))
-                    {
-                        <div class="input-group">
-                            <div class="input-cont">
-                                <input type="text" name="Keyword" class="form-control" placeholder="关键字...">
-                            </div>
-                            <span class="input-group-btn">
-                                <button class="btn btn-danger" type="submit">
-                                    查询 &nbsp;
-                                </button>
-                            </span>
-                        </div>
-                    }
-                </div>*@
 
         </div>
         <div class="portlet-content">
@@ -164,48 +152,48 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                        <tr>
-                            <td>
-                                @item.OrderID
-                            </td>
-                            <td>
-                                @item.User.UserName
-                            </td>
-                            <td>
-                                @item.FoodMenu.MenuName
-                            </td>
-                            <td>
-                                @item.TotalPrice
-                            </td>
-                            <td>
-                                @item.TotalCount
-                            </td>
-                            <td>
-                                @item.CreateDate
-                            </td>
-                            <td>
-                                @switch ((OrderStatusEnum)item.OrderStatus)
+                            <tr>
+                                <td>
+                                    @item.OrderID
+                                </td>
+                                <td>
+                                    @item.User.UserName
+                                </td>
+                                <td>
+                                    @item.FoodMenu.MenuName
+                                </td>
+                                <td>
+                                    @item.TotalPrice
+                                </td>
+                                <td>
+                                    @item.TotalCount
+                                </td>
+                                <td>
+                                    @item.CreateDate
+                                </td>
+                                <td>
+                                    @switch ((OrderStatusEnum)item.OrderStatus)
                                     {
                                         case OrderStatusEnum.Cancel:
-                                <span class="btn default btn-xs black btn-del" disabled="disabled">
-                                    已取消
-                                </span>
+                                            <span class="btn default btn-xs black btn-del" disabled="disabled">
+                                                已取消
+                                            </span>
                                             break;
                                         case OrderStatusEnum.Handle:
-                                <span class="label label-sm label-success">
-                                    下单成功
-                                </span>
+                                        <span class="label label-sm label-success">
+                                            下单成功
+                                        </span>
                                             break;
                                         case OrderStatusEnum.Succeed:
-                                <span class="btn default btn-xs black btn-del" disabled="disabled">
-                                    交易成功
-                                </span>
+                                        <span class="btn default btn-xs black btn-del" disabled="disabled">
+                                            交易成功
+                                        </span>
                                             break;
                                         default:
                                             break;
                                     }
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>
