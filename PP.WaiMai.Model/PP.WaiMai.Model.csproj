@@ -66,6 +66,9 @@
     <Compile Include="ExtensionModels\FoodMenuExt.cs" />
     <Compile Include="ExtensionModels\OrderExt.cs" />
     <Compile Include="ExtensionModels\RestaurantExt.cs" />
+    <Compile Include="Feedback.cs">
+      <DependentUpon>WaiMai.tt</DependentUpon>
+    </Compile>
     <Compile Include="FoodMenu.cs">
       <DependentUpon>WaiMai.tt</DependentUpon>
     </Compile>
@@ -84,6 +87,9 @@
       <DependentUpon>PocoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PocoModels\ExpendLog.cs">
+      <DependentUpon>PocoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PocoModels\Feedback.cs">
       <DependentUpon>PocoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PocoModels\FoodMenu.cs">
@@ -119,6 +125,7 @@
     <Compile Include="Recharge.cs">
       <DependentUpon>WaiMai.tt</DependentUpon>
     </Compile>
+    <Compile Include="RepSearchModels\RepOrderSearchModel.cs" />
     <Compile Include="Restaurant.cs">
       <DependentUpon>WaiMai.tt</DependentUpon>
     </Compile>

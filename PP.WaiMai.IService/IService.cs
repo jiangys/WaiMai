@@ -24,6 +24,11 @@ namespace PP.WaiMai.IService
       
     }   
 	
+	public partial interface IFeedbackService : IBaseService<Feedback>
+    {
+      
+    }   
+	
 	public partial interface IFoodMenuService : IBaseService<FoodMenu>
     {
       

@@ -21,6 +21,10 @@ namespace PP.WaiMai.IRepository
     {
     }
 
+	public partial interface IFeedbackRepository : IBaseRepository<Feedback>
+    {
+    }
+
 	public partial interface IFoodMenuRepository : IBaseRepository<FoodMenu>
     {
     }

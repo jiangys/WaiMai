@@ -39,6 +39,15 @@ namespace PP.WaiMai.Service
         }
     }   
 	
+	public partial class FeedbackService : BaseService<Feedback>,IFeedbackService
+    {
+        public override void SetCurrentRepository()
+        {
+            //设置处理当前请求的仓储
+            this.CurrentRepository = DbSessionContext.FeedbackRepository;
+        }
+    }   
+	
 	public partial class FoodMenuService : BaseService<FoodMenu>,IFoodMenuService
     {
         public override void SetCurrentRepository()

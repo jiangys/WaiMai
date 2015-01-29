@@ -61,6 +61,23 @@ namespace PP.WaiMai.Service
 		}
 		#endregion
 
+		#region 业务接口 IFeedbackService
+		IFeedbackService iFeedbackService;
+		public IFeedbackService IFeedbackService
+		{
+			get
+			{
+				if(iFeedbackService==null)
+					iFeedbackService= new FeedbackService();
+				return iFeedbackService;
+			}
+			set
+			{
+				iFeedbackService= value;
+			}
+		}
+		#endregion
+
 		#region 业务接口 IFoodMenuService
 		IFoodMenuService iFoodMenuService;
 		public IFoodMenuService IFoodMenuService

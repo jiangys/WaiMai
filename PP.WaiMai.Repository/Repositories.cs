@@ -22,6 +22,10 @@ namespace PP.WaiMai.Repository
     {
 
     }
+	public class FeedbackRepository : BaseRepository<Feedback>,IFeedbackRepository
+    {
+
+    }
 	public class FoodMenuRepository : BaseRepository<FoodMenu>,IFoodMenuRepository
     {
 

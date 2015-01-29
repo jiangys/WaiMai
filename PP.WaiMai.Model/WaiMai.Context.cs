@@ -36,5 +36,6 @@ namespace PP.WaiMai.Model
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<Sarcasm> Sarcasm { get; set; }
+        public virtual DbSet<Feedback> Feedback { get; set; }
     }
 }

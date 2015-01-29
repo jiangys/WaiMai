@@ -21,7 +21,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult CheckOrder()
+        public ActionResult CheckOrder(string beginTime, string endTime, string userName)
         {
             try
             {
@@ -33,6 +33,23 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
                 {
                     return JsonMsgNoOk("对不起，你没权限操作");
                 }
+
+                var modelOrder = BLLSession.IOrderService.GetListBy(m => true).OrderByDescending(m => m.OrderID).ToList();
+                if (!string.IsNullOrEmpty(beginTime))
+                {
+                    DateTime beginTime1 = DateTime.Parse(beginTime);
+                    modelOrder = modelOrder.Where(m => m.CreateDate >= beginTime1).ToList();
+                }
+                if (!string.IsNullOrEmpty(endTime))
+                {
+                    DateTime endTime1 = DateTime.Parse(endTime);
+                    modelOrder = modelOrder.Where(m => m.CreateDate <= endTime1).ToList();
+                }
+                if (!string.IsNullOrEmpty(userName))
+                {
+                    modelOrder = modelOrder.Where(m => m.User.UserName.Contains(userName)).ToList();
+                }
+
                 var model = BLLSession.IOrderService.ModifyBy(new Order() { OrderStatus = (int)OrderStatusEnum.Succeed }
                     , m => m.OrderStatus == (int)OrderStatusEnum.Handle, new string[] { "OrderStatus" });
                 return JsonMsgOk();

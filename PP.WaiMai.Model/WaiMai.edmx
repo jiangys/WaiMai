@@ -36,6 +36,15 @@
           <Property Name="RechargeAmount" Type="decimal" Precision="18" Scale="1" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="200" />
         </EntityType>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="FeedbackID" />
+          </Key>
+          <Property Name="FeedbackID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="ContentMsg" Type="nvarchar" MaxLength="2000" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="FoodMenu">
           <Key>
             <PropertyRef Name="FoodMenuID" />
@@ -263,6 +272,7 @@
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExpendLog" EntityType="Self.ExpendLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Feedback" EntityType="Self.Feedback" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FoodMenu" EntityType="Self.FoodMenu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FoodMenuCategory" EntityType="Self.FoodMenuCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
@@ -360,6 +370,7 @@
             <End Role="User" EntitySet="User" />
             <End Role="Sarcasm" EntitySet="Sarcasm" />
           </AssociationSet>
+          <EntitySet Name="Feedback" EntityType="WaiMaiModel.Feedback" />
         </EntityContainer>
         <EntityType Name="Config">
           <Key>
@@ -633,6 +644,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="FeedbackID" />
+          </Key>
+          <Property Name="FeedbackID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="ContentMsg" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -793,6 +813,16 @@
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="SarcasmID" ColumnName="SarcasmID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Feedback">
+            <EntityTypeMapping TypeName="WaiMaiModel.Feedback">
+              <MappingFragment StoreEntitySet="Feedback">
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="ContentMsg" ColumnName="ContentMsg" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

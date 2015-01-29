@@ -52,18 +52,27 @@
             {
                 @Html.AntiForgeryToken()
                 <div class="row">
-                    <label class="radio-inline">
-                        @Html.RadioButtonFor(m => m.Type, "1", new { @checked = "checked" })江永升
-                    </label>
-                    <label class="radio-inline">
-                        @Html.RadioButtonFor(m => m.Type, "2")匿名发表
-                    </label>
+                    @if (OperateContext.Current.IsLogin())
+                    {
+                        <label class="radio-inline">
+                            @Html.RadioButtonFor(m => m.Type, "1", new { @checked = "checked" })@OperateContext.Current.User.UserName
+                        </label>
+                        <label class="radio-inline">
+                            @Html.RadioButtonFor(m => m.Type, "2")匿名发表
+                        </label>
+                    }
+                    else
+                    {
+                        <label class="radio-inline">
+                            @Html.RadioButtonFor(m => m.Type, "2", new { @checked = "checked" })匿名发表
+                        </label>
+                    }
                 </div>
                 <div class="editor-field">
                     @Html.TextAreaFor(m => m.Content, new { @style = "width:100%; height: 400px;", id = "editor" })
                     @Html.ValidationMessageFor(m => m.Content)
-                </div> 
-                <button type="submit" class="btn btn-primary btn-lg">发表吐槽</button>    
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg">发表吐槽</button>
                 @Html.ValidationSummary(true)
             }
         </div>
