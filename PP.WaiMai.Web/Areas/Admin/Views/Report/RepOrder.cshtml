@@ -144,6 +144,9 @@
                                 <i class="fa  fa-calendar"></i>&nbsp;数量
                             </th>
                             <th><span class="glyphicon glyphicon-time"></span>&nbsp;下单时间</th>
+                            <th width ="10%">
+                                <i class="fa fa-align-justify"></i>&nbsp;备注
+                            </th>
                             <th width="10%">
 
                             </th>
@@ -170,6 +173,9 @@
                                 </td>
                                 <td>
                                     @item.CreateDate
+                                </td>
+                                <td>
+                                    @item.Remark
                                 </td>
                                 <td>
                                     @switch ((OrderStatusEnum)item.OrderStatus)
