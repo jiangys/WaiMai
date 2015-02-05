@@ -28,7 +28,7 @@
                 {
                     <tr>
                         <td>@(i++)</td>
-                        <td>@item.User.UserName</td>
+                        <td>@item.User.UserName (@(PP.WaiMai.Util.EnumHelper.GetEnumDescription((PP.WaiMai.Model.Enums.DepartmentTypeEnum)(item.User.DepartmentType == 0 ? 99 : item.User.DepartmentType))))</td>
                         <td>@item.FoodMenu.MenuName</td>
                         <td>@item.TotalPrice 元</td>
                         <td>@item.TotalCount</td>

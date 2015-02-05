@@ -94,6 +94,7 @@ namespace PP.WaiMai.Web.Controllers
                 model.Amount = 0;
                 model.CreateDate = DateTime.Now;
                 model.IsDel = false;
+                model.DepartmentType = registerViewModel.DepartmentType;
                 BLLSession.IUserService.Add(model);
                 //保存信息到Session和写入到Cookies
                 WebHelper.OperateContext.Current.SetUserToSessionAndCookies(model, true);
