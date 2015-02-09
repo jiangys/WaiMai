@@ -16,10 +16,10 @@ namespace PP.WaiMai.Model
     {
         public User()
         {
-            this.Order = new HashSet<Order>();
-            this.Recharge = new HashSet<Recharge>();
             this.Comment = new HashSet<Comment>();
             this.ExpendLog = new HashSet<ExpendLog>();
+            this.Order = new HashSet<Order>();
+            this.Recharge = new HashSet<Recharge>();
             this.Sarcasm = new HashSet<Sarcasm>();
         }
     
@@ -29,13 +29,14 @@ namespace PP.WaiMai.Model
         public string IPAddress { get; set; }
         public decimal Amount { get; set; }
         public bool IsAdmin { get; set; }
+        public int DepartmentType { get; set; }
         public System.DateTime CreateDate { get; set; }
         public bool IsDel { get; set; }
     
-        public virtual ICollection<Order> Order { get; set; }
-        public virtual ICollection<Recharge> Recharge { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
         public virtual ICollection<ExpendLog> ExpendLog { get; set; }
+        public virtual ICollection<Order> Order { get; set; }
+        public virtual ICollection<Recharge> Recharge { get; set; }
         public virtual ICollection<Sarcasm> Sarcasm { get; set; }
     }
 }

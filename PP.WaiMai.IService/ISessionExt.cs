@@ -19,7 +19,6 @@ namespace PP.WaiMai.IService
 		IRechargeService IRechargeService{get;set;}
 		IRestaurantService IRestaurantService{get;set;}
 		ISarcasmService ISarcasmService{get;set;}
-		IsysdiagramsService IsysdiagramsService{get;set;}
 		IUserService IUserService{get;set;}
     }
 

@@ -23,13 +23,13 @@ namespace PP.WaiMai.Model
 				TotalPrice = this.TotalPrice,
 				NickName = this.NickName,
 				Remark = this.Remark,
+				OrderStatus = this.OrderStatus,
 				CreateDate = this.CreateDate,
 				Creator = this.Creator,
 				EditDate = this.EditDate,
 				Editor = this.Editor,
 				IsDel = this.IsDel,
 				Version = this.Version,
-				OrderStatus = this.OrderStatus,
 			};
 		}
 	}

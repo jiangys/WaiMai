@@ -199,25 +199,6 @@ namespace PP.WaiMai.Repository
         }
 		#endregion
 
-		#region 数据接口 IsysdiagramsRepository
-		private IsysdiagramsRepository _sysdiagramsRepository;
-        public IsysdiagramsRepository sysdiagramsRepository 
-        {
-            get
-            {
-                if (_sysdiagramsRepository == null)
-                {
-                    _sysdiagramsRepository = new sysdiagramsRepository();
-                }
-                return _sysdiagramsRepository; 
-            }
-            set
-            {
-                _sysdiagramsRepository = value;
-            }
-        }
-		#endregion
-
 		#region 数据接口 IUserRepository
 		private IUserRepository _UserRepository;
         public IUserRepository UserRepository 

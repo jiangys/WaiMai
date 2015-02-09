@@ -180,23 +180,6 @@ namespace PP.WaiMai.Service
 		}
 		#endregion
 
-		#region 业务接口 IsysdiagramsService
-		IsysdiagramsService isysdiagramsService;
-		public IsysdiagramsService IsysdiagramsService
-		{
-			get
-			{
-				if(isysdiagramsService==null)
-					isysdiagramsService= new sysdiagramsService();
-				return isysdiagramsService;
-			}
-			set
-			{
-				isysdiagramsService= value;
-			}
-		}
-		#endregion
-
 		#region 业务接口 IUserService
 		IUserService iUserService;
 		public IUserService IUserService

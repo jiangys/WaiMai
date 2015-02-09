@@ -50,10 +50,6 @@ namespace PP.WaiMai.Repository
     {
 
     }
-	public class sysdiagramsRepository : BaseRepository<sysdiagrams>,IsysdiagramsRepository
-    {
-
-    }
 	public class UserRepository : BaseRepository<User>,IUserRepository
     {
 

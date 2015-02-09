@@ -16,7 +16,6 @@ namespace PP.WaiMai.IRepository
     IRechargeRepository RechargeRepository{get;set;}
     IRestaurantRepository RestaurantRepository{get;set;}
     ISarcasmRepository SarcasmRepository{get;set;}
-    IsysdiagramsRepository sysdiagramsRepository{get;set;}
     IUserRepository UserRepository{get;set;}
     }
 }

@@ -1,4 +1,5 @@
 ﻿using PP.WaiMai.Model;
+using PP.WaiMai.Model.Enums;
 using PP.WaiMai.Model.ViewModels;
 using PP.WaiMai.Util.Security;
 using PP.WaiMai.WebHelper;
@@ -91,11 +92,36 @@ namespace PP.WaiMai.Web.Controllers
                 model.UserName = registerViewModel.UserName;
                 model.IPAddress = registerViewModel.IPAddress;
                 model.Password = Util.Security.UEncypt.DESEncrypt(registerViewModel.Password);
-                model.Amount = 0;
+                model.Amount = 10000;//默认充值10000元
                 model.CreateDate = DateTime.Now;
                 model.IsDel = false;
                 model.DepartmentType = registerViewModel.DepartmentType;
                 BLLSession.IUserService.Add(model);
+
+                //插入充值表,默认10000元
+                Recharge rechargeModel = new Recharge();
+                rechargeModel.UserID = model.UserID;
+                rechargeModel.RechargeAmount = 10000;
+                rechargeModel.Status = (int)RechargeStatusEnum.Succeed;
+                rechargeModel.IsDel = false;
+                rechargeModel.CreateDate = DateTime.Now;
+                rechargeModel.OpeningBalance =0;
+                rechargeModel.CurrentBalance = 10000;
+                rechargeModel.RechargeUserName = "sys";
+                BLLSession.IRechargeService.Add(rechargeModel);
+
+                //插入数据到消费流水表
+                BLLSession.IExpendLogService.Add(new ExpendLog()
+                {
+                    UserID = model.UserID,
+                    ConsumeAmount = 0,
+                    RechargeAmount = rechargeModel.RechargeAmount,
+                    CreateDate = DateTime.Now,
+                    ExpendLogTypeID = rechargeModel.RechargeID,
+                    ExpendLogType = (int)ExpendLogTypeEnum.Recharge,
+                    Description = "充值完成增加金额"
+                });
+
                 //保存信息到Session和写入到Cookies
                 WebHelper.OperateContext.Current.SetUserToSessionAndCookies(model, true);
                 return Redirect("/home");

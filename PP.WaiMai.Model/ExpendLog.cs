@@ -15,13 +15,13 @@ namespace PP.WaiMai.Model
     public partial class ExpendLog
     {
         public int ExpendLogID { get; set; }
+        public int UserID { get; set; }
+        public int ExpendLogTypeID { get; set; }
+        public int ExpendLogType { get; set; }
         public System.DateTime CreateDate { get; set; }
         public decimal ConsumeAmount { get; set; }
         public decimal RechargeAmount { get; set; }
         public string Description { get; set; }
-        public int ExpendLogType { get; set; }
-        public int ExpendLogTypeID { get; set; }
-        public int UserID { get; set; }
     
         public virtual User User { get; set; }
     }

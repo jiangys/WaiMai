@@ -22,6 +22,7 @@ namespace PP.WaiMai.Model
 				IPAddress = this.IPAddress,
 				Amount = this.Amount,
 				IsAdmin = this.IsAdmin,
+				DepartmentType = this.DepartmentType,
 				CreateDate = this.CreateDate,
 				IsDel = this.IsDel,
 			};

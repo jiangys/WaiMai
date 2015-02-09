@@ -49,10 +49,6 @@ namespace PP.WaiMai.IRepository
     {
     }
 
-	public partial interface IsysdiagramsRepository : IBaseRepository<sysdiagrams>
-    {
-    }
-
 	public partial interface IUserRepository : IBaseRepository<User>
     {
     }

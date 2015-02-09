@@ -14,6 +14,7 @@
             <tr>
                 <th>#</th>
                 <th>昵称</th>
+                <th>部门</th>
                 <th>菜单名称</th>
                 <th>价格</th>
                 <th>数量</th>
@@ -28,7 +29,8 @@
                 {
                     <tr>
                         <td>@(i++)</td>
-                        <td>@item.User.UserName (@(PP.WaiMai.Util.EnumHelper.GetEnumDescription((PP.WaiMai.Model.Enums.DepartmentTypeEnum)(item.User.DepartmentType == 0 ? 99 : item.User.DepartmentType))))</td>
+                        <td>@item.User.UserName</td>
+                        <td>@(PP.WaiMai.Util.EnumHelper.GetEnumDescription((PP.WaiMai.Model.Enums.DepartmentTypeEnum)(item.User.DepartmentType == 0 ? 99 : item.User.DepartmentType)))</td>
                         <td>@item.FoodMenu.MenuName</td>
                         <td>@item.TotalPrice 元</td>
                         <td>@item.TotalCount</td>

@@ -17,13 +17,13 @@ namespace PP.WaiMai.Model
 		public ExpendLog ToPOCO(bool isPOCO = true){
 			return new ExpendLog(){
 				ExpendLogID = this.ExpendLogID,
+				UserID = this.UserID,
+				ExpendLogTypeID = this.ExpendLogTypeID,
+				ExpendLogType = this.ExpendLogType,
 				CreateDate = this.CreateDate,
 				ConsumeAmount = this.ConsumeAmount,
 				RechargeAmount = this.RechargeAmount,
 				Description = this.Description,
-				ExpendLogType = this.ExpendLogType,
-				ExpendLogTypeID = this.ExpendLogTypeID,
-				UserID = this.UserID,
 			};
 		}
 	}
