@@ -79,7 +79,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
                 {
                     return JsonMsgOk("取消成功", "/Admin/Restaurant");
                 }
-                return JsonMsgNoOk("取消失败，请确定该订单是否已经审核");
+                return JsonMsgNoOk("取消失败，该订单状态已变更，请刷新页面重试");
             }
             catch (Exception ex)
             {

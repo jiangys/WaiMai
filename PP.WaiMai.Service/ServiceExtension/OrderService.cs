@@ -28,7 +28,7 @@ namespace PP.WaiMai.Service
             try
             { 
                 var orderModel = DbSessionContext.OrderRepository.GetModel(m => m.OrderID == id);
-                if (orderModel.OrderStatus==(int)OrderStatusEnum.Succeed)
+                if (orderModel.OrderStatus!=(int)OrderStatusEnum.Handle)
                 {
                     return false;
                 }
