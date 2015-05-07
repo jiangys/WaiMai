@@ -10,7 +10,7 @@ namespace PP.WaiMai.Model.Enums
     public enum DepartmentTypeEnum
     {
 
-        [Description("客服部")]
+        [Description("客服中心")]
         客服部 = 1,
         [Description("推广中心")]
         推广中心 = 2,
