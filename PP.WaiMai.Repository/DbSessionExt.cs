@@ -1,4 +1,7 @@
 ﻿
+
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +12,7 @@ namespace PP.WaiMai.Repository
 {
 	public partial class DbSession : IDbSession 
     { 
+
 		#region 数据接口 ICommentRepository
 		private ICommentRepository _CommentRepository;
         public ICommentRepository CommentRepository 
@@ -27,6 +31,7 @@ namespace PP.WaiMai.Repository
             }
         }
 		#endregion
+
 
 		#region 数据接口 IConfigRepository
 		private IConfigRepository _ConfigRepository;
@@ -47,6 +52,7 @@ namespace PP.WaiMai.Repository
         }
 		#endregion
 
+
 		#region 数据接口 IExpendLogRepository
 		private IExpendLogRepository _ExpendLogRepository;
         public IExpendLogRepository ExpendLogRepository 
@@ -65,6 +71,7 @@ namespace PP.WaiMai.Repository
             }
         }
 		#endregion
+
 
 		#region 数据接口 IFeedbackRepository
 		private IFeedbackRepository _FeedbackRepository;
@@ -85,6 +92,7 @@ namespace PP.WaiMai.Repository
         }
 		#endregion
 
+
 		#region 数据接口 IFoodMenuRepository
 		private IFoodMenuRepository _FoodMenuRepository;
         public IFoodMenuRepository FoodMenuRepository 
@@ -103,6 +111,7 @@ namespace PP.WaiMai.Repository
             }
         }
 		#endregion
+
 
 		#region 数据接口 IFoodMenuCategoryRepository
 		private IFoodMenuCategoryRepository _FoodMenuCategoryRepository;
@@ -123,6 +132,7 @@ namespace PP.WaiMai.Repository
         }
 		#endregion
 
+
 		#region 数据接口 IOrderRepository
 		private IOrderRepository _OrderRepository;
         public IOrderRepository OrderRepository 
@@ -141,6 +151,7 @@ namespace PP.WaiMai.Repository
             }
         }
 		#endregion
+
 
 		#region 数据接口 IRechargeRepository
 		private IRechargeRepository _RechargeRepository;
@@ -161,6 +172,7 @@ namespace PP.WaiMai.Repository
         }
 		#endregion
 
+
 		#region 数据接口 IRestaurantRepository
 		private IRestaurantRepository _RestaurantRepository;
         public IRestaurantRepository RestaurantRepository 
@@ -179,6 +191,7 @@ namespace PP.WaiMai.Repository
             }
         }
 		#endregion
+
 
 		#region 数据接口 ISarcasmRepository
 		private ISarcasmRepository _SarcasmRepository;
@@ -199,24 +212,6 @@ namespace PP.WaiMai.Repository
         }
 		#endregion
 
-		#region 数据接口 IsysdiagramsRepository
-		private IsysdiagramsRepository _sysdiagramsRepository;
-        public IsysdiagramsRepository sysdiagramsRepository 
-        {
-            get
-            {
-                if (_sysdiagramsRepository == null)
-                {
-                    _sysdiagramsRepository = new sysdiagramsRepository();
-                }
-                return _sysdiagramsRepository; 
-            }
-            set
-            {
-                _sysdiagramsRepository = value;
-            }
-        }
-		#endregion
 
 		#region 数据接口 IUserRepository
 		private IUserRepository _UserRepository;
@@ -236,6 +231,7 @@ namespace PP.WaiMai.Repository
             }
         }
 		#endregion
+
 
     }
 

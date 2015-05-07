@@ -1,4 +1,5 @@
 ﻿using PP.WaiMai.Model;
+using PP.WaiMai.Model.Enums;
 using PP.WaiMai.Model.ViewModels;
 using PP.WaiMai.Util.Security;
 using PP.WaiMai.WebHelper;
@@ -75,6 +76,7 @@ namespace PP.WaiMai.Web.Controllers
             return View(model);
         }
 
+        #region --用户注册
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterViewModel registerViewModel)
@@ -88,13 +90,15 @@ namespace PP.WaiMai.Web.Controllers
                     return View(registerViewModel);
                 }
                 User model = new Model.User();
-                model.UserName = registerViewModel.UserName;
-                model.IPAddress = registerViewModel.IPAddress;
-                model.Password = Util.Security.UEncypt.DESEncrypt(registerViewModel.Password);
-                model.Amount = 0;
-                model.CreateDate = DateTime.Now;
-                model.IsDel = false;
-                BLLSession.IUserService.Add(model);
+                //判断是否是6楼
+                if (OperateHelper.Is6F())
+                {
+                    model = Register_6F(model, registerViewModel);
+                }
+                else
+                {
+                    model = Register_10F(model, registerViewModel);
+                }
                 //保存信息到Session和写入到Cookies
                 WebHelper.OperateContext.Current.SetUserToSessionAndCookies(model, true);
                 return Redirect("/home");
@@ -102,6 +106,60 @@ namespace PP.WaiMai.Web.Controllers
 
             return View(registerViewModel);
         }
+
+        //10楼样式
+        private Model.User Register_10F(User model, RegisterViewModel registerViewModel)
+        {
+            model.UserName = registerViewModel.UserName;
+            model.IPAddress = registerViewModel.IPAddress;
+            model.Password = Util.Security.UEncypt.DESEncrypt(registerViewModel.Password);
+            model.Amount = 0;
+            model.CreateDate = DateTime.Now;
+            model.IsDel = false;
+            model.DepartmentType = registerViewModel.DepartmentType;
+            BLLSession.IUserService.Add(model);
+            return model;
+        }
+
+        //6楼充值样式
+        private Model.User Register_6F(User model, RegisterViewModel registerViewModel)
+        {
+            model.UserName = registerViewModel.UserName;
+            model.IPAddress = registerViewModel.IPAddress;
+            model.Password = Util.Security.UEncypt.DESEncrypt(registerViewModel.Password);
+            model.Amount = 10000;//默认充值10000元
+            model.CreateDate = DateTime.Now;
+            model.IsDel = false;
+            model.DepartmentType = registerViewModel.DepartmentType;
+            BLLSession.IUserService.Add(model);
+
+            //插入充值表,默认10000元
+            Recharge rechargeModel = new Recharge();
+            rechargeModel.UserID = model.UserID;
+            rechargeModel.RechargeAmount = 10000;
+            rechargeModel.Status = (int)RechargeStatusEnum.Succeed;
+            rechargeModel.IsDel = false;
+            rechargeModel.CreateDate = DateTime.Now;
+            rechargeModel.OpeningBalance = 0;
+            rechargeModel.CurrentBalance = 10000;
+            rechargeModel.RechargeUserName = "sys";
+            BLLSession.IRechargeService.Add(rechargeModel);
+
+            //插入数据到消费流水表
+            BLLSession.IExpendLogService.Add(new ExpendLog()
+            {
+                UserID = model.UserID,
+                ConsumeAmount = 0,
+                RechargeAmount = rechargeModel.RechargeAmount,
+                CreateDate = DateTime.Now,
+                ExpendLogTypeID = rechargeModel.RechargeID,
+                ExpendLogType = (int)ExpendLogTypeEnum.Recharge,
+                Description = "充值完成增加金额"
+            });
+            return model;
+        }
+
+        #endregion
 
         // POST: /Account/LogOff
         [HttpPost]

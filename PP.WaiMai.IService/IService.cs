@@ -1,4 +1,7 @@
-﻿ 
+﻿
+
+ 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,13 +62,9 @@ namespace PP.WaiMai.IService
       
     }   
 	
-	public partial interface IsysdiagramsService : IBaseService<sysdiagrams>
-    {
-      
-    }   
-	
 	public partial interface IUserService : IBaseService<User>
     {
       
     }   
+
 }

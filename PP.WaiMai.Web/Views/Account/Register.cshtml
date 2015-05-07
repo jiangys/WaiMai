@@ -35,6 +35,11 @@
                         @Html.ValidationMessageFor(m => m.UserName)
                     </div>
                     <div class="form-group">
+                        @Html.LabelFor(m => m.DepartmentType, new { @class = "required" })
+                        @Html.DropDownListFor(model => model.DepartmentType, PP.WaiMai.Util.EnumHelper.GetSelectList(typeof(PP.WaiMai.Model.Enums.DepartmentTypeEnum)), "=请选择部门=", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.DepartmentType)
+                    </div>
+                    <div class="form-group">
                         @Html.LabelFor(m => m.Password, new { @class = "required" })
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "至少6位" })
                         @Html.ValidationMessageFor(m => m.Password)

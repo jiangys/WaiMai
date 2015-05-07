@@ -26,7 +26,7 @@ namespace PP.WaiMai.Model.ViewModels
         [Required(ErrorMessage = "忘记填写姓名了哦")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "忘记填写密码了哦")]
         [StringLength(100, ErrorMessage = "{0} 必须至少包含 {2} 个字符。", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "密码")]
@@ -41,6 +41,11 @@ namespace PP.WaiMai.Model.ViewModels
 
         [Display(Name = "IP地址")]
         public string IPAddress { get; set; }
+
+
+        [Display(Name = "所属部门")]
+        [Required(ErrorMessage = "请选择所属部门")]
+        public int DepartmentType { get; set; }
     }
 
     /// <summary>

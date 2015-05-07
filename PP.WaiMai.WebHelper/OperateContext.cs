@@ -3,6 +3,7 @@ using PP.WaiMai.Model;
 using PP.WaiMai.Model.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
@@ -165,6 +166,27 @@ namespace PP.WaiMai.WebHelper
             Session[User_InfoKey] = null;
             Util.Web.UCookies.DelCookie(User_InfoKey);
             return true;
+        }
+        #endregion
+
+
+        #region 判断是否是6楼
+
+        /// <summary>
+        /// 由于6楼的要求和10楼的要求不一致。10楼是大众化，充值才能下订单
+        /// 6楼不同的地方：
+        /// 1、不需要充值，默认每个新注册用户账户有1万元
+        /// 2、多了部门的显示，10楼一开始没有的
+        /// </summary>
+        /// <returns></returns>
+        public bool Is6F()
+        {
+            var currFloor = ConfigurationManager.AppSettings["CurrentFloor"];
+            if (currFloor.ToLower() == "6f")
+            {
+                return true;
+            }
+            return false;
         }
         #endregion
     }

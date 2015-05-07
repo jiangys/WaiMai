@@ -1,5 +1,12 @@
 ﻿
 
+
+
+
+
+
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +17,7 @@ namespace PP.WaiMai.Service
 {
 	public partial class ServiceSession:IService.IServiceSession
     {
+
 		#region 业务接口 ICommentService
 		ICommentService iCommentService;
 		public ICommentService ICommentService
@@ -26,6 +34,7 @@ namespace PP.WaiMai.Service
 			}
 		}
 		#endregion
+
 
 		#region 业务接口 IConfigService
 		IConfigService iConfigService;
@@ -44,6 +53,7 @@ namespace PP.WaiMai.Service
 		}
 		#endregion
 
+
 		#region 业务接口 IExpendLogService
 		IExpendLogService iExpendLogService;
 		public IExpendLogService IExpendLogService
@@ -60,6 +70,7 @@ namespace PP.WaiMai.Service
 			}
 		}
 		#endregion
+
 
 		#region 业务接口 IFeedbackService
 		IFeedbackService iFeedbackService;
@@ -78,6 +89,7 @@ namespace PP.WaiMai.Service
 		}
 		#endregion
 
+
 		#region 业务接口 IFoodMenuService
 		IFoodMenuService iFoodMenuService;
 		public IFoodMenuService IFoodMenuService
@@ -94,6 +106,7 @@ namespace PP.WaiMai.Service
 			}
 		}
 		#endregion
+
 
 		#region 业务接口 IFoodMenuCategoryService
 		IFoodMenuCategoryService iFoodMenuCategoryService;
@@ -112,6 +125,7 @@ namespace PP.WaiMai.Service
 		}
 		#endregion
 
+
 		#region 业务接口 IOrderService
 		IOrderService iOrderService;
 		public IOrderService IOrderService
@@ -128,6 +142,7 @@ namespace PP.WaiMai.Service
 			}
 		}
 		#endregion
+
 
 		#region 业务接口 IRechargeService
 		IRechargeService iRechargeService;
@@ -146,6 +161,7 @@ namespace PP.WaiMai.Service
 		}
 		#endregion
 
+
 		#region 业务接口 IRestaurantService
 		IRestaurantService iRestaurantService;
 		public IRestaurantService IRestaurantService
@@ -162,6 +178,7 @@ namespace PP.WaiMai.Service
 			}
 		}
 		#endregion
+
 
 		#region 业务接口 ISarcasmService
 		ISarcasmService iSarcasmService;
@@ -180,22 +197,6 @@ namespace PP.WaiMai.Service
 		}
 		#endregion
 
-		#region 业务接口 IsysdiagramsService
-		IsysdiagramsService isysdiagramsService;
-		public IsysdiagramsService IsysdiagramsService
-		{
-			get
-			{
-				if(isysdiagramsService==null)
-					isysdiagramsService= new sysdiagramsService();
-				return isysdiagramsService;
-			}
-			set
-			{
-				isysdiagramsService= value;
-			}
-		}
-		#endregion
 
 		#region 业务接口 IUserService
 		IUserService iUserService;
@@ -213,6 +214,7 @@ namespace PP.WaiMai.Service
 			}
 		}
 		#endregion
+
 
     }
 

@@ -79,7 +79,16 @@
 <section class="container">
     <div class="alert alert-danger alert-dismissible" role="alert" style="margin-top:20px;">
         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <strong>温馨提示：</strong> 1.每天10点30分截止订餐，感谢配合；2.订餐费用，请统一交给周巧云，可以充值；3.订餐时，请看好菜单的供应时段。
+        @if (OperateContext.Current.Is6F())
+        {
+            <strong>温馨提示：</strong><text>1、系统统一订餐时间为下午16:00-17:30,临时加班订餐时段为下午18:00-19：00，感谢配合 <br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、如需加班却未能在统一时间内订餐的，可自行订餐后取发票到前台处报销<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3、订餐时，请看好菜单的供应时段。</text>
+        }
+        else
+        {
+            <strong>温馨提示：</strong><text>1.每天10点30分截止订餐，感谢配合；2.订餐费用，请统一交给周巧云，可以充值；3.订餐时，请看好菜单的供应时段。</text>
+        }
     </div>
 
 

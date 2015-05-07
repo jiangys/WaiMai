@@ -58,20 +58,20 @@
                     <table class="table table-striped table-bordered table-advance table-hover">
                         <thead>
                             <tr>
-                                <th width="100px">
+                                <th width="10%">
                                     <i class="fa fa-thumb-tack"></i>&nbsp;编号
                                 </th>
-                                <th width="200px">
+                                <th width="20%">
                                     <i class="fa fa-github-alt"></i>&nbsp;姓名
                                 </th>
-                                <th width="200px">
+                                <th width="20%">
+                                    <i class="glyphicon glyphicon-book"></i>&nbsp;部门
+                                </th>
+                                <th width="15%">
                                     <i class="fa fa-align-justify"></i>&nbsp;IP地址
                                 </th>
-                                <th width="100px">
+                                <th width="10%">
                                     <i class="fa fa-rmb"></i>&nbsp;可用金额
-                                </th>
-                                <th width="100px">
-
                                 </th>
                             </tr>
                         </thead>
@@ -84,6 +84,9 @@
                                     </td>
                                     <td>
                                         @item.UserName
+                                    </td>
+                                    <td>
+                                        @(PP.WaiMai.Util.EnumHelper.GetEnumDescription((PP.WaiMai.Model.Enums.DepartmentTypeEnum)(item.DepartmentType == 0 ? 99 : item.DepartmentType)))
                                     </td>
                                     <td>
                                         @item.IPAddress

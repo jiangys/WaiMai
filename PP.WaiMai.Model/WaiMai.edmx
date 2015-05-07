@@ -4,321 +4,311 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="WaiMaiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Comment">
-          <Key>
-            <PropertyRef Name="CommentID" />
-          </Key>
-          <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserID" Type="int" Nullable="false" />
-          <Property Name="SarcasmID" Type="int" Nullable="false" />
-          <Property Name="Content" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="CreateTime" Type="datetime" Nullable="false" />
-          <Property Name="IsDel" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Config">
-          <Key>
-            <PropertyRef Name="ConfigName" />
-          </Key>
-          <Property Name="ConfigName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ConfigValue" Type="nvarchar" MaxLength="2000" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ExpendLog">
-          <Key>
-            <PropertyRef Name="ExpendLogID" />
-          </Key>
-          <Property Name="ExpendLogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserID" Type="int" Nullable="false" />
-          <Property Name="ExpendLogTypeID" Type="int" Nullable="false" />
-          <Property Name="ExpendLogType" Type="int" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="ConsumeAmount" Type="decimal" Precision="18" Scale="1" Nullable="false" />
-          <Property Name="RechargeAmount" Type="decimal" Precision="18" Scale="1" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="200" />
-        </EntityType>
-        <EntityType Name="Feedback">
-          <Key>
-            <PropertyRef Name="FeedbackID" />
-          </Key>
-          <Property Name="FeedbackID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserID" Type="int" />
-          <Property Name="ContentMsg" Type="nvarchar" MaxLength="2000" Nullable="false" />
-          <Property Name="CreateTime" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="FoodMenu">
-          <Key>
-            <PropertyRef Name="FoodMenuID" />
-          </Key>
-          <Property Name="FoodMenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FoodMenuCategoryID" Type="int" Nullable="false" />
-          <Property Name="MenuName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Price" Type="decimal" Precision="18" Scale="1" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="Creator" Type="nvarchar" MaxLength="50" />
-          <Property Name="EditDate" Type="datetime" />
-          <Property Name="Editor" Type="nvarchar" MaxLength="50" />
-          <Property Name="IsSale" Type="bit" Nullable="false" />
-          <Property Name="IsDel" Type="bit" Nullable="false" />
-          <Property Name="Version" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="FoodMenuCategory">
-          <Key>
-            <PropertyRef Name="FoodMenuCategoryID" />
-          </Key>
-          <Property Name="FoodMenuCategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RestaurantID" Type="int" Nullable="false" />
-          <Property Name="CName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="Creator" Type="nvarchar" MaxLength="50" />
-          <Property Name="EditDate" Type="datetime" />
-          <Property Name="Editor" Type="nvarchar" MaxLength="50" />
-          <Property Name="IsSale" Type="bit" Nullable="false" />
-          <Property Name="IsDel" Type="bit" Nullable="false" />
-          <Property Name="Version" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="OrderID" />
-          </Key>
-          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FoodMenuID" Type="int" Nullable="false" />
-          <Property Name="UserID" Type="int" Nullable="false" />
-          <Property Name="TotalCount" Type="int" Nullable="false" />
-          <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="1" Nullable="false" />
-          <Property Name="NickName" Type="nvarchar" MaxLength="100" />
-          <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-          <Property Name="OrderStatus" Type="int" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="Creator" Type="nvarchar" MaxLength="50" />
-          <Property Name="EditDate" Type="datetime" />
-          <Property Name="Editor" Type="nvarchar" MaxLength="50" />
-          <Property Name="IsDel" Type="bit" Nullable="false" />
-          <Property Name="Version" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Recharge">
-          <Key>
-            <PropertyRef Name="RechargeID" />
-          </Key>
-          <Property Name="RechargeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserID" Type="int" Nullable="false" />
-          <Property Name="RechargeAmount" Type="decimal" Precision="18" Scale="1" Nullable="false" />
-          <Property Name="OpeningBalance" Type="decimal" Precision="18" Scale="1" Nullable="false" />
-          <Property Name="CurrentBalance" Type="decimal" Precision="18" Scale="1" Nullable="false" />
-          <Property Name="Status" Type="int" Nullable="false" />
-          <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="RechargeUserName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="IsDel" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Restaurant">
-          <Key>
-            <PropertyRef Name="RestaurantID" />
-          </Key>
-          <Property Name="RestaurantID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RestaurantName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="SendOutCount" Type="int" Nullable="false" />
-          <Property Name="TakeoutPhone" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="500" />
-          <Property Name="IsEnable" Type="bit" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="Creator" Type="nvarchar" MaxLength="50" />
-          <Property Name="EditDate" Type="datetime" />
-          <Property Name="Editor" Type="nvarchar" MaxLength="50" />
-          <Property Name="IsDel" Type="bit" Nullable="false" />
-          <Property Name="Version" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Sarcasm">
-          <Key>
-            <PropertyRef Name="SarcasmID" />
-          </Key>
-          <Property Name="SarcasmID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserID" Type="int" Nullable="false" />
-          <Property Name="Content" Type="nvarchar" MaxLength="4000" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="IsDel" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="IPAddress" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Amount" Type="decimal" Precision="18" Scale="1" Nullable="false" />
-          <Property Name="IsAdmin" Type="bit" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="IsDel" Type="bit" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_Comment_Sarcasm">
-          <End Role="Sarcasm" Type="Self.Sarcasm" Multiplicity="1" />
-          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sarcasm">
-              <PropertyRef Name="SarcasmID" />
-            </Principal>
-            <Dependent Role="Comment">
-              <PropertyRef Name="SarcasmID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Comment_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="Comment">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ExpendLog_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="ExpendLog" Type="Self.ExpendLog" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="ExpendLog">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FoodMenu_FoodMenuCategory">
-          <End Role="FoodMenuCategory" Type="Self.FoodMenuCategory" Multiplicity="1" />
-          <End Role="FoodMenu" Type="Self.FoodMenu" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FoodMenuCategory">
-              <PropertyRef Name="FoodMenuCategoryID" />
-            </Principal>
-            <Dependent Role="FoodMenu">
-              <PropertyRef Name="FoodMenuCategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FoodMenuCategory_Restaurant">
-          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1" />
-          <End Role="FoodMenuCategory" Type="Self.FoodMenuCategory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Restaurant">
-              <PropertyRef Name="RestaurantID" />
-            </Principal>
-            <Dependent Role="FoodMenuCategory">
-              <PropertyRef Name="RestaurantID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Order_FoodMenu">
-          <End Role="FoodMenu" Type="Self.FoodMenu" Multiplicity="1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FoodMenu">
-              <PropertyRef Name="FoodMenuID" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="FoodMenuID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Order_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Recharge_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Recharge" Type="Self.Recharge" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="Recharge">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Sarcasm_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Sarcasm" Type="Self.Sarcasm" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="Sarcasm">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="WaiMaiModelStoreContainer">
-          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ExpendLog" EntityType="Self.ExpendLog" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Feedback" EntityType="Self.Feedback" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FoodMenu" EntityType="Self.FoodMenu" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FoodMenuCategory" EntityType="Self.FoodMenuCategory" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Recharge" EntityType="Self.Recharge" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Restaurant" EntityType="Self.Restaurant" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Sarcasm" EntityType="Self.Sarcasm" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Comment_Sarcasm" Association="Self.FK_Comment_Sarcasm">
-            <End Role="Sarcasm" EntitySet="Sarcasm" />
-            <End Role="Comment" EntitySet="Comment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Comment_User" Association="Self.FK_Comment_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Comment" EntitySet="Comment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ExpendLog_User" Association="Self.FK_ExpendLog_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="ExpendLog" EntitySet="ExpendLog" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FoodMenu_FoodMenuCategory" Association="Self.FK_FoodMenu_FoodMenuCategory">
-            <End Role="FoodMenuCategory" EntitySet="FoodMenuCategory" />
-            <End Role="FoodMenu" EntitySet="FoodMenu" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FoodMenuCategory_Restaurant" Association="Self.FK_FoodMenuCategory_Restaurant">
-            <End Role="Restaurant" EntitySet="Restaurant" />
-            <End Role="FoodMenuCategory" EntitySet="FoodMenuCategory" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_FoodMenu" Association="Self.FK_Order_FoodMenu">
-            <End Role="FoodMenu" EntitySet="FoodMenu" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_User" Association="Self.FK_Order_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Recharge_User" Association="Self.FK_Recharge_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Recharge" EntitySet="Recharge" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Sarcasm_User" Association="Self.FK_Sarcasm_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Sarcasm" EntitySet="Sarcasm" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema></edmx:StorageModels>
+    <Schema Namespace="WaiMaiModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="WaiMaiModelStoreContainer">
+    <EntitySet Name="Config" EntityType="WaiMaiModel.Store.Config" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ExpendLog" EntityType="WaiMaiModel.Store.ExpendLog" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FoodMenu" EntityType="WaiMaiModel.Store.FoodMenu" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FoodMenuCategory" EntityType="WaiMaiModel.Store.FoodMenuCategory" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Order" EntityType="WaiMaiModel.Store.Order" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Recharge" EntityType="WaiMaiModel.Store.Recharge" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Restaurant" EntityType="WaiMaiModel.Store.Restaurant" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="User" EntityType="WaiMaiModel.Store.User" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Comment" EntityType="WaiMaiModel.Store.Comment" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Sarcasm" EntityType="WaiMaiModel.Store.Sarcasm" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Feedback" EntityType="WaiMaiModel.Store.Feedback" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_FoodMenu_FoodMenuCategory" Association="WaiMaiModel.Store.FK_FoodMenu_FoodMenuCategory">
+      <End Role="FoodMenuCategory" EntitySet="FoodMenuCategory" />
+      <End Role="FoodMenu" EntitySet="FoodMenu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_FoodMenu" Association="WaiMaiModel.Store.FK_Order_FoodMenu">
+      <End Role="FoodMenu" EntitySet="FoodMenu" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FoodMenuCategory_Restaurant" Association="WaiMaiModel.Store.FK_FoodMenuCategory_Restaurant">
+      <End Role="Restaurant" EntitySet="Restaurant" />
+      <End Role="FoodMenuCategory" EntitySet="FoodMenuCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_User" Association="WaiMaiModel.Store.FK_Order_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Recharge_User" Association="WaiMaiModel.Store.FK_Recharge_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Recharge" EntitySet="Recharge" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_Sarcasm" Association="WaiMaiModel.Store.FK_Comment_Sarcasm">
+      <End Role="Sarcasm" EntitySet="Sarcasm" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_User" Association="WaiMaiModel.Store.FK_Comment_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Comment" EntitySet="Comment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ExpendLog_User" Association="WaiMaiModel.Store.FK_ExpendLog_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="ExpendLog" EntitySet="ExpendLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sarcasm_User" Association="WaiMaiModel.Store.FK_Sarcasm_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Sarcasm" EntitySet="Sarcasm" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Config">
+    <Key>
+      <PropertyRef Name="ConfigName" />
+    </Key>
+    <Property Name="ConfigName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="ConfigValue" Type="nvarchar" Nullable="false" MaxLength="2000" />
+  </EntityType>
+  <EntityType Name="ExpendLog">
+    <Key>
+      <PropertyRef Name="ExpendLogID" />
+    </Key>
+    <Property Name="ExpendLogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="ConsumeAmount" Type="decimal" Nullable="false" Precision="18" Scale="1" />
+    <Property Name="RechargeAmount" Type="decimal" Nullable="false" Precision="18" Scale="1" />
+    <Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="200" />
+    <Property Name="ExpendLogType" Type="int" Nullable="false" />
+    <Property Name="ExpendLogTypeID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FoodMenu">
+    <Key>
+      <PropertyRef Name="FoodMenuID" />
+    </Key>
+    <Property Name="FoodMenuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FoodMenuCategoryID" Type="int" Nullable="false" />
+    <Property Name="MenuName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Price" Type="decimal" Nullable="false" Precision="18" Scale="1" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="Creator" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="EditDate" Type="datetime" Nullable="true" />
+    <Property Name="Editor" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="IsSale" Type="bit" Nullable="false" />
+    <Property Name="IsDel" Type="bit" Nullable="false" />
+    <Property Name="Version" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FoodMenuCategory">
+    <Key>
+      <PropertyRef Name="FoodMenuCategoryID" />
+    </Key>
+    <Property Name="FoodMenuCategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RestaurantID" Type="int" Nullable="false" />
+    <Property Name="CName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="Creator" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="EditDate" Type="datetime" Nullable="true" />
+    <Property Name="Editor" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="IsSale" Type="bit" Nullable="false" />
+    <Property Name="IsDel" Type="bit" Nullable="false" />
+    <Property Name="Version" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FoodMenuID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="TotalCount" Type="int" Nullable="false" />
+    <Property Name="TotalPrice" Type="decimal" Nullable="false" Precision="18" Scale="1" />
+    <Property Name="NickName" Type="nvarchar" Nullable="true" MaxLength="100" />
+    <Property Name="Remark" Type="nvarchar" Nullable="true" MaxLength="100" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="Creator" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="EditDate" Type="datetime" Nullable="true" />
+    <Property Name="Editor" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="IsDel" Type="bit" Nullable="false" />
+    <Property Name="Version" Type="int" Nullable="false" />
+    <Property Name="OrderStatus" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Recharge">
+    <Key>
+      <PropertyRef Name="RechargeID" />
+    </Key>
+    <Property Name="RechargeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="RechargeAmount" Type="decimal" Nullable="false" Precision="18" Scale="1" />
+    <Property Name="OpeningBalance" Type="decimal" Nullable="false" Precision="18" Scale="1" />
+    <Property Name="CurrentBalance" Type="decimal" Nullable="false" Precision="18" Scale="1" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Remark" Type="nvarchar" Nullable="true" MaxLength="100" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="RechargeUserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="IsDel" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Restaurant">
+    <Key>
+      <PropertyRef Name="RestaurantID" />
+    </Key>
+    <Property Name="RestaurantID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RestaurantName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="SendOutCount" Type="int" Nullable="false" />
+    <Property Name="TakeoutPhone" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="500" />
+    <Property Name="IsEnable" Type="bit" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="Creator" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="EditDate" Type="datetime" Nullable="true" />
+    <Property Name="Editor" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="IsDel" Type="bit" Nullable="false" />
+    <Property Name="Version" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="IPAddress" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="Amount" Type="decimal" Nullable="false" Precision="18" Scale="1" />
+    <Property Name="IsAdmin" Type="bit" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="IsDel" Type="bit" Nullable="false" />
+    <Property Name="DepartmentType" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="CommentID" />
+    </Key>
+    <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="SarcasmID" Type="int" Nullable="false" />
+    <Property Name="Content" Type="nvarchar" Nullable="false" MaxLength="200" />
+    <Property Name="CreateTime" Type="datetime" Nullable="false" />
+    <Property Name="IsDel" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sarcasm">
+    <Key>
+      <PropertyRef Name="SarcasmID" />
+    </Key>
+    <Property Name="SarcasmID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="Content" Type="nvarchar" Nullable="false" MaxLength="4000" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="IsDel" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Feedback">
+    <Key>
+      <PropertyRef Name="FeedbackID" />
+    </Key>
+    <Property Name="FeedbackID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="true" />
+    <Property Name="ContentMsg" Type="nvarchar" Nullable="false" MaxLength="2000" />
+    <Property Name="CreateTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_FoodMenu_FoodMenuCategory">
+    <End Role="FoodMenuCategory" Type="WaiMaiModel.Store.FoodMenuCategory" Multiplicity="1" />
+    <End Role="FoodMenu" Type="WaiMaiModel.Store.FoodMenu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FoodMenuCategory">
+        <PropertyRef Name="FoodMenuCategoryID" />
+      </Principal>
+      <Dependent Role="FoodMenu">
+        <PropertyRef Name="FoodMenuCategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_FoodMenu">
+    <End Role="FoodMenu" Type="WaiMaiModel.Store.FoodMenu" Multiplicity="1" />
+    <End Role="Order" Type="WaiMaiModel.Store.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FoodMenu">
+        <PropertyRef Name="FoodMenuID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="FoodMenuID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FoodMenuCategory_Restaurant">
+    <End Role="Restaurant" Type="WaiMaiModel.Store.Restaurant" Multiplicity="1" />
+    <End Role="FoodMenuCategory" Type="WaiMaiModel.Store.FoodMenuCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Restaurant">
+        <PropertyRef Name="RestaurantID" />
+      </Principal>
+      <Dependent Role="FoodMenuCategory">
+        <PropertyRef Name="RestaurantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_User">
+    <End Role="User" Type="WaiMaiModel.Store.User" Multiplicity="1" />
+    <End Role="Order" Type="WaiMaiModel.Store.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Recharge_User">
+    <End Role="User" Type="WaiMaiModel.Store.User" Multiplicity="1" />
+    <End Role="Recharge" Type="WaiMaiModel.Store.Recharge" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Recharge">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_Sarcasm">
+    <End Role="Sarcasm" Type="WaiMaiModel.Store.Sarcasm" Multiplicity="1" />
+    <End Role="Comment" Type="WaiMaiModel.Store.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sarcasm">
+        <PropertyRef Name="SarcasmID" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="SarcasmID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_User">
+    <End Role="User" Type="WaiMaiModel.Store.User" Multiplicity="1" />
+    <End Role="Comment" Type="WaiMaiModel.Store.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ExpendLog_User">
+    <End Role="User" Type="WaiMaiModel.Store.User" Multiplicity="1" />
+    <End Role="ExpendLog" Type="WaiMaiModel.Store.ExpendLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="ExpendLog">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sarcasm_User">
+    <End Role="User" Type="WaiMaiModel.Store.User" Multiplicity="1" />
+    <End Role="Sarcasm" Type="WaiMaiModel.Store.Sarcasm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Sarcasm">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WaiMaiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -351,7 +341,6 @@
             <End Role="User" EntitySet="User" />
             <End Role="Recharge" EntitySet="Recharge" />
           </AssociationSet>
-          <EntitySet Name="sysdiagrams" EntityType="WaiMaiModel.sysdiagrams" />
           <EntitySet Name="Comment" EntityType="WaiMaiModel.Comment" />
           <EntitySet Name="Sarcasm" EntityType="WaiMaiModel.Sarcasm" />
           <AssociationSet Name="FK_Comment_Sarcasm" Association="WaiMaiModel.FK_Comment_Sarcasm">
@@ -500,6 +489,7 @@
           <NavigationProperty Name="Comment" Relationship="WaiMaiModel.FK_Comment_User" FromRole="User" ToRole="Comment" />
           <NavigationProperty Name="ExpendLog" Relationship="WaiMaiModel.FK_ExpendLog_User" FromRole="User" ToRole="ExpendLog" />
           <NavigationProperty Name="Sarcasm" Relationship="WaiMaiModel.FK_Sarcasm_User" FromRole="User" ToRole="Sarcasm" />
+          <Property Name="DepartmentType" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_FoodMenu_FoodMenuCategory">
           <End Type="WaiMaiModel.FoodMenuCategory" Role="FoodMenuCategory" Multiplicity="1" />
@@ -561,16 +551,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="CommentID" />
@@ -659,174 +639,164 @@
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="WaiMaiModelStoreContainer" CdmEntityContainer="WaiMaiEntities">
-          <EntitySetMapping Name="Config">
-            <EntityTypeMapping TypeName="WaiMaiModel.Config">
-              <MappingFragment StoreEntitySet="Config">
-                <ScalarProperty Name="ConfigValue" ColumnName="ConfigValue" />
-                <ScalarProperty Name="ConfigName" ColumnName="ConfigName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ExpendLog">
-            <EntityTypeMapping TypeName="WaiMaiModel.ExpendLog">
-              <MappingFragment StoreEntitySet="ExpendLog">
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="ExpendLogTypeID" ColumnName="ExpendLogTypeID" />
-                <ScalarProperty Name="ExpendLogType" ColumnName="ExpendLogType" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="RechargeAmount" ColumnName="RechargeAmount" />
-                <ScalarProperty Name="ConsumeAmount" ColumnName="ConsumeAmount" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="ExpendLogID" ColumnName="ExpendLogID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FoodMenu">
-            <EntityTypeMapping TypeName="WaiMaiModel.FoodMenu">
-              <MappingFragment StoreEntitySet="FoodMenu">
-                <ScalarProperty Name="Version" ColumnName="Version" />
-                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
-                <ScalarProperty Name="IsSale" ColumnName="IsSale" />
-                <ScalarProperty Name="Editor" ColumnName="Editor" />
-                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
-                <ScalarProperty Name="FoodMenuCategoryID" ColumnName="FoodMenuCategoryID" />
-                <ScalarProperty Name="FoodMenuID" ColumnName="FoodMenuID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FoodMenuCategory">
-            <EntityTypeMapping TypeName="WaiMaiModel.FoodMenuCategory">
-              <MappingFragment StoreEntitySet="FoodMenuCategory">
-                <ScalarProperty Name="Version" ColumnName="Version" />
-                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
-                <ScalarProperty Name="IsSale" ColumnName="IsSale" />
-                <ScalarProperty Name="Editor" ColumnName="Editor" />
-                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CName" ColumnName="CName" />
-                <ScalarProperty Name="RestaurantID" ColumnName="RestaurantID" />
-                <ScalarProperty Name="FoodMenuCategoryID" ColumnName="FoodMenuCategoryID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Order">
-            <EntityTypeMapping TypeName="WaiMaiModel.Order">
-              <MappingFragment StoreEntitySet="Order">
-                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
-                <ScalarProperty Name="Version" ColumnName="Version" />
-                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
-                <ScalarProperty Name="Editor" ColumnName="Editor" />
-                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="NickName" ColumnName="NickName" />
-                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
-                <ScalarProperty Name="TotalCount" ColumnName="TotalCount" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="FoodMenuID" ColumnName="FoodMenuID" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Recharge">
-            <EntityTypeMapping TypeName="WaiMaiModel.Recharge">
-              <MappingFragment StoreEntitySet="Recharge">
-                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
-                <ScalarProperty Name="RechargeUserName" ColumnName="RechargeUserName" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="CurrentBalance" ColumnName="CurrentBalance" />
-                <ScalarProperty Name="OpeningBalance" ColumnName="OpeningBalance" />
-                <ScalarProperty Name="RechargeAmount" ColumnName="RechargeAmount" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="RechargeID" ColumnName="RechargeID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Restaurant">
-            <EntityTypeMapping TypeName="WaiMaiModel.Restaurant">
-              <MappingFragment StoreEntitySet="Restaurant">
-                <ScalarProperty Name="Version" ColumnName="Version" />
-                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
-                <ScalarProperty Name="Editor" ColumnName="Editor" />
-                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="IsEnable" ColumnName="IsEnable" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="TakeoutPhone" ColumnName="TakeoutPhone" />
-                <ScalarProperty Name="SendOutCount" ColumnName="SendOutCount" />
-                <ScalarProperty Name="RestaurantName" ColumnName="RestaurantName" />
-                <ScalarProperty Name="RestaurantID" ColumnName="RestaurantID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="WaiMaiModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="WaiMaiModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Comment">
-            <EntityTypeMapping TypeName="WaiMaiModel.Comment">
-              <MappingFragment StoreEntitySet="Comment">
-                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="SarcasmID" ColumnName="SarcasmID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sarcasm">
-            <EntityTypeMapping TypeName="WaiMaiModel.Sarcasm">
-              <MappingFragment StoreEntitySet="Sarcasm">
-                <ScalarProperty Name="IsDel" ColumnName="IsDel" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="SarcasmID" ColumnName="SarcasmID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Feedback">
-            <EntityTypeMapping TypeName="WaiMaiModel.Feedback">
-              <MappingFragment StoreEntitySet="Feedback">
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="ContentMsg" ColumnName="ContentMsg" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
+    <EntitySetMapping Name="Config">
+      <EntityTypeMapping TypeName="IsTypeOf(WaiMaiModel.Config)">
+        <MappingFragment StoreEntitySet="Config">
+          <ScalarProperty Name="ConfigName" ColumnName="ConfigName" />
+          <ScalarProperty Name="ConfigValue" ColumnName="ConfigValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExpendLog">
+      <EntityTypeMapping TypeName="IsTypeOf(WaiMaiModel.ExpendLog)">
+        <MappingFragment StoreEntitySet="ExpendLog">
+          <ScalarProperty Name="ExpendLogID" ColumnName="ExpendLogID" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="ConsumeAmount" ColumnName="ConsumeAmount" />
+          <ScalarProperty Name="RechargeAmount" ColumnName="RechargeAmount" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ExpendLogType" ColumnName="ExpendLogType" />
+          <ScalarProperty Name="ExpendLogTypeID" ColumnName="ExpendLogTypeID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FoodMenu">
+      <EntityTypeMapping TypeName="IsTypeOf(WaiMaiModel.FoodMenu)">
+        <MappingFragment StoreEntitySet="FoodMenu">
+          <ScalarProperty Name="FoodMenuID" ColumnName="FoodMenuID" />
+          <ScalarProperty Name="FoodMenuCategoryID" ColumnName="FoodMenuCategoryID" />
+          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Creator" ColumnName="Creator" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="Editor" ColumnName="Editor" />
+          <ScalarProperty Name="IsSale" ColumnName="IsSale" />
+          <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FoodMenuCategory">
+      <EntityTypeMapping TypeName="IsTypeOf(WaiMaiModel.FoodMenuCategory)">
+        <MappingFragment StoreEntitySet="FoodMenuCategory">
+          <ScalarProperty Name="FoodMenuCategoryID" ColumnName="FoodMenuCategoryID" />
+          <ScalarProperty Name="RestaurantID" ColumnName="RestaurantID" />
+          <ScalarProperty Name="CName" ColumnName="CName" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Creator" ColumnName="Creator" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="Editor" ColumnName="Editor" />
+          <ScalarProperty Name="IsSale" ColumnName="IsSale" />
+          <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Order">
+      <EntityTypeMapping TypeName="IsTypeOf(WaiMaiModel.Order)">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="FoodMenuID" ColumnName="FoodMenuID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="TotalCount" ColumnName="TotalCount" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="NickName" ColumnName="NickName" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Creator" ColumnName="Creator" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="Editor" ColumnName="Editor" />
+          <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Recharge">
+      <EntityTypeMapping TypeName="IsTypeOf(WaiMaiModel.Recharge)">
+        <MappingFragment StoreEntitySet="Recharge">
+          <ScalarProperty Name="RechargeID" ColumnName="RechargeID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="RechargeAmount" ColumnName="RechargeAmount" />
+          <ScalarProperty Name="OpeningBalance" ColumnName="OpeningBalance" />
+          <ScalarProperty Name="CurrentBalance" ColumnName="CurrentBalance" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="RechargeUserName" ColumnName="RechargeUserName" />
+          <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Restaurant">
+      <EntityTypeMapping TypeName="IsTypeOf(WaiMaiModel.Restaurant)">
+        <MappingFragment StoreEntitySet="Restaurant">
+          <ScalarProperty Name="RestaurantID" ColumnName="RestaurantID" />
+          <ScalarProperty Name="RestaurantName" ColumnName="RestaurantName" />
+          <ScalarProperty Name="SendOutCount" ColumnName="SendOutCount" />
+          <ScalarProperty Name="TakeoutPhone" ColumnName="TakeoutPhone" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IsEnable" ColumnName="IsEnable" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Creator" ColumnName="Creator" />
+          <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+          <ScalarProperty Name="Editor" ColumnName="Editor" />
+          <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="IsTypeOf(WaiMaiModel.User)">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+          <ScalarProperty Name="DepartmentType" ColumnName="DepartmentType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comment">
+      <EntityTypeMapping TypeName="IsTypeOf(WaiMaiModel.Comment)">
+        <MappingFragment StoreEntitySet="Comment">
+          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="SarcasmID" ColumnName="SarcasmID" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sarcasm">
+      <EntityTypeMapping TypeName="IsTypeOf(WaiMaiModel.Sarcasm)">
+        <MappingFragment StoreEntitySet="Sarcasm">
+          <ScalarProperty Name="SarcasmID" ColumnName="SarcasmID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="IsDel" ColumnName="IsDel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Feedback">
+      <EntityTypeMapping TypeName="IsTypeOf(WaiMaiModel.Feedback)">
+        <MappingFragment StoreEntitySet="Feedback">
+          <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ContentMsg" ColumnName="ContentMsg" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->

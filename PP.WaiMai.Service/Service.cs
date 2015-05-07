@@ -1,6 +1,13 @@
 ﻿
 
 
+
+
+
+
+
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,15 +109,6 @@ namespace PP.WaiMai.Service
         }
     }   
 	
-	public partial class sysdiagramsService : BaseService<sysdiagrams>,IsysdiagramsService
-    {
-        public override void SetCurrentRepository()
-        {
-            //设置处理当前请求的仓储
-            this.CurrentRepository = DbSessionContext.sysdiagramsRepository;
-        }
-    }   
-	
 	public partial class UserService : BaseService<User>,IUserService
     {
         public override void SetCurrentRepository()
@@ -119,4 +117,5 @@ namespace PP.WaiMai.Service
             this.CurrentRepository = DbSessionContext.UserRepository;
         }
     }   
+
 }
