@@ -14,7 +14,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
         // GET: /Admin/Restaurant/
         public ActionResult Index()
         {
-            var modelList = BLLSession.IRestaurantService.GetListBy(m => true);
+            var modelList = BLLSession.IRestaurantService.GetListBy(m => m.IsDel == false);
             return View(modelList);
         }
         public ActionResult Add()
@@ -53,10 +53,16 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
             // 如果我们进行到这一步时某个地方出错，则重新显示表单
             return JsonMsgNoOk();
         }
+
+        /// <summary>
+        /// 逻辑删除操作
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Del(int id)
         {
-            BLLSession.IRestaurantService.DeleteBy(m => m.RestaurantID == id);
+            BLLSession.IRestaurantService.Modify(new Restaurant() { RestaurantID = id, IsDel = true }, "IsDel");
             return JsonMsgOk("删除成功", "/Admin/Restaurant");
         }
     }

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using PP.WaiMai.WebHelper;
 using PagedList;
 using PP.WaiMai.Model;
+using PP.WaiMai.Model.FormatModels;
 
 namespace PP.WaiMai.Web.Areas.Admin.Controllers
 {
@@ -13,20 +14,52 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
     {
         //
         // GET: /Admin/FoodMenu/
-        public ActionResult Index(int? page, string Keyword)
+        public ActionResult Index(int? page, string Keyword, int? RestaurantID)
         {
-            var model = BLLSession.IFoodMenuService.GetListBy(m => m.IsDel == false)
+            var model = BLLSession.IFoodMenuService.GetListBy(m => m.IsDel == false
+                 && m.FoodMenuCategory.IsDel == false
+                 && m.FoodMenuCategory.Restaurant.IsDel == false)
                 .OrderByDescending(m => m.FoodMenuID).ToList();
-            if (!string.IsNullOrEmpty(Keyword))
+
+            //ViewBag.RestaurantList = BLLSession.IRestaurantService.GetListBy(m => m.IsDel == false).Select(m => new SelectListItem()
+            //{
+            //    Text = m.RestaurantName,
+            //    Value = m.RestaurantID.ToString()
+            //}).ToList();
+
+            //if (!string.IsNullOrEmpty(Keyword))
+            //{
+            //    model = model.Where(m => m.MenuName.Contains(Keyword)).ToList();
+            //}
+            //if (RestaurantID!=null)
+            //{
+            //    model = model.Where(m => m.FoodMenuCategory.RestaurantID == RestaurantID).ToList();
+            //}
+            PageData pageData = new PageData()
             {
-                model = model.Where(m => m.MenuName.Contains(Keyword)).ToList();
-            }
-            return View(model.ToPagedList(page ?? 1, 15));
+                PageIndex = page ?? 1,
+                PageSize = 15
+            };
+
+            BLLSession.IFoodMenuService.GetPagedList(pageData
+                , m => m.IsDel == false
+                 && m.FoodMenuCategory.IsDel == false
+                 && m.FoodMenuCategory.Restaurant.IsDel == false
+                 , m => m.FoodMenuID
+                 , false);
+            ViewBag.OnePageOfUsers = usersAsIPagedList;
+             var usersAsIPagedList = new StaticPagedList<MembershipUser>(users, pageIndex + 1, pageSize, totalUserCount);
+            //ViewBag.OnePageOfUsers = usersAsIPagedList;
+            //ViewBag.OnePageOfUsers = FoodMenusAsIPagedList;
+            //return View(model.ToPagedList(page ?? 1, 15));
+
+            return View();
         }
 
         public ActionResult Add()
         {
-            var modelList = BLLSession.IFoodMenuCategoryService.GetListBy(m => m.IsDel == false).OrderByDescending(m => m.FoodMenuCategoryID);
+            var modelList = BLLSession.IFoodMenuCategoryService.GetListBy(m => m.IsDel == false && m.Restaurant.IsDel == false)
+                .OrderByDescending(m => m.FoodMenuCategoryID);
             ViewBag.FoodMenuCategoryList = modelList.Select(m => new SelectListItem()
             {
                 Text = m.Restaurant.RestaurantName + "→" + m.CName,
@@ -54,7 +87,8 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
         public ActionResult Edit(int id)
         {
             var model = BLLSession.IFoodMenuService.GetModel(m => m.FoodMenuID == id);
-            var modelList = BLLSession.IFoodMenuCategoryService.GetListBy(m => m.IsDel == false).OrderByDescending(m => m.FoodMenuCategoryID);
+            var modelList = BLLSession.IFoodMenuCategoryService.GetListBy(m => m.IsDel == false && m.Restaurant.IsDel == false)
+                .OrderByDescending(m => m.FoodMenuCategoryID);
             ViewBag.FoodMenuCategoryDDList = modelList.Select(m => new SelectListItem()
             {
                 Text = m.Restaurant.RestaurantName + "→" + m.CName,

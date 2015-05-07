@@ -15,7 +15,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
         // GET: /Admin/FoodMenuCategory/
         public ActionResult Index(int? page, string Keyword)
         {
-            var model = BLLSession.IFoodMenuCategoryService.GetListBy(m=>m.IsDel==false)
+            var model = BLLSession.IFoodMenuCategoryService.GetListBy(m => m.IsDel == false && m.Restaurant.IsDel == false)
                 .OrderByDescending(m => m.FoodMenuCategoryID).ToList();
             if (!string.IsNullOrEmpty(Keyword))
             {
@@ -59,7 +59,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
                 Text = m.RestaurantName,
                 Value = m.RestaurantID.ToString()
             }).ToList();
-            var model = BLLSession.IFoodMenuCategoryService.GetModel(m=>m.FoodMenuCategoryID==id);
+            var model = BLLSession.IFoodMenuCategoryService.GetModel(m => m.FoodMenuCategoryID == id);
             return View(model);
         }
         [HttpPost]
@@ -77,7 +77,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Del(int id)
         {
-            BLLSession.IFoodMenuCategoryService.DeleteBy(m=>m.FoodMenuCategoryID==id);
+            BLLSession.IFoodMenuCategoryService.DeleteBy(m => m.FoodMenuCategoryID == id);
             return JsonMsgOk("删除成功", "/Admin/FoodMenuCategory");
         }
 

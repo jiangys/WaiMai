@@ -33,8 +33,8 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
                 {
                     return JsonMsgNoOk("对不起，你没权限操作");
                 }
-
-                var modelOrder = BLLSession.IOrderService.GetListBy(m => true).OrderByDescending(m => m.OrderID).ToList();
+                //当前只是在内存里过滤，修改的朋友，可以改为按条件过滤
+                var modelOrder = BLLSession.IOrderService.GetListBy(m => true).ToList();
                 if (!string.IsNullOrEmpty(beginTime))
                 {
                     DateTime beginTime1 = DateTime.Parse(beginTime);
@@ -49,9 +49,12 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
                 {
                     modelOrder = modelOrder.Where(m => m.User.UserName.Contains(userName)).ToList();
                 }
+                var orderIdList = modelOrder.Select(m => m.OrderID).ToList();
 
                 var model = BLLSession.IOrderService.ModifyBy(new Order() { OrderStatus = (int)OrderStatusEnum.Succeed }
-                    , m => m.OrderStatus == (int)OrderStatusEnum.Handle, new string[] { "OrderStatus" });
+                    , m => m.OrderStatus == (int)OrderStatusEnum.Handle && orderIdList.Contains(m.OrderID)
+                    , new string[] { "OrderStatus" });
+
                 return JsonMsgOk();
             }
             catch (Exception ex)
@@ -79,7 +82,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
                 {
                     return JsonMsgOk("取消成功", "/Admin/Restaurant");
                 }
-                return JsonMsgNoOk("取消失败，请确定该订单是否已经审核");
+                return JsonMsgNoOk("取消失败，该订单状态已变更，请刷新页面重试");
             }
             catch (Exception ex)
             {

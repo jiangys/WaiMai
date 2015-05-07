@@ -8,6 +8,7 @@ using PP.WaiMai.WebHelper;
 using PP.WaiMai.Model.ViewModels;
 using PP.WaiMai.Model;
 using PP.WaiMai.Model.Enums;
+using PP.WaiMai.Util.Security;
 
 namespace PP.WaiMai.Web.Areas.Admin.Controllers
 {
@@ -65,8 +66,39 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
             return JsonMsgOk();
         }
 
-        public ActionResult test() {
-            return View(); 
+        public ActionResult test()
+        {
+            return View();
+        }
+        /// <summary>
+        /// 重置密码
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult ResetPassword()
+        {
+
+            return View();
+        }
+        /// <summary>
+        /// 重置密码 
+        /// </summary>
+        /// <param name="userID">用户ID</param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ResetPassword(int userID)
+        {
+            if (!OperateHelper.IsLogin())
+            {
+                return JsonMsgNoOk("对不起，你没权限操作");
+            }
+            if (!OperateHelper.User.IsAdmin)
+            {
+                return JsonMsgNoOk("对不起，你没权限操作");
+            }
+            var resetPassword = UEncypt.DESEncrypt("pp123456");
+            BLLSession.IUserService.Modify(new Model.User() { UserID = userID, Password = resetPassword }, "Password");
+            return JsonMsgOk("重置密码成功，下次登陆生效");
         }
     }
 }

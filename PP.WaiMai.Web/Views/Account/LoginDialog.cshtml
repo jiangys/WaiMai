@@ -72,6 +72,7 @@
             @Html.ValidationMessageFor(m => m.Password)
         </div>
         <button type="submit" class="btn btn-primary btn-lg btn-block">登陆</button>
+         <a data-href="/admin/home/ResetPassword" class="pass-reglink fl">忘记密码?</a>
         <a data-href="/Account/Register" class="pass-reglink fr">立即注册</a>
         @*@Html.ActionLink("立即注册", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "pass-reglink fr" })*@
     }

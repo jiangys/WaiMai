@@ -14,7 +14,7 @@ wrapper.showModalDialog = function (url, width, height) {
             //接收对方返回的数据
             var resultUrl = this.returnValue;
             if (resultUrl && resultUrl != null) {
-                window.location.href = resultUrl;;
+                window.location.href = resultUrl;
             }
         }
     }).showModal();
