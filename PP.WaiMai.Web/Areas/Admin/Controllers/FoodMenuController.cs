@@ -47,8 +47,8 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
                  && m.FoodMenuCategory.Restaurant.IsDel == false
                  , m => m.FoodMenuID
                  , false);
-            ViewBag.OnePageOfUsers = usersAsIPagedList;
-             var usersAsIPagedList = new StaticPagedList<MembershipUser>(users, pageIndex + 1, pageSize, totalUserCount);
+            //ViewBag.OnePageOfUsers = usersAsIPagedList;
+            // var usersAsIPagedList = new StaticPagedList<MembershipUser>(users, pageIndex + 1, pageSize, totalUserCount);
             //ViewBag.OnePageOfUsers = usersAsIPagedList;
             //ViewBag.OnePageOfUsers = FoodMenusAsIPagedList;
             //return View(model.ToPagedList(page ?? 1, 15));
