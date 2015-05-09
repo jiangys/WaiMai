@@ -7,6 +7,7 @@ using PP.WaiMai.WebHelper;
 using PagedList;
 using PP.WaiMai.Model;
 using PP.WaiMai.Model.FormatModels;
+using System.Linq.Expressions;
 
 namespace PP.WaiMai.Web.Areas.Admin.Controllers
 {
@@ -21,38 +22,33 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
                  && m.FoodMenuCategory.Restaurant.IsDel == false)
                 .OrderByDescending(m => m.FoodMenuID).ToList();
 
-            //ViewBag.RestaurantList = BLLSession.IRestaurantService.GetListBy(m => m.IsDel == false).Select(m => new SelectListItem()
-            //{
-            //    Text = m.RestaurantName,
-            //    Value = m.RestaurantID.ToString()
-            //}).ToList();
-
-            //if (!string.IsNullOrEmpty(Keyword))
-            //{
-            //    model = model.Where(m => m.MenuName.Contains(Keyword)).ToList();
-            //}
-            //if (RestaurantID!=null)
-            //{
-            //    model = model.Where(m => m.FoodMenuCategory.RestaurantID == RestaurantID).ToList();
-            //}
-            PageData pageData = new PageData()
+            ViewBag.RestaurantList = BLLSession.IRestaurantService.GetListBy(m => m.IsDel == false).Select(m => new SelectListItem()
             {
-                PageIndex = page ?? 1,
-                PageSize = 15
-            };
+                Text = m.RestaurantName,
+                Value = m.RestaurantID.ToString()
+            }).ToList();
 
-            BLLSession.IFoodMenuService.GetPagedList(pageData
-                , m => m.IsDel == false
-                 && m.FoodMenuCategory.IsDel == false
-                 && m.FoodMenuCategory.Restaurant.IsDel == false
-                 , m => m.FoodMenuID
-                 , false);
-            //ViewBag.OnePageOfUsers = usersAsIPagedList;
-            // var usersAsIPagedList = new StaticPagedList<MembershipUser>(users, pageIndex + 1, pageSize, totalUserCount);
-            //ViewBag.OnePageOfUsers = usersAsIPagedList;
-            //ViewBag.OnePageOfUsers = FoodMenusAsIPagedList;
-            //return View(model.ToPagedList(page ?? 1, 15));
+            Expression<Func<FoodMenu, bool>> func = m => m.IsDel == false
+                                                         && m.FoodMenuCategory.IsDel == false
+                                                         && m.FoodMenuCategory.Restaurant.IsDel == false;
+            if (!string.IsNullOrEmpty(Keyword))
+            {
+                func = func.And(m => m.MenuName.Contains(Keyword));
+            }
+            if (RestaurantID != null)
+            {
+                func = func.And(m => m.FoodMenuCategory.RestaurantID == RestaurantID);
+            }
 
+            int rowCount = 0;
+            var pageIndex = page ?? 1; 
+            var pageSize = 15;
+
+            var pageData = BLLSession.IFoodMenuService.GetPagedList(pageIndex, pageSize, ref rowCount, func, m => m.FoodMenuID, false);
+
+            ViewBag.OnePageOfFoodMenus = new StaticPagedList<FoodMenu>(pageData, pageIndex, pageSize, rowCount);
+            ViewBag.Keyword = Keyword;
+            ViewBag.RestaurantID = RestaurantID;
             return View();
         }
 

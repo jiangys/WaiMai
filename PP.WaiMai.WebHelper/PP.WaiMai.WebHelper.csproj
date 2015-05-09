@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Attributes\NeedAuthorizeAttribute.cs" />
     <Compile Include="BaseController.cs" />
+    <Compile Include="DynamicLinqExpressions.cs" />
     <Compile Include="OperateContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

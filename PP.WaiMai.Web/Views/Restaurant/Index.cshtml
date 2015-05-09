@@ -28,7 +28,7 @@
                         $.post("/Order/add", { FoodMenuId: id, TotalPrice: price, Remark: remark }, function (jsonData) {
                             $.artModalDialogMsg(jsonData, function () {
                                 //带上餐厅的ID，便于今日订单列表显示相应的Tab标签
-                                window.location.href = jsonData.BackUrl+"/"+@ViewBag.RestaurantModel.RestaurantID ;
+                                window.location.href = jsonData.BackUrl+"/"+@ViewBag.RestaurantModel.RestaurantID;
                             }, null);
                             return true;
                         });

@@ -1,5 +1,5 @@
 ﻿@using PagedList.Mvc;
-@model PagedList.IPagedList<Order>
+@using PagedList;
 @{
     ViewBag.Title = "订单管理";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutUser.cshtml";
@@ -62,7 +62,6 @@
         });
     </script>
 }
-
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN PAGE TITLE & BREADCRUMB-->
@@ -81,39 +80,38 @@
         <!-- END PAGE TITLE & BREADCRUMB-->
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-12">
         <div class="portlet">
             <div class="portlet-title clearfix">
                 @using (Html.BeginForm("RepOrder", "report", FormMethod.Post, new { @class = "form-inline", role = "form", id = "frmSubmit" }))
                 {
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <div class="input-group date form_datetime" data-link-field="dtp_input1">
-                                <input class="form-control" size="16" type="text" id="beginTime" name="beginTime" value="@ViewBag.SearchModel.beginTime" readonly>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                            </div>
+                <div class="form-inline">
+                    <div class="form-group">
+                        <div class="input-group date form_datetime" data-link-field="dtp_input1">
+                            <input class="form-control" size="16" type="text" id="beginTime" name="beginTime" value="@ViewBag.SearchModel.beginTime" readonly>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                         </div>
-                        <label>
-                            &nbsp;至&nbsp;
-                        </label>
-                        <div class="form-group">
-                            <div class="input-group date form_datetime" data-link-field="dtp_input1">
-                                <input id="endTime" name="endTime" class="form-control" size="16" type="text" value="@ViewBag.SearchModel.endTime" readonly>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control col-md-2" id="userName" name="userName" value="@ViewBag.SearchModel.userName" placeholder="姓名/用户名">
-                        </div>
-                        <button class="btn blue thickbox" type="submit">
-                            查询
-                        </button>
-                        <button class="btn blue thickbox" type="button" id="btn-clear">
-                            清空
-                        </button>
                     </div>
+                    <label>
+                        &nbsp;至&nbsp;
+                    </label>
+                    <div class="form-group">
+                        <div class="input-group date form_datetime" data-link-field="dtp_input1">
+                            <input id="endTime" name="endTime" class="form-control" size="16" type="text" value="@ViewBag.SearchModel.endTime" readonly>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control col-md-2" id="userName" name="userName" value="@ViewBag.SearchModel.userName" placeholder="姓名/用户名">
+                    </div>
+                    <button class="btn blue thickbox" type="submit">
+                        查询
+                    </button>
+                    <button class="btn blue thickbox" type="button" id="btn-clear">
+                        清空
+                    </button>
+                </div>
                 }
                 <div class="form-inline">
                     <button class="btn blue thickbox" id="checkOrder">
@@ -121,7 +119,6 @@
                     </button>
                 </div>
             </div>
-
         </div>
         <div class="portlet-content">
             <div class="table-responsive">
@@ -134,13 +131,13 @@
                             <th width="10%">
                                 姓名
                             </th>
-                            <th width="7%">
+                            <th width="12%">
                                 部门
                             </th>
-                            <th width="7%">
+                            <th width="16%">
                                 菜单名称
                             </th>
-                            <th width="7%">
+                            <th width="14%">
                                 所属餐厅
                             </th>
                             <th width="7%">
@@ -149,75 +146,74 @@
                             <th width="7%">
                                 数量
                             </th>
-                            <th width="7%">
+                            <th width="15%">
                                 下单时间
                             </th>
                             <th width="10%">
                                 备注
                             </th>
-                            <th>
-
+                            <th width="7%">
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
+                        @foreach (var item in ViewBag.OnePageOfOrders)
                         {
-                            <tr>
-                                <td>
-                                    @item.OrderID
-                                </td>
-                                <td>
-                                    @item.User.UserName
-                                </td>
-                                <td>
-                                    @(PP.WaiMai.Util.EnumHelper.GetEnumDescription((PP.WaiMai.Model.Enums.DepartmentTypeEnum)(item.User.DepartmentType == 0 ? 99 : item.User.DepartmentType)))
-                                </td>
-                                <td>
-                                    @item.FoodMenu.MenuName
-                                </td>
-                                <td>
-                                    @item.FoodMenu.FoodMenuCategory.Restaurant.RestaurantName
-                                </td>
-                                <td>
-                                    @item.TotalPrice
-                                </td>
-                                <td>
-                                    @item.TotalCount
-                                </td>
-                                <td>
-                                    @item.CreateDate
-                                </td>
-                                <td>
-                                    @item.Remark
-                                </td>
-                                <td>
-                                    @switch ((OrderStatusEnum)item.OrderStatus)
+                        <tr>
+                            <td>
+                                @item.OrderID
+                            </td>
+                            <td>
+                                @item.User.UserName
+                            </td>
+                            <td>
+                                @(PP.WaiMai.Util.EnumHelper.GetEnumDescription((PP.WaiMai.Model.Enums.DepartmentTypeEnum)(item.User.DepartmentType == 0 ? 99 : item.User.DepartmentType)))
+                            </td>
+                            <td>
+                                @item.FoodMenu.MenuName
+                            </td>
+                            <td>
+                                @item.FoodMenu.FoodMenuCategory.Restaurant.RestaurantName
+                            </td>
+                            <td>
+                                @item.TotalPrice
+                            </td>
+                            <td>
+                                @item.TotalCount
+                            </td>
+                            <td>
+                                @item.CreateDate
+                            </td>
+                            <td>
+                                @item.Remark
+                            </td>
+                            <td>
+                                @switch ((OrderStatusEnum)item.OrderStatus)
                                     {
                                         case OrderStatusEnum.Cancel:
-                                            <span class="btn default btn-xs black btn-del" disabled="disabled">
-                                                已取消
-                                            </span>
+                                    <span class="btn default btn-xs black btn-del" disabled="disabled">
+                                        已取消
+                                    </span>
                                             break;
                                         case OrderStatusEnum.Handle:
-                                        <span class="label label-sm label-success">
-                                            下单成功
-                                        </span>
+                                    <span class="label label-sm label-success">
+                                        下单成功
+                                    </span>
                                             break;
                                         case OrderStatusEnum.Succeed:
-                                        <span class="btn default btn-xs black btn-del" disabled="disabled">
-                                            交易成功
-                                        </span>
+                                    <span class="btn default btn-xs black btn-del" disabled="disabled">
+                                        交易成功
+                                    </span>
                                             break;
                                         default:
                                             break;
                                     }
-                                </td>
-                            </tr>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>
-                @Html.PagedListPager(Model, page => Url.Action("reporder", new { page }))
+                @Html.PagedListPager((IPagedList)ViewBag.OnePageOfOrders, page => Url.Action("reporder", new { page, username = ViewBag.SearchModel.userName, beginTime = ViewBag.SearchModel.beginTime, endTime = ViewBag.SearchModel.endTime }))
             </div>
         </div>
     </div>

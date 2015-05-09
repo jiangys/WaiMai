@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using PagedList;
 using PP.WaiMai.Model.RepSearchModels;
 using System.Linq.Expressions;
+using PP.WaiMai.Model;
 
 namespace PP.WaiMai.Web.Areas.Admin.Controllers
 {
@@ -30,34 +31,37 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
             return View(model.ToPagedList(page ?? 1, 15));
         }
 
-        //public ActionResult RepOrder(int? page, string Keyword)
-        //{
-        //    var model = BLLSession.IOrderService.GetListBy(m => true).OrderByDescending(m => m.OrderID).ToList();
-        //    if (!string.IsNullOrEmpty(Keyword))
-        //    {
-        //        model = model.Where(m => m.FoodMenu.MenuName.Contains(Keyword) || m.User.UserName.Contains(Keyword)).ToList();
-        //    }
-        //    return View(model.ToPagedList(page ?? 1, 15));
-        //}
         public ActionResult RepOrder(RepOrderSearchModel searchModel)
         {
-            var model = BLLSession.IOrderService.GetListBy(m => true).OrderByDescending(m => m.OrderID).ToList();
+
+            Expression<Func<Order, bool>> func = m => m.IsDel == false;
+
             if (searchModel.beginTime != null)
             {
                 DateTime beginTime = DateTime.Parse(searchModel.beginTime);
-                model = model.Where(m => m.CreateDate >= beginTime).ToList();
+                func = func.And(m => m.CreateDate >= beginTime);
             }
             if (searchModel.endTime != null)
             {
                 DateTime endTime = DateTime.Parse(searchModel.endTime);
-                model = model.Where(m => m.CreateDate <= endTime).ToList();
+                func = func.And(m => m.CreateDate <= endTime);
             }
             if (searchModel.userName != null)
             {
-                model = model.Where(m => m.User.UserName.Contains(searchModel.userName)).ToList();
+                func = func.And(m => m.User.UserName.Contains(searchModel.userName));
             }
+
+            int rowCount = 0;
+            var pageIndex = searchModel.page ?? 1;
+            var pageSize = 15;
+
+            var pageData = BLLSession.IOrderService.GetPagedList(pageIndex, pageSize, ref rowCount, func, m => m.OrderID, false);
+
+            ViewBag.OnePageOfOrders = new StaticPagedList<Order>(pageData, pageIndex, pageSize, rowCount);
+
             ViewBag.SearchModel = searchModel;
-            return View(model.ToPagedList(searchModel.page ?? 1, 15));
+
+            return View();
         }
 
         /// <summary>
