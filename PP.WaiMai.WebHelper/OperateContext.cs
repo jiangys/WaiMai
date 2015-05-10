@@ -120,7 +120,7 @@ namespace PP.WaiMai.WebHelper
         public bool Login(LoginViewModel model)
         {
             //到业务成查询
-            var user = ServiceSession.IUserService.Login(model.UserName, Util.Security.UEncypt.DESEncrypt(model.Password));
+            var user = ServiceSession.IUserService.Login(model.UserName, Util.Security.UEncypt.MD5(model.Password));
             if (user != null)
             {
                 //保存用户数据(Session or Cookie)

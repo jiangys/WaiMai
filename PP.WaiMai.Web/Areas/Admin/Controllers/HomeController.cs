@@ -96,7 +96,7 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
             {
                 return JsonMsgNoOk("对不起，你没权限操作");
             }
-            var resetPassword = UEncypt.DESEncrypt("pp123456");
+            var resetPassword = UEncypt.MD5("pp123456");
             BLLSession.IUserService.Modify(new Model.User() { UserID = userID, Password = resetPassword }, "Password");
             return JsonMsgOk("重置密码成功，下次登陆生效");
         }

@@ -112,7 +112,7 @@ namespace PP.WaiMai.Web.Controllers
         {
             model.UserName = registerViewModel.UserName;
             model.IPAddress = registerViewModel.IPAddress;
-            model.Password = Util.Security.UEncypt.DESEncrypt(registerViewModel.Password);
+            model.Password = Util.Security.UEncypt.MD5(registerViewModel.Password);
             model.Amount = 0;
             model.CreateDate = DateTime.Now;
             model.IsDel = false;
@@ -126,7 +126,7 @@ namespace PP.WaiMai.Web.Controllers
         {
             model.UserName = registerViewModel.UserName;
             model.IPAddress = registerViewModel.IPAddress;
-            model.Password = Util.Security.UEncypt.DESEncrypt(registerViewModel.Password);
+            model.Password = Util.Security.UEncypt.MD5(registerViewModel.Password);
             model.Amount = 10000;//默认充值10000元
             model.CreateDate = DateTime.Now;
             model.IsDel = false;
@@ -197,11 +197,11 @@ namespace PP.WaiMai.Web.Controllers
                 {
                     return JsonMsgNoOk("请先登陆");
                 }
-                var oldPassword = UEncypt.DESEncrypt(model.OldPassword);
+                var oldPassword = UEncypt.MD5(model.OldPassword);
                 var newModel = BLLSession.IUserService.GetListBy(m => m.UserID == OperateHelper.User.UserID && m.Password == oldPassword).FirstOrDefault();
                 if (newModel != null)
                 {
-                    newModel.Password = UEncypt.DESEncrypt(model.NewPassword);
+                    newModel.Password = UEncypt.MD5(model.NewPassword);
                     BLLSession.IUserService.ModifyModel(newModel);
                     return JsonMsgOk("修改密码成功，下次登陆生效");
                 }
