@@ -14,7 +14,7 @@ namespace PP.WaiMai.Web.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.RestaurantList = BLLSession.IRestaurantService.GetListBy(m => m.IsEnable).Take(2).ToList();
+            ViewBag.RestaurantList = BLLSession.IRestaurantService.GetListBy(m => m.IsEnable && !m.IsDel).Take(2).ToList();
             //获取吐槽列表  
             int totalCount = 0;
             var sarcasmList = BLLSession.ISarcasmService.GetPagedList(1, 10, ref totalCount, m => !m.IsDel, m => m.SarcasmID, false);
