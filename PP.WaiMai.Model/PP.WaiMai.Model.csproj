@@ -133,6 +133,7 @@
     <Compile Include="User.cs">
       <DependentUpon>WaiMai.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\UpdateUserInfoModel.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\ConfigDoViewModel.cs" />
     <Compile Include="ViewModels\ExpendViewModel.cs" />

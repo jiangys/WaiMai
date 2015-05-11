@@ -17,7 +17,7 @@
     </style>
 }
 @section Scripts {
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         $(function () {
             $(".doCancel").click(function () {
                 var url = "/admin/Order/OrderCancel/" + $(this).attr("data-orderID");
@@ -40,7 +40,7 @@
                 d.show();
             });
         });
-    </script>
+    </script>*@
 }
 <div class="row">
     <div class="col-md-12">
@@ -130,9 +130,9 @@
                                                     </span>
                                                     break;
                                                 case OrderStatusEnum.Handle:
-                                                <button class="btn default btn-xs black btn-del doCancel" data-name="@item.OrderID / @item.FoodMenu.MenuName" data-orderid="@item.OrderID">
-                                                    <i class="fa fa-trash-o"></i> 取消订单
-                                                </button>
+                                                     <span class="label label-sm label-success">
+                                                        下单成功
+                                                    </span>
                                                     break;
                                                 case OrderStatusEnum.Succeed:
                                                 <span class="btn default btn-xs black btn-del" disabled="disabled">

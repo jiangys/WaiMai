@@ -47,6 +47,36 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
             return View(model.ToPagedList(page ?? 1, 15));
         }
 
+        /// <summary>
+        /// 修改个人信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult UpdateUserInfo()
+        {
+            if (!OperateHelper.IsLogin())
+            {
+                return View();
+            }
+
+            var userInfo = BLLSession.IUserService.GetListBy(m => m.UserID == CurrentUser.UserID).FirstOrDefault();
+            UpdateUserInfoModel model = new UpdateUserInfoModel();
+            model.UserName = userInfo.UserName;
+            model.DepartmentType = userInfo.DepartmentType;
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateUserInfo(UpdateUserInfoModel model)
+        {
+            var userInfo = BLLSession.IUserService.GetModel(m => m.UserID == CurrentUser.UserID);
+            userInfo.UserName = model.UserName;
+            userInfo.DepartmentType = model.DepartmentType;
+            BLLSession.IUserService.ModifyModel(userInfo);
+            //重新保存信息到Session和写入到Cookies
+            WebHelper.OperateContext.Current.SetUserToSessionAndCookies(userInfo, true);
+            return Redirect("/admin");
+        }
 
     }
 }

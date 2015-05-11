@@ -77,6 +77,10 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
                 {
                     return JsonMsgNoOk("对不起，请先登陆");
                 }
+                if (!OperateHelper.User.IsAdmin)
+                {
+                    return JsonMsgNoOk("对不起，你没权限操作，请找系统管理员");
+                }
                 var isSucceed = BLLSession.IOrderService.OrderCancel(id);
                 if (isSucceed)
                 {

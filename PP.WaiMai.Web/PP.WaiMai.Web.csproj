@@ -637,6 +637,7 @@
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Home\test.cshtml" />
     <Content Include="Areas\Admin\Views\Home\ResetPassword.cshtml" />
+    <Content Include="Areas\Admin\Views\User\UpdateUserInfo.cshtml" />
     <None Include="Properties\PublishProfiles\WaiMai.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

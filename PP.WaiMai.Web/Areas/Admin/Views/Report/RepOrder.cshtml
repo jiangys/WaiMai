@@ -59,7 +59,29 @@
                 $("#endTime").val("");
                 $("#userName").val("");
             });
-        });
+
+            //取消订单
+            $(".doCancel").click(function () {
+                var url = "/admin/Order/OrderCancel/" + $(this).attr("data-orderID");
+                var name = $(this).attr("data-name");
+                var d = dialog({
+                    title: '取消订单',
+                    content: '是否要取消【' + name + '】的订单？',
+                    okValue: '确定',
+                    ok: function () {
+                        this.title('正在提交..');
+                        $.post(url, function (jsonData) {
+                            $.artDialogMsg(jsonData, function () {
+                                window.location.reload();});
+                        });
+                        return true;
+                    },
+                    cancelValue: '取消',
+                    cancel: function () { }
+                });
+                d.show();
+            });
+           });
     </script>
 }
 <div class="row">
@@ -196,9 +218,12 @@
                                     </span>
                                             break;
                                         case OrderStatusEnum.Handle:
-                                    <span class="label label-sm label-success">
+                                    @*<span class="label label-sm label-success">
                                         下单成功
-                                    </span>
+                                    </span>*@
+                                    <button class="btn default btn-xs black btn-del doCancel" data-name="@item.OrderID / @item.FoodMenu.MenuName" data-orderid="@item.OrderID">
+                                        <i class="fa fa-trash-o"></i> 取消订单
+                                    </button>
                                             break;
                                         case OrderStatusEnum.Succeed:
                                     <span class="btn default btn-xs black btn-del" disabled="disabled">

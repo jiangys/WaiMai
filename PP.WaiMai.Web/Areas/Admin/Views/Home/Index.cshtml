@@ -2,7 +2,6 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutUser.cshtml";
 }
-
 @section head{
     <style type="text/css">
         /*左边样式的变化*/
@@ -14,40 +13,49 @@
             padding: 8px 0 8px 37px;
         }
 
-            .user-box .box-bd {
-                border: 0 none;
-                height: 80px;
-                margin: 30px;
-            }
+        .user-box .box-bd {
+            border: 0 none;
+            height: 80px;
+            margin: 30px;
+        }
 
-            .user-box .uc-avatar {
-                border-radius: 40px;
-                float: left;
-                height: 80px;
-                margin-right: 30px;
-                width: 80px;
-            }
+        .user-box .uc-avatar {
+            border-radius: 40px;
+            float: left;
+            height: 80px;
+            margin-right: 30px;
+            width: 80px;
+        }
 
-            .user-box .uc-welcome {
-                color: #6d6d6d;
-                font-size: 24px;
-                font-weight: 400;
-                line-height: 1.25;
-                margin: 0;
-            }
+        .user-box .uc-welcome {
+            color: #6d6d6d;
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 1.25;
+            margin: 0;
+        }
+
+        .user-box .uc-setInfo {
+            margin-top: 20px;
+        }
+
+        .user-box .uc-info-detail {
+            margin: 0;
+            padding: 10px 0;
+            font-size: 12px;
+            line-height: 1.75;
+            color: #6d6d6d;
+        }
 
         .uuser-box .uc-welcome .user-name {
             color: #000;
             margin-right: 10px;
         }
 
-        .user-box .uc-info {
-            margin-top: 20px;
+        .jifen-info h4 {
+            padding-top: 2px;
         }
 
-            .jifen-info h4 {
-                padding-top: 2px;
-            }
         .order-doing h4 {
             padding-top: 5px;
         }
@@ -83,11 +91,34 @@
         <div class="box-bd clearfix">
             <img src="~/Content/images/photo.jpg" class="uc-avatar" />
             <div class="uc-info fl">
-                <h3 class="uc-welcome"><span class="user-name">亲爱的</span>,您好！</h3>
+                @if (!PP.WaiMai.WebHelper.OperateContext.Current.IsLogin())
+                {
+                    <h3 class="uc-welcome"><span class="user-name">亲爱的</span>&nbsp;&nbsp;您好！</h3>
+                    <div class="uc-info-detail">
+                        <div class="info-notice">
+                            要查看个人信息，请先登陆！
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    var userInfo = PP.WaiMai.WebHelper.OperateContext.Current.User;
+
+                    <h3 class="uc-welcome"><span class="user-name">@userInfo.UserName</span>&nbsp;&nbsp;您好！</h3>
+                    <div class="uc-info-detail">
+                        <div class="info-notice">
+                            当前所属部门：
+                            <span class="icon-common">@(PP.WaiMai.Util.EnumHelper.GetEnumDescription((PP.WaiMai.Model.Enums.DepartmentTypeEnum)(userInfo.DepartmentType == 0 ? 99 : userInfo.DepartmentType)))</span>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <div class="uc-info fr">
+                <div class="uc-setInfo"><a href="/admin/user/updateuserinfo">修改个人信息 >></a></div>
             </div>
         </div>
     </div>
-
 
     <div class="user-box">
         <div class="jifen-info clearfix">
@@ -95,22 +126,21 @@
             <span class="fr"><a href="/order" class="btn btn-danger btn-xs">查看明细</a></span>
         </div>
     </div>
-
     <div class="user-box">
         <div class="order-doing clearfix">
             @if (@ViewBag.IsDo == true)
             {
-            <h4 class="fl">当前订餐状态：<span style="color: #e95c00">&nbsp;进行中&nbsp;</span></h4>
-            <span class="fr">
-                <button class="btn btn-primary btn-sm" id="doStop">停止订餐</button>
-            </span>
+                <h4 class="fl">当前订餐状态：<span style="color: #e95c00">&nbsp;进行中&nbsp;</span></h4>
+                <span class="fr">
+                    <button class="btn btn-primary btn-sm" id="doStop">停止订餐</button>
+                </span>
             }
             else
             {
-            <h4 class="fl">当前订餐状态：<span style="color: #6d6d6d">&nbsp;订餐结束&nbsp;</span></h4>
-            <span class="fr">
-                <button class="btn btn-default btn-sm" id="doStart">启用订餐</button>
-            </span>
+                <h4 class="fl">当前订餐状态：<span style="color: #6d6d6d">&nbsp;订餐结束&nbsp;</span></h4>
+                <span class="fr">
+                    <button class="btn btn-default btn-sm" id="doStart">启用订餐</button>
+                </span>
             }
         </div>
     </div>
