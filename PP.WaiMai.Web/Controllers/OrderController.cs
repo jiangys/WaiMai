@@ -27,7 +27,7 @@ namespace PP.WaiMai.Web.Controllers
             //得到所有的订单列表
             var orderList = BLLSession.IOrderService.GetListBy(m => m.OrderStatus == (int)OrderStatusEnum.Handle && m.CreateDate > currDate);
             //返回餐厅集合
-            ViewBag.RestaurantList = BLLSession.IRestaurantService.GetListBy(m => m.IsEnable).Take(2).ToList().Select(m => m.ToPOCO()).ToList();
+            ViewBag.RestaurantList = BLLSession.IRestaurantService.GetListBy(m => m.IsEnable&&!m.IsDel).Take(2).ToList().Select(m => m.ToPOCO()).ToList();
             //显示相应的Tab标签页
             ViewBag.ShowTabId = id;
             return View(orderList);
