@@ -23,6 +23,30 @@
                 var url = $(this).attr("data-href");
                 wrapper.showModalDialog(url, 350, 380);
             });
+
+            //取消订单
+            $(".doDel").click(function () {
+                var url = "/admin/user/DelUser/" + $(this).attr("data-userid");
+                var name = $(this).attr("data-name");
+                var d = dialog({
+                    title: '删除用户',
+                    content: '是否要删除【' + name + '】的用户？',
+                    okValue: '确定',
+                    ok: function () {
+                        this.title('正在提交..');
+                        $.post(url, function (jsonData) {
+                            $.artDialogMsg(jsonData, function () {
+                                window.location.reload();
+                            });
+                        });
+                        return true;
+                    },
+                    cancelValue: '取消',
+                    cancel: function () { }
+                });
+                d.show();
+            });
+
         });
     </script>
 }
@@ -62,7 +86,7 @@
                                 <th width="10%">
                                     <i class="fa fa-thumb-tack"></i>&nbsp;编号
                                 </th>
-                                <th width="20%">
+                                <th width="15%">
                                     <i class="fa fa-github-alt"></i>&nbsp;姓名
                                 </th>
                                 <th width="20%">
@@ -73,6 +97,8 @@
                                 </th>
                                 <th width="10%">
                                     <i class="fa fa-rmb"></i>&nbsp;可用金额
+                                </th>
+                                <th width="10%">
                                 </th>
                             </tr>
                         </thead>
@@ -94,6 +120,11 @@
                                     </td>
                                     <td>
                                         @item.Amount
+                                    </td>
+                                    <td>
+                                        <button class="btn default btn-xs black btn-del doDel" data-name="@item.UserName" data-userid="@item.UserID">
+                                            <i class="fa fa-trash-o"></i> 删除
+                                        </button>
                                     </td>
                                 </tr>
                             }

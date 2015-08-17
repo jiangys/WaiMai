@@ -17,7 +17,7 @@ namespace PP.WaiMai.WebHelper
         //用户登陆
         const string User_InfoKey = "UserKey";
 
-        #region --上下文及业务仓储
+        #region 上下文及业务仓储
         /// <summary>
         /// 业务仓储
         /// </summary>
@@ -81,7 +81,7 @@ namespace PP.WaiMai.WebHelper
         }
         #endregion
 
-        #region --保存用户登陆信息到Session and Cookies + SetSessionAndCookies(UserInfo userInfo)
+        #region 保存用户登陆信息到Session and Cookies + SetSessionAndCookies(UserInfo userInfo)
         /// <summary>
         /// 保存用户登陆信息到Session and Cookies
         /// </summary>
@@ -168,7 +168,6 @@ namespace PP.WaiMai.WebHelper
             return true;
         }
         #endregion
-
 
         #region 判断是否是6楼
 

@@ -78,5 +78,45 @@ namespace PP.WaiMai.Web.Areas.Admin.Controllers
             return Redirect("/admin");
         }
 
+        [HttpPost]
+        public ActionResult DelUser(int id)
+        {
+            try
+            {
+                if (!OperateHelper.IsLogin())
+                {
+                    return JsonMsgNoOk("对不起，请先登陆");
+                }
+                if (!OperateHelper.User.IsAdmin)
+                {
+                    return JsonMsgNoOk("对不起，你没权限操作，请找系统管理员");
+                }
+
+                var userInfo = BLLSession.IUserService.GetListBy(m => m.UserID == id).FirstOrDefault();
+                if (userInfo == null)
+                {
+                    return JsonMsgNoOk("对不起，不存在该用户");
+                }
+                if (userInfo.Amount != 0)
+                {
+                    return JsonMsgNoOk("对不起，该用户的可用金额必须为0才可以删除");
+                }
+
+                userInfo.IsDel = true;
+
+                var isSucceed = BLLSession.IUserService.ModifyModel(userInfo) > 0;
+
+                if (isSucceed)
+                {
+                    return JsonMsgOk("删除成功");
+                }
+                return JsonMsgNoOk("删除失败");
+            }
+            catch (Exception ex)
+            {
+                return JsonMsgNoOk(ex.Message);
+            }
+        }
+
     }
 }

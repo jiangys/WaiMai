@@ -20,7 +20,8 @@ namespace PP.WaiMai.Service
             //处理成加密状态的密码
             //loginPwd = Uxiaoyuan.Common.Utlity.EncryptHelper.GetMd5(loginPwd);
             var user = DbSessionContext.UserRepository.GetListBy(u => u.UserName == loginName
-                && u.Password == password);
+                && u.Password == password
+                && u.IsDel == false);
             if (user != null && user.Count() > 0)
             {
                 return user.FirstOrDefault();
